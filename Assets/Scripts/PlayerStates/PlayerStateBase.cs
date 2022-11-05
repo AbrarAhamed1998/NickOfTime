@@ -2,25 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStateBase
+namespace NickOfTime.Player
 {
-    public virtual void OnStateEnter()
+	public class PlayerStateBase
 	{
+		protected Player player;
 
-	}
+		public void SetPlayer(Player player)
+		{
+			this.player = player;
+		}
+		public virtual void OnStateEnter()
+		{
 
-    public virtual void OnStateUpdate()
-	{
+		}
 
-	}
+		public virtual void OnStateUpdate()
+		{
 
-    public virtual void OnStateFixedUpdate()
-	{
+		}
 
-	}
+		public virtual void OnStateFixedUpdate()
+		{
 
-    public virtual void OnStateExit()
-	{
+		}
 
+		public virtual void OnStateExit()
+		{
+
+		}
+
+		public virtual void OnPlayerJump()
+		{
+
+		}
 	}
 }
+
