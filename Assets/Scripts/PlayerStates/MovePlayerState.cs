@@ -2,17 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovePlayerState : MonoBehaviour
+namespace NickOfTime.Player
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public class MovePlayerState : PlayerStateBase
+	{
+		public MovePlayerState(Player player) : base(player)
+		{
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		}
+
+		public override void OnStateEnter()
+		{
+			base.OnStateEnter();
+
+		}
+
+		public override void OnStateUpdate()
+		{
+			base.OnStateUpdate();
+			
+		}
+
+		public override void OnStateFixedUpdate()
+		{
+			base.OnStateFixedUpdate();
+			player.PlayerMove();
+		}
+
+		public override void OnStateExit()
+		{
+			base.OnStateExit();
+		}
+	}
 }
+

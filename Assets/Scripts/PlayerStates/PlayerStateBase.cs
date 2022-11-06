@@ -7,6 +7,10 @@ namespace NickOfTime.Player
 	public class PlayerStateBase
 	{
 		protected Player player;
+		public PlayerStateBase(Player player)
+		{
+			this.player = player;
+		}
 
 		public void SetPlayer(Player player)
 		{

@@ -1,18 +1,44 @@
+using NickOfTime.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpPlayerState : MonoBehaviour
+namespace NickOfTime.Player
 {
-    // Start is called before the first frame update
-    void Start()
+    public class JumpPlayerState : PlayerStateBase
     {
-        
-    }
+		public JumpPlayerState(Player player) : base(player)
+		{
+		}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		public override void OnStateEnter()
+		{
+			base.OnStateEnter();
+		}
+
+		public override void OnStateUpdate()
+		{
+			base.OnStateUpdate();
+			
+		}
+
+		public override void OnStateFixedUpdate()
+		{
+			base.OnStateFixedUpdate();
+			player.PlayerMove();
+			player.PlayerLook();
+			player.CheckIfPlayerInAir();
+		}
+
+		public override void OnPlayerJump()
+		{
+			base.OnPlayerJump();
+		}
+
+		public override void OnStateExit()
+		{
+			base.OnStateExit();
+		}
+	}
 }
+

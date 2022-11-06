@@ -6,6 +6,11 @@ namespace NickOfTime.Player
 {
 	public class IdlePlayerState : PlayerStateBase
 	{
+		public IdlePlayerState(Player player) : base(player)
+		{
+
+		}
+
 		public override void OnStateEnter()
 		{
 			base.OnStateEnter();
@@ -14,12 +19,21 @@ namespace NickOfTime.Player
 		public override void OnStateUpdate()
 		{
 			base.OnStateUpdate();
-			player.MovePlayer();
+			
 		}
 
 		public override void OnStateFixedUpdate()
 		{
 			base.OnStateFixedUpdate();
+			player.PlayerMove();
+			player.PlayerLook();
+			player.CheckIfPlayerInAir();
+		}
+
+		public override void OnPlayerJump()
+		{
+			base.OnPlayerJump();
+			player.PlayerJump();
 		}
 
 		public override void OnStateExit()
