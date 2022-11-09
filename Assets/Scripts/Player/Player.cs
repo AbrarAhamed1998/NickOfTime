@@ -157,26 +157,27 @@ namespace NickOfTime.Player
             {
                 _playerRigidbody.AddForce(Vector2.up * _playerConfig.JumpForce, ForceMode2D.Impulse);
             };
-            lookAction = () =>
-            {
-                Vector2 worldPos = Camera.main.ScreenToWorldPoint(_lookTargetScreenPos);
-                Transform target = _debugLookObject.transform;
-                float y = /*target.position.y > worldPos.y ? */target.position.y - worldPos.y /*: worldPos.y - target.position.y*/;
-                float x = /*target.position.x > worldPos.x ?*/ target.position.x - worldPos.x /*: worldPos.x - target.position.x*/;
-                float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + 180f;
-                target.localEulerAngles = new Vector3(0f, 0f, targetAngle);
-
-                //default direction of sprite is Vector2.right
-                Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
-                //Debug.Log($"mouse Direction : {mouseDirection}");
-                Vector2 playerdirection = Vector2.right * (_playerSprite.flipX ? -1f : 1f);
-                //Debug.Log($"player Direction : {playerdirection}");
-                float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
-                //Debug.Log($"dot product = {dotProduct}");
-                if(dotProduct < 0f)
-                    _playerSprite.flipX = !_playerSprite.flipX;
-            };
+			lookAction = () =>
+			{
+				LookAtScreenPos();
+			};
         }
+
+		private void LookAtScreenPos()
+		{
+			Vector2 worldPos = Camera.main.ScreenToWorldPoint(_lookTargetScreenPos);
+			Transform target = _debugLookObject.transform;
+			float y = target.position.y - worldPos.y;
+			float x = target.position.x - worldPos.x;
+			float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + 180f;
+			target.localEulerAngles = new Vector3(0f, 0f, targetAngle);
+
+			Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
+			Vector2 playerdirection = Vector2.right * (_playerSprite.flipX ? -1f : 1f);
+			float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
+			if (dotProduct < 0f)
+				_playerSprite.flipX = !_playerSprite.flipX;
+		}
 
 		private void OnDrawGizmos()
 		{

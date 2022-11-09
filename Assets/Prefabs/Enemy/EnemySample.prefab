@@ -175,12 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4b073176ec8d84bbf783e8e266f574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 500
-  jumpSpeed: 1
-  yThreshold: 0.5
-  pickNextWaypointDist: 2
-  pathCalcInterval: 2
+  lookTarget: {fileID: 0}
+  _enemyConfig: {fileID: 11400000, guid: 145a8a0e544dab74fa2f481792117d80, type: 2}
+  _debugLookObject: {fileID: 2132665545928376673}
+  _enemySprite: {fileID: 1537641605720042582}
+  _groundCheckBox: {fileID: 2441647897657009572}
+  IsGrounded: 0
+  CanJump: 1
   seeker: {fileID: 1537641605720042585}
   myRigidbody: {fileID: 1537641605720042581}
 --- !u!1 &2132665545928376673
