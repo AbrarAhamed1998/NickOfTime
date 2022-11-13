@@ -1,4 +1,5 @@
 using NickOfTime.ScriptableObjects.Player;
+using NickOfTime.Weapons;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,11 +19,14 @@ namespace NickOfTime.Player
         [SerializeField] private Rigidbody2D _playerRigidbody;
 		[SerializeField] private SpriteRenderer _playerSprite;
 
-        [SerializeField] private GameObject _debugLookObject;
+        [SerializeField] private GameObject[] _debugLookObjects;
+        [SerializeField] private List<SpriteRenderer> _childSpritesToFlip;
 
         [SerializeField] private bool IsGrounded;
 
         [SerializeField] private Transform _groundCheckBox;
+
+        [SerializeField] private WeaponBase _equippedWeapon;
 
         protected PlayerControls _playerControl;
 
@@ -32,16 +36,19 @@ namespace NickOfTime.Player
 
         private PlayerStateBase _currentPlayerState, _movePlayerState, _jumPlayerState, _idlePlayerState;
 
-        public PlayerStateBase CurrentPlayerState {
+		#region PROPERTIES
+		public PlayerStateBase CurrentPlayerState {
             get => _currentPlayerState;
 			set
 			{
                 _currentPlayerState = value;
 			}
         }
-       
+		#endregion
 
-        private void OnEnable()
+		#region UNITY CALLBACKS
+
+		private void OnEnable()
         {
             _playerControl = new PlayerControls();
             _playerControl.Player.SetCallbacks(this);
@@ -76,14 +83,74 @@ namespace NickOfTime.Player
             CurrentPlayerState?.OnStateFixedUpdate();
 		}
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = _playerConfig.GroundCheckBoxColor;
+            Gizmos.DrawCube(_groundCheckBox.position, _playerConfig.GroundCheckBoxSize);
+        }
 
-        private void ChangePlayerState(PlayerStateBase state)
+		#endregion
+
+		#region PRIVATE METHODS
+
+		private void ChangePlayerState(PlayerStateBase state)
 		{
             if (CurrentPlayerState == state) return;
             CurrentPlayerState?.OnStateExit();
             CurrentPlayerState = state;
             CurrentPlayerState?.OnStateEnter();
 		}
+
+        private void RegisterControlEvents()
+        {
+            moveAction = () =>
+            {
+                _playerRigidbody.AddForce(_moveDirection * _playerConfig.MovementSpeed * Time.deltaTime, ForceMode2D.Force);
+            };
+            jumpAction = () =>
+            {
+                _playerRigidbody.AddForce(Vector2.up * _playerConfig.JumpForce, ForceMode2D.Impulse);
+            };
+            lookAction = () =>
+            {
+                LookAtScreenPos();
+            };
+        }
+
+        private void LookAtScreenPos()
+        {
+            Vector2 worldPos = Camera.main.ScreenToWorldPoint(_lookTargetScreenPos);
+            Transform target = _debugLookObjects[0].transform;
+            float y = target.position.y - worldPos.y;
+            float x = target.position.x - worldPos.x;
+            float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + 180f;
+            target.localEulerAngles = new Vector3(0f, 0f, targetAngle);
+            for (int i = 1; i < _debugLookObjects.Length; i++)
+            {
+                _debugLookObjects[i].transform.localEulerAngles = target.localEulerAngles;
+            }
+            Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
+            Vector2 playerdirection = Vector2.right * (_playerSprite.flipX ? -1f : 1f);
+            float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
+            if (dotProduct < 0f)
+            {
+                _playerSprite.flipX = !_playerSprite.flipX;
+                for (int i = 0; i < _debugLookObjects.Length; i++)
+                {
+                    SpriteRenderer spriteRenderer = _debugLookObjects[i].GetComponent<SpriteRenderer>();
+                    spriteRenderer.flipY = !spriteRenderer.flipY;
+                    if (i < _childSpritesToFlip.Count)
+                    {
+                        spriteRenderer = _childSpritesToFlip[i];
+                        spriteRenderer.flipY = !spriteRenderer.flipY;
+                    }
+                }
+            }
+        }
+
+		#endregion
+
+		#region PUBLIC METHODS
 
 		public void OnMove(InputAction.CallbackContext context)
         {
@@ -147,44 +214,7 @@ namespace NickOfTime.Player
                 ChangePlayerState(_idlePlayerState);
 		}
 
-        private void RegisterControlEvents()
-        {
-            moveAction = () => 
-            {
-                _playerRigidbody.AddForce(_moveDirection * _playerConfig.MovementSpeed * Time.deltaTime, ForceMode2D.Force);
-            };
-            jumpAction = () =>
-            {
-                _playerRigidbody.AddForce(Vector2.up * _playerConfig.JumpForce, ForceMode2D.Impulse);
-            };
-			lookAction = () =>
-			{
-				LookAtScreenPos();
-			};
-        }
-
-		private void LookAtScreenPos()
-		{
-			Vector2 worldPos = Camera.main.ScreenToWorldPoint(_lookTargetScreenPos);
-			Transform target = _debugLookObject.transform;
-			float y = target.position.y - worldPos.y;
-			float x = target.position.x - worldPos.x;
-			float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + 180f;
-			target.localEulerAngles = new Vector3(0f, 0f, targetAngle);
-
-			Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
-			Vector2 playerdirection = Vector2.right * (_playerSprite.flipX ? -1f : 1f);
-			float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
-			if (dotProduct < 0f)
-				_playerSprite.flipX = !_playerSprite.flipX;
-		}
-
-		private void OnDrawGizmos()
-		{
-            Gizmos.color = _playerConfig.GroundCheckBoxColor;
-            Gizmos.DrawCube(_groundCheckBox.position, _playerConfig.GroundCheckBoxSize);
-		}
-
+		#endregion
 	}
 
 }

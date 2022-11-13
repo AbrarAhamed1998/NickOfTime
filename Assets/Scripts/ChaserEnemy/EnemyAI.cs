@@ -13,7 +13,7 @@ namespace NickOfTime.Enemy
 
 		[SerializeField] private EnemyConfigSO _enemyConfig;
 
-		[SerializeField] private GameObject _debugLookObject;
+		[SerializeField] private GameObject[] _debugLookObjects;
 
 		[SerializeField] private SpriteRenderer _enemySprite;
 
@@ -178,17 +178,23 @@ namespace NickOfTime.Enemy
 		private void LookAtTarget()
 		{
 			Vector2 worldPos = lookTarget.position;
-			Transform target = _debugLookObject.transform;
+			Transform target = _debugLookObjects[0].transform;
 			float y = target.position.y - worldPos.y;
 			float x = target.position.x - worldPos.x;
 			float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + 180f;
 			target.localEulerAngles = new Vector3(0f, 0f, targetAngle);
+			for(int i=1; i<_debugLookObjects.Length; i++)
+			{
+				_debugLookObjects[i].transform.localEulerAngles = target.localEulerAngles;
+			}
 
 			Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
 			Vector2 playerdirection = Vector2.right * (_enemySprite.flipX ? -1f : 1f);
 			float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
 			if (dotProduct < 0f)
+			{
 				_enemySprite.flipX = !_enemySprite.flipX;
+			}
 		}
         private IEnumerator CalculatePathRoutine()
 		{
