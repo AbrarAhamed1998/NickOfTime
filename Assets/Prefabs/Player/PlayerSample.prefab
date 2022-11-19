@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 7099881175696385440}
   - component: {fileID: 7099881175696385441}
   - component: {fileID: 7099881175696385447}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerSample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,6 +262,7 @@ MonoBehaviour:
   _playerConfig: {fileID: 11400000, guid: 27a46bc47fec0f64293b34168d61cef8, type: 2}
   _playerRigidbody: {fileID: 7099881175696385441}
   _playerSprite: {fileID: 7099881175696385442}
+  _armParent: {fileID: 2495104288121292292}
   _debugLookObjects:
   - {fileID: 3409986768347918514}
   - {fileID: 7658886523862304917}

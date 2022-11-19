@@ -36,6 +36,12 @@ namespace NickOfTime.Player
 			player.PlayerJump();
 		}
 
+		public override void OnPlayerUseWeapon()
+		{
+			base.OnPlayerUseWeapon();
+			player.PlayerUseWeapon();
+		}
+
 		public override void OnStateExit()
 		{
 			base.OnStateExit();

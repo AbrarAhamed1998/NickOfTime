@@ -18,6 +18,7 @@ namespace NickOfTime.Player
     
         [SerializeField] private Rigidbody2D _playerRigidbody;
 		[SerializeField] private SpriteRenderer _playerSprite;
+        [SerializeField] private Transform _armParent; 
 
         [SerializeField] private GameObject[] _debugLookObjects;
         [SerializeField] private List<SpriteRenderer> _childSpritesToFlip;
@@ -30,7 +31,7 @@ namespace NickOfTime.Player
 
         protected PlayerControls _playerControl;
 
-        protected Action moveAction, jumpAction, lookAction;
+        protected Action moveAction, jumpAction, lookAction, fireAction;
 
         private Vector2 _moveDirection, _lookTargetScreenPos;
 
@@ -55,6 +56,7 @@ namespace NickOfTime.Player
             _playerControl.Player.Move.Enable();
             _playerControl.Player.Look.Enable();
             _playerControl.Player.Jump.Enable();
+            _playerControl.Player.Fire.Enable();
             RegisterControlEvents();
         }
 
@@ -63,6 +65,8 @@ namespace NickOfTime.Player
             _playerControl.Player.Move.Disable();
             _playerControl.Player.Look.Disable();
             _playerControl.Player.Jump.Disable();
+            _playerControl.Player.Fire.Disable();
+            DeregisterControlEvents();
         }
 
 		private void Start()
@@ -115,7 +119,19 @@ namespace NickOfTime.Player
             {
                 LookAtScreenPos();
             };
+            fireAction = () =>
+            {
+                UseWeapon();
+            };
         }
+
+        private void DeregisterControlEvents()
+		{
+            moveAction = null;
+            jumpAction = null;
+            lookAction = null;
+            fireAction = null;
+		}
 
         private void LookAtScreenPos()
         {
@@ -148,6 +164,12 @@ namespace NickOfTime.Player
             }
         }
 
+        private void UseWeapon()
+		{
+            if (_equippedWeapon != null)
+                _equippedWeapon.UseWeapon();
+		}
+
 		#endregion
 
 		#region PUBLIC METHODS
@@ -165,8 +187,14 @@ namespace NickOfTime.Player
         public void OnJump(InputAction.CallbackContext context)
         {
             ButtonControl buttonControl = (ButtonControl)context.control;
-            if(buttonControl.wasPressedThisFrame)
+            if(buttonControl.wasPressedThisFrame && context.performed)
                 CurrentPlayerState?.OnPlayerJump();
+        }
+        public void OnFire(InputAction.CallbackContext context)
+        {
+            ButtonControl buttonControl = (ButtonControl)context.control;
+            if (buttonControl.wasPressedThisFrame && context.performed)
+                CurrentPlayerState?.OnPlayerUseWeapon();
         }
         public void PlayerMove()
         {
@@ -182,6 +210,11 @@ namespace NickOfTime.Player
         {
             jumpAction?.Invoke();
         }
+
+        public void PlayerUseWeapon()
+		{
+            fireAction?.Invoke();
+		}
 
         public void CheckIfPlayerInAir()
 		{
@@ -216,9 +249,15 @@ namespace NickOfTime.Player
 
         public void EquipWeapon(WeaponBase weapon)
 		{
+            if (_equippedWeapon != null) return;
             _equippedWeapon = weapon;
-
+            weapon.transform.SetParent(_armParent);
+            weapon.transform.localPosition = Vector3.zero;
+            weapon.transform.localRotation = Quaternion.identity;
+            _childSpritesToFlip.Add(weapon.ItemSpriteRenderer);
 		}
+
+		
 		#endregion
 	}
 

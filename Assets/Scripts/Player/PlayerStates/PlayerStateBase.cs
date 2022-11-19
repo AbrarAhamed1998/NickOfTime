@@ -40,6 +40,11 @@ namespace NickOfTime.Player
 		{
 
 		}
+
+		public virtual void OnPlayerUseWeapon()
+		{
+
+		}
 	}
 }
 
