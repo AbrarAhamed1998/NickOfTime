@@ -214,6 +214,11 @@ namespace NickOfTime.Player
                 ChangePlayerState(_idlePlayerState);
 		}
 
+        public void EquipWeapon(WeaponBase weapon)
+		{
+            _equippedWeapon = weapon;
+
+		}
 		#endregion
 	}
 
