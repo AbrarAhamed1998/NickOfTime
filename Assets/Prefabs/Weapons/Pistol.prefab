@@ -128,7 +128,8 @@ MonoBehaviour:
   _myCollider: {fileID: 3342152789621741180}
   _pickupCollider: {fileID: 4218622326007493626}
   _myRigidbody: {fileID: 0}
-  _playerLayer: 0
+  _weaponStatsSO: {fileID: 11400000, guid: e90b075474d7a3647831bdf1c1af4866, type: 2}
+  _playerLayer: 7
   _barrel: {fileID: 7838479142861721239}
 --- !u!58 &4218622326007493626
 CircleCollider2D:

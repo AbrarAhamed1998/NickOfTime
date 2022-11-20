@@ -1,3 +1,4 @@
+using NickOfTime.ScriptableObjects.Weapons;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,10 @@ namespace NickOfTime.Weapons
 		[SerializeField] private Collider2D _myCollider;
 		[SerializeField] private Collider2D _pickupCollider;
 		[SerializeField] private Rigidbody2D _myRigidbody;
+		[SerializeField] protected WeaponStatsSO _weaponStatsSO;
 
 		[SerializeField, Layer] private int _playerLayer;
+
 
 		public SpriteRenderer ItemSpriteRenderer => _mySpriteRenderer;
 		
@@ -24,6 +27,12 @@ namespace NickOfTime.Weapons
         {
 
         }
+
+		protected virtual void InitializePool()
+		{
+
+		}
+
         protected virtual void OnPickUp()
 		{
             _myCollider.enabled = false;  
