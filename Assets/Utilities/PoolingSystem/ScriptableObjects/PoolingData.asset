@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: PoolingData
   m_EditorClassIdentifier: 
   poolObjects:
-  - {fileID: 11400000, guid: efe2354b8eec0d54cad3b1581864aa9a, type: 2}
-  - {fileID: 11400000, guid: d1a0cb286ce4d9a449c8edd3e02d4991, type: 2}
+  - {fileID: 11400000, guid: c5fb5549543406f48af76a1982e31e40, type: 2}

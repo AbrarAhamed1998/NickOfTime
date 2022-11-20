@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6566461360933942308}
   - component: {fileID: 2259795286306944429}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TrailRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_Autodestruct: 1
+  m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1 &2715427029994394136
 GameObject:
@@ -150,7 +150,8 @@ GameObject:
   - component: {fileID: 2715427029994394142}
   - component: {fileID: 2715427029994394137}
   - component: {fileID: 2715427029994394140}
-  m_Layer: 0
+  - component: {fileID: -875600336504182076}
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,3 +271,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &-875600336504182076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715427029994394136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8142666b9657d8347be40dd08528f743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myRigidbody2D: {fileID: 2715427029994394137}
+  _myTrailRenderer: {fileID: 2259795286306944429}
+  _deactivateLayers:
+    serializedVersion: 2
+    m_Bits: 64
