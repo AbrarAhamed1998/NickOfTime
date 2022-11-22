@@ -3,6 +3,7 @@ using NickOfTime.Weapons;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -21,6 +22,7 @@ namespace NickOfTime.Player
         [SerializeField] private Transform _armParent; 
 
         [SerializeField] private GameObject[] _debugLookObjects;
+        [SerializeField] private Transform[] _jetTransforms;
         [SerializeField] private List<SpriteRenderer> _childSpritesToFlip;
 
         [SerializeField] private bool IsGrounded;
@@ -31,7 +33,7 @@ namespace NickOfTime.Player
 
         protected PlayerControls _playerControl;
 
-        protected Action moveAction, jumpAction, lookAction, fireAction;
+        protected Action moveAction, jumpAction, lookAction, fireAction, _jetRotateAction;
 
         private Vector2 _moveDirection, _lookTargetScreenPos;
 
@@ -110,6 +112,15 @@ namespace NickOfTime.Player
             moveAction = () =>
             {
                 _playerRigidbody.AddForce(_moveDirection * _playerConfig.MovementSpeed * Time.deltaTime, ForceMode2D.Force);
+                Vector3 target = (Vector2)_jetTransforms[0].position + (5f * _moveDirection);
+                float y = _jetTransforms[0].position.y - target.y;
+                float x = _jetTransforms[0].position.x - target.x;
+                float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + (_moveDirection == Vector2.zero?0f:90f);
+				_jetTransforms[0].localEulerAngles = new Vector3(0f, 0f, targetAngle);
+                for (int i=0; i<_jetTransforms.Length; i++)
+				{
+                    _jetTransforms[i].localEulerAngles = _jetTransforms[0].localEulerAngles;
+				}
             };
             jumpAction = () =>
             {
