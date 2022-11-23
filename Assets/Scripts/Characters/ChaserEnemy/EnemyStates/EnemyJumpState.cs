@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace NickOfTime.Enemy
 {
-	public class EnemyMoveState : EnemyStateBase
+	public class EnemyJumpState : EnemyStateBase
 	{
-		public EnemyMoveState(EnemyAI enemy) : base(enemy)
+		public EnemyJumpState(EnemyAI enemy) : base(enemy)
 		{
 		}
 
@@ -26,14 +26,11 @@ namespace NickOfTime.Enemy
 		public override void OnStateUpdate()
 		{
 			base.OnStateUpdate();
-			enemy.CheckIfEnemyMoving();
-			enemy.CheckForJump();
 		}
 
-		public override void OnJump()
+		public override void OnCharacterJump()
 		{
-			base.OnJump();
-			enemy.EnemyJump();
+			base.OnCharacterJump();
 		}
 
 		public override void OnStateExit()

@@ -31,9 +31,9 @@ namespace NickOfTime.Enemy
 			enemy.CheckForJump();
 		}
 
-		public override void OnJump()
+		public override void OnCharacterJump()
 		{
-			base.OnJump();
+			base.OnCharacterJump();
 			enemy.EnemyJump();
 		}
 

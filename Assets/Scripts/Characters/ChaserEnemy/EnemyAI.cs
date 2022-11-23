@@ -4,10 +4,11 @@ using UnityEngine;
 using Pathfinding;
 using System;
 using NickOfTime.ScriptableObjects.Enemy;
+using NickOfTime.Characters;
 
 namespace NickOfTime.Enemy
 {
-    public class EnemyAI : MonoBehaviour
+    public class EnemyAI : CharacterBase
     {
         [SerializeField] private Transform lookTarget;
 
@@ -29,17 +30,15 @@ namespace NickOfTime.Enemy
 		[SerializeField] private Seeker seeker;
         [SerializeField] private Rigidbody2D myRigidbody;
 
-		protected Action moveAction, jumpAction, lookAction;
-
-		private EnemyStateBase _currentEnemyState, _idleEnemyState, _moveEnemyState, _jumpEnemyState;
+		private EnemyStateBase _idleEnemyState, _moveEnemyState, _jumpEnemyState;
 
 		private Vector2 _waypointDirection; 
 
 		public EnemyStateBase CurrentEnemyState {
-			get => _currentEnemyState;
+			get => (EnemyStateBase)CurrentCharacterState;
 			set
 			{
-				_currentEnemyState = value;
+				CurrentCharacterState = value;
 			}
 		}
 
@@ -207,7 +206,7 @@ namespace NickOfTime.Enemy
 		}
 		private IEnumerator JumpRoutine()
 		{
-			CurrentEnemyState?.OnJump();
+			CurrentEnemyState?.OnCharacterJump();
 			yield return new WaitForSeconds(_enemyConfig.JumpInterval);
 			CanJump = true;
 		}

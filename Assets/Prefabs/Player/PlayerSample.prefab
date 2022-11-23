@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfac623aa38d7845b9f3de29f9cee93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerConfig: {fileID: 11400000, guid: 27a46bc47fec0f64293b34168d61cef8, type: 2}
+  _characterConfig: {fileID: 11400000, guid: 27a46bc47fec0f64293b34168d61cef8, type: 2}
   _playerRigidbody: {fileID: 7099881175696385441}
   _playerSprite: {fileID: 7099881175696385442}
   _armParent: {fileID: 2495104288121292292}

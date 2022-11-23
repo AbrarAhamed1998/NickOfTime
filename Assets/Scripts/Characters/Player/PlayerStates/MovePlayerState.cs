@@ -1,25 +1,27 @@
-using NickOfTime.Player;
+using NickOfTime.Characters.Player.PlayerStates;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NickOfTime.Player
+namespace NickOfTime.Characters.Player.PlayerStates
 {
-    public class JumpPlayerState : PlayerStateBase
-    {
-		public JumpPlayerState(Player player) : base(player)
+	public class MovePlayerState : PlayerStateBase
+	{
+		public MovePlayerState(CharacterBase player) : base((Player)player)
 		{
+
 		}
 
 		public override void OnStateEnter()
 		{
 			base.OnStateEnter();
+
 		}
 
 		public override void OnStateUpdate()
 		{
 			base.OnStateUpdate();
-			
+			player.CheckIfCharacterMoving();
 		}
 
 		public override void OnStateFixedUpdate()
@@ -27,17 +29,18 @@ namespace NickOfTime.Player
 			base.OnStateFixedUpdate();
 			player.PlayerMove();
 			player.PlayerLook();
-			player.CheckIfPlayerInAir();
+			player.CheckIfChracterInAir();
 		}
 
-		public override void OnPlayerJump()
+		public override void OnCharacterJump()
 		{
-			base.OnPlayerJump();
+			base.OnCharacterJump();
+			player.PlayerJump();
 		}
 
-		public override void OnPlayerUseWeapon()
+		public override void OnCharacterUseWeapon()
 		{
-			base.OnPlayerUseWeapon();
+			base.OnCharacterUseWeapon();
 			player.PlayerUseWeapon();
 		}
 

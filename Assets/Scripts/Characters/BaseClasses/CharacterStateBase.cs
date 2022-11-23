@@ -2,20 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NickOfTime.Player
+namespace NickOfTime.Characters.CharacterStates
 {
-	public class PlayerStateBase
+	public class CharacterStateBase
 	{
-		protected Player player;
-		public PlayerStateBase(Player player)
+		protected CharacterBase character;
+		public CharacterStateBase(CharacterBase character)
 		{
-			this.player = player;
+			this.character = character;
 		}
 
-		public void SetPlayer(Player player)
-		{
-			this.player = player;
-		}
 		public virtual void OnStateEnter()
 		{
 
@@ -36,12 +32,12 @@ namespace NickOfTime.Player
 
 		}
 
-		public virtual void OnPlayerJump()
+		public virtual void OnCharacterJump()
 		{
 
 		}
 
-		public virtual void OnPlayerUseWeapon()
+		public virtual void OnCharacterUseWeapon()
 		{
 
 		}

@@ -1,3 +1,4 @@
+using NickOfTime.Characters.Player;
 using NickOfTime.ScriptableObjects.Weapons;
 using System.Collections;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace NickOfTime.Weapons
 		{
 			if(collision.gameObject.layer == _playerLayer)
 			{
-				Player.Player _player = collision.GetComponent<Player.Player>();
+				Player _player = collision.GetComponent<Player>();
 				OnPickUp();
 				_player.EquipWeapon(this);
 			}
