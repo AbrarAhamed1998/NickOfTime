@@ -5,6 +5,7 @@ using Pathfinding;
 using System;
 using NickOfTime.ScriptableObjects.Enemy;
 using NickOfTime.Characters;
+using NickOfTime.Characters.CharacterStates;
 
 namespace NickOfTime.Enemy
 {
@@ -12,15 +13,10 @@ namespace NickOfTime.Enemy
     {
         [SerializeField] private Transform lookTarget;
 
-		[SerializeField] private EnemyConfigSO _enemyConfig;
+		[SerializeField] private EnemyConfigSO _enemyConfig => (EnemyConfigSO)_characterConfig;
 
-		[SerializeField] private GameObject[] _debugLookObjects;
 
-		[SerializeField] private SpriteRenderer _enemySprite;
 
-		[SerializeField] private GameObject _groundCheckBox;
-
-		public bool IsGrounded;
 		public bool CanJump;
 
         private Path aiPath;
@@ -42,9 +38,9 @@ namespace NickOfTime.Enemy
 			}
 		}
 
-		private void Start()
+		protected override void Start()
 		{
-			RegisterEnemyEvents();
+			RegisterControlEvents();
 			_idleEnemyState = new EnemyIdleState(this);
 			_moveEnemyState = new EnemyMoveState(this);
 			_jumpEnemyState = new EnemyJumpState(this);
@@ -54,21 +50,24 @@ namespace NickOfTime.Enemy
 			StartCoroutine(CalculatePathRoutine());
 		}
 
-		private void FixedUpdate()
+		protected override void FixedUpdate()
 		{
 			CurrentEnemyState?.OnStateFixedUpdate();
 		}
 
-		private void Update()
+		protected override void Update()
 		{
 			CurrentEnemyState?.OnStateUpdate();
 		}
 
-		private void ChangeEnemyState(EnemyStateBase enemyState)
+		protected override void OnDisable()
 		{
-			CurrentEnemyState?.OnStateExit();
-			CurrentEnemyState = enemyState;
-			CurrentEnemyState?.OnStateEnter();
+			DeregisterControlEvents();
+		}
+
+		protected override void ChangeCharacterState(CharacterStateBase enemyState)
+		{
+			base.ChangeCharacterState(enemyState);
 		}
 
 		private Vector2 GetWayPointDirection()
@@ -101,40 +100,21 @@ namespace NickOfTime.Enemy
             }
         }
 
-		public void CheckIfEnemyInAir()
+		public override void CheckIfCharacterInAir()
 		{
-			Collider2D[] colliders = new Collider2D[1];
-			int results = Physics2D.OverlapBoxNonAlloc(_groundCheckBox.transform.position,
-				_enemyConfig.GroundCheckBoxSize,
-				0f,
-				colliders,
-				_enemyConfig.GroundCheckLayerMask
-				);
-			if (results > 0)
-			{
-				//Debug.Log($"hit the ground {colliders[0].name}");
-				IsGrounded = true;
-				ChangeEnemyState(_idleEnemyState);
-			}
-			else
-			{
-				//Debug.Log("Off the Ground");
-				IsGrounded = false;
-				ChangeEnemyState(_jumpEnemyState);
-			}
+			base.CheckIfCharacterInAir();
 		}
 
 		public void CheckIfEnemyMoving()
 		{
 			if (myRigidbody.velocity.x != 0f)
-				ChangeEnemyState(_moveEnemyState);
+				ChangeCharacterState(_moveEnemyState);
 			else
-				ChangeEnemyState(_idleEnemyState);
+				ChangeCharacterState(_idleEnemyState);
 		}
 
 		public void CheckForJump()
 		{
-			Debug.Log($"_waypoint Dir : {_waypointDirection.y}");
 			if (_waypointDirection.y > _enemyConfig.YThresholdToTriggerJump && CanJump)
 			{
 				CanJump = false;
@@ -142,31 +122,32 @@ namespace NickOfTime.Enemy
 			}
 		}
 
-		public void EnemyMove()
+		public override void CharacterMove()
 		{
-			moveAction?.Invoke();
+			base.CharacterMove();
 		}
 
-		public void EnemyLook()
+		public override void CharacterLook()
 		{
-			lookAction?.Invoke();
+			base.CharacterLook();
 		}
 
-		public void EnemyJump()
+		public override void CharacterJump()
 		{
-			jumpAction?.Invoke();
+			base.CharacterJump();
 		}
 
-		public void RegisterEnemyEvents()
+		protected override void RegisterControlEvents()
 		{
 			moveAction = () => 
 			{
 				_waypointDirection = GetWayPointDirection();
 				myRigidbody.AddForce(_waypointDirection * _enemyConfig.MovementSpeed * Time.deltaTime);
+				JetControl(_waypointDirection);
 			};
 			lookAction = () =>
 			{
-				LookAtTarget();
+				LookAtWorldPos(lookTarget);
 			};
 			jumpAction = () =>
 			{
@@ -174,28 +155,24 @@ namespace NickOfTime.Enemy
 			};
 		}
 
-		private void LookAtTarget()
+		protected override void LookAtWorldPos(Transform targetWorldTransform)
 		{
-			Vector2 worldPos = lookTarget.position;
-			Transform target = _debugLookObjects[0].transform;
-			float y = target.position.y - worldPos.y;
-			float x = target.position.x - worldPos.x;
-			float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + 180f;
-			target.localEulerAngles = new Vector3(0f, 0f, targetAngle);
-			for(int i=1; i<_debugLookObjects.Length; i++)
-			{
-				_debugLookObjects[i].transform.localEulerAngles = target.localEulerAngles;
-			}
-
-			Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
-			Vector2 playerdirection = Vector2.right * (_enemySprite.flipX ? -1f : 1f);
-			float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
-			if (dotProduct < 0f)
-			{
-				_enemySprite.flipX = !_enemySprite.flipX;
-			}
+			base.LookAtWorldPos(targetWorldTransform);
 		}
-        private IEnumerator CalculatePathRoutine()
+
+		protected override void CharacterInAir()
+		{
+			base.CharacterInAir();
+			ChangeCharacterState(_jumpEnemyState);
+		}
+
+		protected override void CharacterOnGround()
+		{
+			base.CharacterOnGround();
+			ChangeCharacterState(_idleEnemyState);
+		}
+
+		private IEnumerator CalculatePathRoutine()
 		{
             while(gameObject.activeSelf)
 			{

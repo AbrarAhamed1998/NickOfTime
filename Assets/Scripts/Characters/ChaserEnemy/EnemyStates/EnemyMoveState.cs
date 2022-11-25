@@ -18,9 +18,9 @@ namespace NickOfTime.Enemy
 		public override void OnStateFixedUpdate()
 		{
 			base.OnStateFixedUpdate();
-			enemy.CheckIfEnemyInAir();
-			enemy.EnemyMove();
-			enemy.EnemyLook();
+			enemy.CheckIfCharacterInAir();
+			enemy.CharacterMove();
+			enemy.CharacterLook();
 		}
 
 		public override void OnStateUpdate()
@@ -31,9 +31,9 @@ namespace NickOfTime.Enemy
 		}
 
 		public override void OnCharacterJump()
-		{
+		 {
 			base.OnCharacterJump();
-			enemy.EnemyJump();
+			enemy.CharacterJump();
 		}
 
 		public override void OnStateExit()

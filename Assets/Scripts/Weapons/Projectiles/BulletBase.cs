@@ -28,7 +28,6 @@ namespace NickOfTime.Weapons.Projectiles
 		private void OnCollisionEnter2D(Collision2D collision)
 		{
             
-            Debug.Log($"bullet collided with : {collision.gameObject.name}");
             if (_deactivateLayers == (_deactivateLayers | (1 << collision.gameObject.layer)))
                 OnBulletDeactivate?.Invoke();
 		}

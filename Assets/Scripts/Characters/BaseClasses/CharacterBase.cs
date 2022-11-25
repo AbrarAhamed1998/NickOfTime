@@ -14,13 +14,12 @@ namespace NickOfTime.Characters
         [SerializeField]
         protected CharacterBaseConfigSO _characterConfig;
 
-        [SerializeField] protected Rigidbody2D _playerRigidbody;
-        [SerializeField] protected SpriteRenderer _playerSprite;
+        [SerializeField] protected Rigidbody2D _characterRigidbody;
+        [SerializeField] protected SpriteRenderer _characterSprite;
         [SerializeField] protected Transform _armParent;
 
         [SerializeField] protected GameObject[] _debugLookObjects;
         [SerializeField] protected Transform[] _jetTransforms;
-        [SerializeField] protected List<SpriteRenderer> _childSpritesToFlip;
 
         [SerializeField] protected bool IsGrounded;
 
@@ -87,7 +86,7 @@ namespace NickOfTime.Characters
 
         #region PRIVATE METHODS
 
-        protected virtual void ChangePlayerState(PlayerStateBase state)
+        protected virtual void ChangeCharacterState(CharacterStateBase state)
         {
             if (CurrentCharacterState == state) return;
             CurrentCharacterState?.OnStateExit();
@@ -97,22 +96,14 @@ namespace NickOfTime.Characters
 
         protected virtual void RegisterControlEvents()
         {
-            moveAction = () =>
-            {
-                _playerRigidbody.AddForce(_moveDirection * _characterConfig.MovementSpeed * Time.deltaTime, ForceMode2D.Force);
-                Vector3 target = (Vector2)_jetTransforms[0].position + (5f * _moveDirection);
-                float y = _jetTransforms[0].position.y - target.y;
-                float x = _jetTransforms[0].position.x - target.x;
-                float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + (_moveDirection == Vector2.zero ? 0f : 90f);
-                _jetTransforms[0].localEulerAngles = new Vector3(0f, 0f, targetAngle);
-                for (int i = 0; i < _jetTransforms.Length; i++)
-                {
-                    _jetTransforms[i].localEulerAngles = _jetTransforms[0].localEulerAngles;
-                }
-            };
+			moveAction = () =>
+			{
+				_characterRigidbody.AddForce(_moveDirection * _characterConfig.MovementSpeed * Time.deltaTime, ForceMode2D.Force);
+				JetControl(_moveDirection);
+			};
             jumpAction = () =>
             {
-                _playerRigidbody.AddForce(Vector2.up * _characterConfig.JumpForce, ForceMode2D.Impulse);
+                _characterRigidbody.AddForce(Vector2.up * _characterConfig.JumpForce, ForceMode2D.Impulse);
             };
             lookAction = () =>
             {
@@ -124,7 +115,24 @@ namespace NickOfTime.Characters
             };
         }
 
-        protected virtual void DeregisterControlEvents()
+		protected virtual void JetControl(Vector2 direction)
+		{
+			Vector3 target = (Vector2)_jetTransforms[0].position + (5f * direction);
+			float y = _jetTransforms[0].position.y - target.y;
+			float x = _jetTransforms[0].position.x - target.x;
+			float localEulerY = transform.localEulerAngles.y;
+			float trueYRot = localEulerY < 180f ? localEulerY : localEulerY - 360;
+			float switchFactor = (trueYRot < 0 ? -1f : 1f);
+			float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + (direction == Vector2.zero ? 0f : 90f);
+			Vector3 targetEuler = new Vector3(0f, 0f, switchFactor * targetAngle);
+            Quaternion targetQuaternion = Quaternion.Euler(targetEuler);
+			for (int i = 0; i < _jetTransforms.Length; i++)
+			{
+				_jetTransforms[i].localRotation = Quaternion.Slerp(_jetTransforms[i].localRotation, targetQuaternion, _characterConfig.JetPackRotSpeed * Time.deltaTime);
+			}
+		}
+
+		protected virtual void DeregisterControlEvents()
         {
             moveAction = null;
             jumpAction = null;
@@ -138,19 +146,23 @@ namespace NickOfTime.Characters
             Transform target = _debugLookObjects[0].transform;
             float y = target.position.y - worldPos.y;
             float x = target.position.x - worldPos.x;
-            float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + 180f;
-            target.localEulerAngles = new Vector3(0f, 0f, targetAngle);
+            float localEulerY = transform.localEulerAngles.y;
+            float trueYRot = localEulerY < 180f ? localEulerY : localEulerY - 360; 
+            float switchFactor = (trueYRot < 0 ? 0f : 180f);
+            float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + switchFactor;
+            target.localEulerAngles = new Vector3(0f, 0f, (switchFactor == 0f?-1f:1f) * targetAngle);
             for (int i = 1; i < _debugLookObjects.Length; i++)
             {
                 _debugLookObjects[i].transform.localEulerAngles = target.localEulerAngles;
             }
             Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
-            Vector2 playerdirection = Vector2.right * (_playerSprite.flipX ? -1f : 1f);
+            Vector2 playerdirection = transform.right.normalized;/*Vector2.right * (_playerSprite.flipX ? -1f : 1f)*/;
             float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
             if (dotProduct < 0f)
             {
-                _playerSprite.flipX = !_playerSprite.flipX;
-                for (int i = 0; i < _debugLookObjects.Length; i++)
+                //_playerSprite.flipX = !_playerSprite.flipX;
+                transform.localEulerAngles += Vector3.up * 180f;
+                /*for (int i = 0; i < _debugLookObjects.Length; i++)
                 {
                     SpriteRenderer spriteRenderer = _debugLookObjects[i].GetComponent<SpriteRenderer>();
                     spriteRenderer.flipY = !spriteRenderer.flipY;
@@ -159,7 +171,32 @@ namespace NickOfTime.Characters
                         spriteRenderer = _childSpritesToFlip[i];
                         spriteRenderer.flipY = !spriteRenderer.flipY;
                     }
-                }
+                }*/
+            }
+        }
+
+        protected virtual void LookAtWorldPos(Transform targetWorldTransform)
+		{
+            Vector2 worldPos = targetWorldTransform.position;
+            Transform target = _debugLookObjects[0].transform;
+            float y = target.position.y - worldPos.y;
+            float x = target.position.x - worldPos.x;
+            float localEulerY = transform.localEulerAngles.y;
+            float trueYRot = localEulerY < 180f ? localEulerY : localEulerY - 360;
+            float switchFactor = (trueYRot < 0 ? 0f : 180f);
+            float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + switchFactor;
+            target.localEulerAngles = new Vector3(0f, 0f, (switchFactor == 0f ? -1f : 1f) * targetAngle);
+            for (int i = 1; i < _debugLookObjects.Length; i++)
+            {
+                _debugLookObjects[i].transform.localEulerAngles = target.localEulerAngles;
+            }
+
+            Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
+            Vector2 playerdirection = transform.right.normalized;
+            float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
+            if (dotProduct < 0f)
+            {
+                transform.localEulerAngles += Vector3.up * 180f;
             }
         }
 
@@ -173,27 +210,27 @@ namespace NickOfTime.Characters
 
         #region PUBLIC METHODS
 
-        public virtual void PlayerMove()
+        public virtual void CharacterMove()
         {
             moveAction?.Invoke();
         }
 
-        public virtual void PlayerLook()
+        public virtual void CharacterLook()
         {
             lookAction?.Invoke();
         }
 
-        public virtual void PlayerJump()
+        public virtual void CharacterJump()
         {
             jumpAction?.Invoke();
         }
 
-        public virtual void PlayerUseWeapon()
+        public virtual void CharacterUseWeapon()
         {
             fireAction?.Invoke();
         }
 
-        public virtual void CheckIfChracterInAir()
+        public virtual void CheckIfCharacterInAir()
         {
             Collider2D[] colliders = new Collider2D[1];
             int results = Physics2D.OverlapBoxNonAlloc(_groundCheckBox.transform.position,
@@ -224,11 +261,8 @@ namespace NickOfTime.Characters
 
         public virtual void CheckIfCharacterMoving()
         {
-            /*if (_playerRigidbody.velocity.x != 0f)
-                ChangePlayerState(_movePlayerState);
-            else
-                ChangePlayerState(_idlePlayerState);*/
-        }
+			
+		}
 
         public virtual void EquipWeapon(WeaponBase weapon)
         {
@@ -237,7 +271,6 @@ namespace NickOfTime.Characters
             weapon.transform.SetParent(_armParent);
             weapon.transform.localPosition = Vector3.zero;
             weapon.transform.localRotation = Quaternion.identity;
-            _childSpritesToFlip.Add(weapon.ItemSpriteRenderer);
         }
 
         #endregion

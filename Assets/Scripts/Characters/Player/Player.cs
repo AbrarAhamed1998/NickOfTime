@@ -1,3 +1,4 @@
+using NickOfTime.Characters.CharacterStates;
 using NickOfTime.Characters.Player.PlayerStates;
 using NickOfTime.ScriptableObjects.Player;
 using NickOfTime.Weapons;
@@ -76,12 +77,9 @@ namespace NickOfTime.Characters.Player
 
 		#region PRIVATE METHODS
 
-		protected override void ChangePlayerState(PlayerStateBase state)
+		protected override void ChangeCharacterState(CharacterStateBase state)
 		{
-            if (CurrentPlayerState == state) return;
-            CurrentPlayerState?.OnStateExit();
-            CurrentPlayerState = state;
-            CurrentPlayerState?.OnStateEnter();
+            base.ChangeCharacterState(state);
 		}
 
         protected override void RegisterControlEvents()
@@ -131,49 +129,49 @@ namespace NickOfTime.Characters.Player
             if (buttonControl.wasPressedThisFrame && context.performed)
                 CurrentPlayerState?.OnCharacterUseWeapon();
         }
-        public override void PlayerMove()
+        public override void CharacterMove()
         {
             moveAction?.Invoke();
         }
 
-        public override void PlayerLook()
+        public override void CharacterLook()
         {
             lookAction?.Invoke();
         }
 
-        public override void PlayerJump()
+        public override void CharacterJump()
         {
             jumpAction?.Invoke();
         }
 
-        public override void PlayerUseWeapon()
+        public override void CharacterUseWeapon()
 		{
             fireAction?.Invoke();
 		}
 
-		public override void CheckIfChracterInAir()
+		public override void CheckIfCharacterInAir()
 		{
-            base.CheckIfChracterInAir();
+            base.CheckIfCharacterInAir();
 		}
 
 		protected override void CharacterInAir()
 		{
 			base.CharacterInAir();
-            ChangePlayerState(_jumpPlayerState);
+            ChangeCharacterState(_jumpPlayerState);
 		}
 
 		protected override void CharacterOnGround()
 		{
 			base.CharacterOnGround();
-            ChangePlayerState(_idlePlayerState);
+            ChangeCharacterState(_idlePlayerState);
 		}
 
 		public override void CheckIfCharacterMoving()
 		{
-            if (_playerRigidbody.velocity.x != 0f)
-                ChangePlayerState(_movePlayerState);
+            if (_characterRigidbody.velocity.x != 0f)
+                ChangeCharacterState(_movePlayerState);
             else
-                ChangePlayerState(_idlePlayerState);
+                ChangeCharacterState(_idlePlayerState);
 		}
 
         public override void EquipWeapon(WeaponBase weapon)

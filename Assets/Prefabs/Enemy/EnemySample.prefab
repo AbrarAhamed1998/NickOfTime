@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1537641605720042581}
   - component: {fileID: 1537641605720042585}
   - component: {fileID: 1537641605720042586}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemySample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.22667918}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -114,7 +114,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.05, y: 1.05}
+  m_Size: {x: 1.05, y: 1.0738609}
   m_EdgeRadius: 0
 --- !u!50 &1537641605720042581
 Rigidbody2D:
@@ -177,13 +177,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4b073176ec8d84bbf783e8e266f574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookTarget: {fileID: 0}
-  _enemyConfig: {fileID: 11400000, guid: 145a8a0e544dab74fa2f481792117d80, type: 2}
+  _characterConfig: {fileID: 11400000, guid: 145a8a0e544dab74fa2f481792117d80, type: 2}
+  _characterRigidbody: {fileID: 1537641605720042581}
+  _characterSprite: {fileID: 1537641605720042582}
+  _armParent: {fileID: 8555968892536776686}
   _debugLookObjects:
   - {fileID: 2441647897657009572}
-  _enemySprite: {fileID: 1537641605720042582}
-  _groundCheckBox: {fileID: 2441647897657009572}
+  _jetTransforms:
+  - {fileID: 4893520283089129833}
+  - {fileID: 119897561099728310}
   IsGrounded: 0
+  _groundCheckBox: {fileID: 4664401433965907695}
+  _equippedWeapon: {fileID: 0}
+  lookTarget: {fileID: 0}
   CanJump: 1
   seeker: {fileID: 1537641605720042585}
   myRigidbody: {fileID: 1537641605720042581}
@@ -325,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2441647897657009572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.536, z: 0}
+  m_LocalPosition: {x: 0, y: -0.292, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1537641605720042583}

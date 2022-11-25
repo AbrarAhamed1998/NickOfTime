@@ -26,9 +26,9 @@ namespace NickOfTime.Characters.Player.PlayerStates
 		public override void OnStateFixedUpdate()
 		{
 			base.OnStateFixedUpdate();
-			player.PlayerMove();
-			player.PlayerLook();
-			player.CheckIfChracterInAir();
+			player.CharacterMove();
+			player.CharacterLook();
+			player.CheckIfCharacterInAir();
 		}
 
 		public override void OnCharacterJump()
@@ -39,7 +39,7 @@ namespace NickOfTime.Characters.Player.PlayerStates
 		public override void OnCharacterUseWeapon()
 		{
 			base.OnCharacterUseWeapon();
-			player.PlayerUseWeapon();
+			player.CharacterUseWeapon();
 		}
 
 		public override void OnStateExit()
