@@ -1,3 +1,4 @@
+using NickOfTime.Characters;
 using NickOfTime.Characters.Player;
 using NickOfTime.ScriptableObjects.Weapons;
 using System.Collections;
@@ -58,9 +59,9 @@ namespace NickOfTime.Weapons
 
 		protected void OnTriggerEnter2D(Collider2D collision)
 		{
-			if(collision.gameObject.layer == _playerLayer)
+			if((_weaponStatsSO.PickupMask & 1<< collision.gameObject.layer) != 0)
 			{
-				Player _player = collision.GetComponent<Player>();
+				CharacterBase _player = collision.GetComponent<CharacterBase>();
 				OnPickUp();
 				_player.EquipWeapon(this);
 			}

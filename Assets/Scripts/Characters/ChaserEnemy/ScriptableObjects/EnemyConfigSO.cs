@@ -12,11 +12,13 @@ namespace NickOfTime.ScriptableObjects.Enemy
 		[SerializeField] private float _pathCalcInterval;
 		[SerializeField] private float _yThresholdToTriggerJump;
 		[SerializeField] private float _jumpInterval;
-
+		[SerializeField] private float _useWeaponInterval;
+		 
 		public float PickNextWaypointDist => _pickNextWaypointDist;
 		public float PathCalcInterval => _pathCalcInterval;	
 		public float YThresholdToTriggerJump => _yThresholdToTriggerJump;
 		public float JumpInterval => _jumpInterval;
+		public float UseWeaponInterval => _useWeaponInterval;
 	}
 }
 

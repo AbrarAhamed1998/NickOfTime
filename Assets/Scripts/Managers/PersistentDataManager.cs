@@ -1,3 +1,4 @@
+using NickOfTime.Characters.Player;
 using NickOfTime.Utilities.PoolingSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace NickOfTime.Managers
 
         [SerializeField] private PoolManager _poolManager;
         public PoolManager PoolManager => _poolManager;
+
+		public Player ActivePlayer { get; set; }
 
 		private void Awake()
 		{

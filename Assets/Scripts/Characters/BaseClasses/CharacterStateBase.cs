@@ -41,6 +41,11 @@ namespace NickOfTime.Characters.CharacterStates
 		{
 
 		}
+
+		public virtual void OnCharacterTakeDamage()
+		{
+
+		}
 	}
 }
 

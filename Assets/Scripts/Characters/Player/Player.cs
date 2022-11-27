@@ -1,5 +1,6 @@
 using NickOfTime.Characters.CharacterStates;
 using NickOfTime.Characters.Player.PlayerStates;
+using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Player;
 using NickOfTime.Weapons;
 using System;
@@ -55,6 +56,7 @@ namespace NickOfTime.Characters.Player
             _jumpPlayerState = new JumpPlayerState(this);
             _idlePlayerState = new IdlePlayerState(this);
             CurrentPlayerState = _idlePlayerState;
+            PersistentDataManager.instance.ActivePlayer = this;
 		}
 
         protected override void Update()

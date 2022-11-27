@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NickOfTime.Characters
 {
@@ -27,13 +28,19 @@ namespace NickOfTime.Characters
 
         [SerializeField] protected WeaponBase _equippedWeapon;
 
+        [SerializeField] protected float _playerHealthPoints;
+
         protected PlayerControls _playerControl;
 
         protected Action moveAction, jumpAction, lookAction, fireAction, _jetRotateAction;
+        protected Action<float> takeDamage;
 
         protected Vector2 _moveDirection, _lookTargetScreenPos;
 
         protected CharacterStateBase _currentCharacterState;
+
+        protected Slider _characterHealthSlider;
+        
 
         #region PROPERTIES
         public CharacterStateBase CurrentCharacterState
@@ -44,6 +51,11 @@ namespace NickOfTime.Characters
                 _currentCharacterState = value;
             }
         }
+        public float PlayerHealthPoints
+		{
+            get => _playerHealthPoints;
+            set => _playerHealthPoints = value;
+		}
         #endregion
 
         #region UNITY CALLBACKS
@@ -94,6 +106,17 @@ namespace NickOfTime.Characters
             CurrentCharacterState?.OnStateEnter();
         }
 
+        protected virtual void NegateDamageFromHealth(float damage)
+		{
+            PlayerHealthPoints -= damage;
+            _characterHealthSlider.value = PlayerHealthPoints / _characterConfig.DefaultHealthPoints;
+		}
+
+        protected virtual void DamageFlash()
+		{
+            StartCoroutine(DamageFlashRoutine());
+		}
+
         protected virtual void RegisterControlEvents()
         {
 			moveAction = () =>
@@ -112,6 +135,10 @@ namespace NickOfTime.Characters
             fireAction = () =>
             {
                 UseWeapon();
+            };
+            takeDamage = (damage) =>
+            {
+                NegateDamageFromHealth(damage);
             };
         }
 
@@ -273,7 +300,27 @@ namespace NickOfTime.Characters
             weapon.transform.localRotation = Quaternion.identity;
         }
 
-        #endregion
-    }
+        public virtual void TakeDamage(float damageValue)
+		{
+            takeDamage?.Invoke(damageValue);
+            CurrentCharacterState?.OnCharacterTakeDamage();
+		}
+
+		#endregion
+
+		#region IENUMERATOR
+
+        protected virtual IEnumerator DamageFlashRoutine()
+		{
+            Color defaultColor = _characterSprite.color;
+            _characterSprite.color = _characterConfig.DamageFlashColor;
+            _debugLookObjects[0].GetComponent<SpriteRenderer>().color = _characterConfig.DamageFlashColor;
+            yield return new WaitForSeconds(_characterConfig.DamageFlashTime);
+            _characterSprite.color = defaultColor;
+            _debugLookObjects[0].GetComponent<SpriteRenderer>().color = defaultColor;
+        }
+
+		#endregion
+	}
 }
 

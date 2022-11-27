@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37959f1f19dec0447902b9176589ebf0, type: 3}
   m_Name: PistolStats
   m_EditorClassIdentifier: 
+  _pickupMask:
+    serializedVersion: 2
+    m_Bits: 1152
   _projectilePrefab: {fileID: 2715427029994394136, guid: a69d3feaeb79c594cb49ec06c265ec5f, type: 3}
   _projectileLaunchForce: 50
   _maxProjectileLifetime: 5
