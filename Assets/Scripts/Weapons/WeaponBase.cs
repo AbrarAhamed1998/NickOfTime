@@ -61,9 +61,12 @@ namespace NickOfTime.Weapons
 		{
 			if((_weaponStatsSO.PickupMask & 1<< collision.gameObject.layer) != 0)
 			{
-				CharacterBase _player = collision.GetComponent<CharacterBase>();
-				OnPickUp();
-				_player.EquipWeapon(this);
+				CharacterBase _character = collision.GetComponent<CharacterBase>();
+				if(_character != null)
+				{
+					OnPickUp();
+					_character.EquipWeapon(this);
+				}
 			}
 		}
 	}

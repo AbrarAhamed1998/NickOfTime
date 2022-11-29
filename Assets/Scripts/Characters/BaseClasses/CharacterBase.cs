@@ -204,6 +204,7 @@ namespace NickOfTime.Characters
 
         protected virtual void LookAtWorldPos(Transform targetWorldTransform)
 		{
+            if (targetWorldTransform == null) return;
             Vector2 worldPos = targetWorldTransform.position;
             Transform target = _debugLookObjects[0].transform;
             float y = target.position.y - worldPos.y;

@@ -6,6 +6,9 @@ using System;
 using NickOfTime.ScriptableObjects.Enemy;
 using NickOfTime.Characters;
 using NickOfTime.Characters.CharacterStates;
+using NickOfTime.Weapons;
+using NickOfTime.Characters.Player;
+using NickOfTime.Managers;
 
 namespace NickOfTime.Enemy
 {
@@ -37,6 +40,8 @@ namespace NickOfTime.Enemy
 				CurrentCharacterState = value;
 			}
 		}
+
+		#region OVERRIDES
 
 		protected override void Start()
 		{
@@ -172,21 +177,50 @@ namespace NickOfTime.Enemy
 			ChangeCharacterState(_idleEnemyState);
 		}
 
+		public override void EquipWeapon(WeaponBase weapon)
+		{
+			base.EquipWeapon(weapon);
+			if(weapon.transform == lookTarget)
+			{
+				lookTarget = null;
+			}
+		}
+
+		#endregion
+
+
+		#region IENUMERATORS
+
 		private IEnumerator CalculatePathRoutine()
 		{
             while(gameObject.activeSelf)
 			{
-                seeker.StartPath(myRigidbody.position, lookTarget.position, OnPathComplete);
-
+				if(lookTarget != null)
+					seeker.StartPath(myRigidbody.position, lookTarget.position, OnPathComplete);
                 yield return new WaitForSeconds(_enemyConfig.PathCalcInterval);
 			}
 		}
+
 		private IEnumerator JumpRoutine()
 		{
 			CurrentEnemyState?.OnCharacterJump();
 			yield return new WaitForSeconds(_enemyConfig.JumpInterval);
 			CanJump = true;
 		}
+
+		private void CheckIfPlayerInSight()
+		{
+			Player target = PersistentDataManager.instance.ActivePlayer;
+			if(Physics.Raycast(this.transform.position, target.transform.position - transform.position, out RaycastHit hit))
+			{
+				Player hitPlayer = hit.collider.gameObject.GetComponent<Player>();
+				if (hitPlayer == null) return;
+				// try using weapon on player
+				UseWeapon();
+			}
+		}
+
+		#endregion
 	}
 }
 
