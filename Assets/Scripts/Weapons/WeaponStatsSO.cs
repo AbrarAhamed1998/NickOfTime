@@ -11,12 +11,14 @@ namespace NickOfTime.ScriptableObjects.Weapons
         [SerializeField] private GameObject _projectilePrefab;
         [SerializeField] private float _projectileLaunchForce;
         [SerializeField] private float _maxProjectileLifetime;
+        [SerializeField] private float _projectileDamageValue;
 
 
         public LayerMask PickupMask => _pickupMask;
         public GameObject ProjectilePrefab => _projectilePrefab;
         public float ProjectileLaunchForce => _projectileLaunchForce; 
         public float MaxProjectileLifetime => _maxProjectileLifetime;
+        public float ProjectileDamageValue => _projectileDamageValue;
     }
 }
 

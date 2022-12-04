@@ -16,6 +16,9 @@ MonoBehaviour:
   _lookSensitivity: 10
   _jumpForce: 5
   _jetPackRotSpeed: 10
+  _defaultTotalHealthPoints: 0
+  _damageFlashColor: {r: 0, g: 0, b: 0, a: 0}
+  _damageFlashTime: 0
   _groundCheckBoxSize: {x: 0.8, y: 0.1}
   _groundCheckDebugColor: {r: 1, g: 0, b: 0, a: 0.54509807}
   _groundCheckLayerMask:
@@ -25,3 +28,10 @@ MonoBehaviour:
   _pathCalcInterval: 1.5
   _yThresholdToTriggerJump: 0.5
   _jumpInterval: 1
+  _useWeaponInterval: 0
+  _playerCheckLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _lineOfSightLayerMask:
+    serializedVersion: 2
+    m_Bits: 193

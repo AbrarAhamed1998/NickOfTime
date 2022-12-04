@@ -441,6 +441,7 @@ MonoBehaviour:
   _groundCheckBox: {fileID: 3993106071887283995}
   _equippedWeapon: {fileID: 0}
   _playerHealthPoints: 0
+  _characterHealthSlider: {fileID: 0}
 --- !u!95 &5644782204555742745
 Animator:
   serializedVersion: 3

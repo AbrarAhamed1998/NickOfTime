@@ -29,17 +29,18 @@ namespace NickOfTime.Characters
         [SerializeField] protected WeaponBase _equippedWeapon;
 
         [SerializeField] protected float _playerHealthPoints;
+        [SerializeField] protected Slider _characterHealthSlider;
+
 
         protected PlayerControls _playerControl;
 
         protected Action moveAction, jumpAction, lookAction, fireAction, _jetRotateAction;
-        protected Action<float> takeDamage;
+        protected Action<float,Vector2> takeDamage;
 
         protected Vector2 _moveDirection, _lookTargetScreenPos;
 
         protected CharacterStateBase _currentCharacterState;
 
-        protected Slider _characterHealthSlider;
         
 
         #region PROPERTIES
@@ -76,7 +77,7 @@ namespace NickOfTime.Characters
 			_jumPlayerState = new JumpPlayerState(this);
 			_idlePlayerState = new IdlePlayerState(this);*/
 			CurrentCharacterState = null;
-		}
+        }
 
         protected virtual void Update()
         {
@@ -108,6 +109,8 @@ namespace NickOfTime.Characters
 
         protected virtual void NegateDamageFromHealth(float damage)
 		{
+            Debug.Log($"Player Health Points before deducting : {PlayerHealthPoints}");
+
             PlayerHealthPoints -= damage;
             _characterHealthSlider.value = PlayerHealthPoints / _characterConfig.DefaultHealthPoints;
 		}
@@ -115,6 +118,11 @@ namespace NickOfTime.Characters
         protected virtual void DamageFlash()
 		{
             StartCoroutine(DamageFlashRoutine());
+		}
+
+        protected virtual void DamagePushBack(Vector2 direction)
+		{
+            _characterRigidbody.AddForce(direction, ForceMode2D.Impulse);
 		}
 
         protected virtual void RegisterControlEvents()
@@ -136,9 +144,12 @@ namespace NickOfTime.Characters
             {
                 UseWeapon();
             };
-            takeDamage = (damage) =>
+            takeDamage = (damage, direction) =>
             {
                 NegateDamageFromHealth(damage);
+                DamageFlash();
+                DamagePushBack(direction);
+
             };
         }
 
@@ -204,7 +215,11 @@ namespace NickOfTime.Characters
 
         protected virtual void LookAtWorldPos(Transform targetWorldTransform)
 		{
-            if (targetWorldTransform == null) return;
+            if (targetWorldTransform == null)
+            {
+                Debug.Log("target World Pos is null");
+                return;
+            }
             Vector2 worldPos = targetWorldTransform.position;
             Transform target = _debugLookObjects[0].transform;
             float y = target.position.y - worldPos.y;
@@ -301,9 +316,9 @@ namespace NickOfTime.Characters
             weapon.transform.localRotation = Quaternion.identity;
         }
 
-        public virtual void TakeDamage(float damageValue)
+        public virtual void TakeDamage(float damageValue, Vector2 direction)
 		{
-            takeDamage?.Invoke(damageValue);
+            takeDamage?.Invoke(damageValue,direction);
             CurrentCharacterState?.OnCharacterTakeDamage();
 		}
 

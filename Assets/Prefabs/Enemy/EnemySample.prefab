@@ -183,7 +183,8 @@ MonoBehaviour:
   _characterSprite: {fileID: 1537641605720042582}
   _armParent: {fileID: 8555968892536776686}
   _debugLookObjects:
-  - {fileID: 2441647897657009572}
+  - {fileID: 8487312950284912466}
+  - {fileID: 1753057193611290688}
   _jetTransforms:
   - {fileID: 4893520283089129833}
   - {fileID: 119897561099728310}
@@ -193,6 +194,8 @@ MonoBehaviour:
   _playerHealthPoints: 0
   lookTarget: {fileID: 0}
   CanJump: 1
+  CanUseWeapon: 1
+  CanCheckForPlayer: 1
   seeker: {fileID: 1537641605720042585}
   myRigidbody: {fileID: 1537641605720042581}
 --- !u!1 &1753057193611290688

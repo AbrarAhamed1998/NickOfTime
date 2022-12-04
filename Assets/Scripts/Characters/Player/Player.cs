@@ -52,7 +52,8 @@ namespace NickOfTime.Characters.Player
 
         protected override void Start()
 		{
-			_movePlayerState = new MovePlayerState(this);
+            PlayerHealthPoints = _characterConfig.DefaultHealthPoints;
+            _movePlayerState = new MovePlayerState(this);
             _jumpPlayerState = new JumpPlayerState(this);
             _idlePlayerState = new IdlePlayerState(this);
             CurrentPlayerState = _idlePlayerState;

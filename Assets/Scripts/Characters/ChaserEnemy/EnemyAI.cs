@@ -21,6 +21,8 @@ namespace NickOfTime.Enemy
 
 
 		public bool CanJump;
+		public bool CanUseWeapon;
+		public bool CanCheckForPlayer;
 
         private Path aiPath;
         private int currentWaypoint = 0;
@@ -53,6 +55,8 @@ namespace NickOfTime.Enemy
 			CurrentEnemyState = _idleEnemyState;
 
 			StartCoroutine(CalculatePathRoutine());
+			StartCoroutine(CheckForPlayerInVicinityRoutine());
+			StartCoroutine(CheckForUseWeaponOnPlayer());
 		}
 
 		protected override void FixedUpdate()
@@ -208,14 +212,71 @@ namespace NickOfTime.Enemy
 			CanJump = true;
 		}
 
+		private IEnumerator CheckForUseWeaponOnPlayer()
+		{
+			while (this.gameObject.activeSelf)
+			{
+				if (!CanUseWeapon)
+				{
+					yield return null;
+					continue;
+				}
+				yield return new WaitForSeconds(1f);
+				CanUseWeapon = false;
+				CheckIfPlayerInSight();
+				CanUseWeapon = true;
+			}
+		}
+
+		private IEnumerator CheckForPlayerInVicinityRoutine()
+		{
+			while(this.gameObject.activeSelf)
+			{
+				if (!CanCheckForPlayer)
+				{
+					yield return null;
+					continue;
+				}
+				yield return new WaitForSeconds(1f);
+				CanCheckForPlayer = false;
+				CheckIfPlayerInVicinity();
+				CanCheckForPlayer = true;
+			}
+		}
+
+
+
+		private void CheckIfPlayerInVicinity()
+		{
+			if (lookTarget != null) return;
+			ContactFilter2D contactFilter = new ContactFilter2D();
+			contactFilter.useLayerMask = true;
+			contactFilter.SetLayerMask(_enemyConfig.PlayerCheckLayerMask);
+			RaycastHit2D[] hits = new RaycastHit2D[1];
+			if (Physics2D.CircleCast(this.transform.position, 2f, Vector2.right,contactFilter, hits) > 0)
+			{
+				Player player = hits[0].collider.gameObject.GetComponent<Player>();
+				if (player != null)
+				{
+					lookTarget = player.transform;
+				}
+			}
+		}
+
 		private void CheckIfPlayerInSight()
 		{
 			Player target = PersistentDataManager.instance.ActivePlayer;
-			if(Physics.Raycast(this.transform.position, target.transform.position - transform.position, out RaycastHit hit))
+			ContactFilter2D contactFilter = new ContactFilter2D();
+			contactFilter.useLayerMask = true;
+			contactFilter.SetLayerMask(_enemyConfig.LineOfSightLayerMask);
+			RaycastHit2D[] hits = new RaycastHit2D[1];
+			if (Physics2D.Raycast(this.transform.position, target.transform.position - transform.position ,contactFilter, hits) > 0)
 			{
-				Player hitPlayer = hit.collider.gameObject.GetComponent<Player>();
+				Player hitPlayer = hits[0].collider.gameObject.GetComponent<Player>();
+				Debug.DrawRay(this.transform.position, target.transform.position - transform.position, Color.red, 1f);
 				if (hitPlayer == null) return;
 				// try using weapon on player
+				Debug.Log("Use weapon called");
 				UseWeapon();
 			}
 		}

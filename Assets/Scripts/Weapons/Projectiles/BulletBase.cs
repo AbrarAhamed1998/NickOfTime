@@ -1,6 +1,8 @@
+using NickOfTime.Characters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 
@@ -11,7 +13,7 @@ namespace NickOfTime.Weapons.Projectiles
         [SerializeField] private Rigidbody2D _myRigidbody2D;
         [SerializeField] private TrailRenderer _myTrailRenderer;
         public Action OnBulletDeactivate;
-
+        [SerializeField] private float _assignedDamageValue;
         [SerializeField] private LayerMask _deactivateLayers;
 
         void Start()
@@ -29,8 +31,15 @@ namespace NickOfTime.Weapons.Projectiles
 		{
             
             if (_deactivateLayers == (_deactivateLayers | (1 << collision.gameObject.layer)))
+			{
+                CharacterBase character = collision.gameObject.GetComponent<CharacterBase>();
+                if(character != null)
+				{
+                    character.TakeDamage(_assignedDamageValue, transform.right);
+				}
                 OnBulletDeactivate?.Invoke();
-		}
+            }
+        }
 
         public void InitializeProjectile(Action OnDeactivateAction ,float maxLifetime)
 		{
@@ -43,6 +52,11 @@ namespace NickOfTime.Weapons.Projectiles
                 StopCoroutine(CheckLifetime(maxLifetime));
             };
             StartCoroutine(CheckLifetime(maxLifetime));
+		}
+
+        public void SetDamageValue(float value)
+		{
+            _assignedDamageValue = value;
 		}
 
         private IEnumerator CheckLifetime(float maxLifetime)

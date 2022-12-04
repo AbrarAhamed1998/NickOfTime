@@ -27,6 +27,7 @@ namespace NickOfTime.Weapons
 			base.OnUseWeapon();
 			PoolObject bulletPoolObject = PersistentDataManager.instance.PoolManager.GetPoolObject(NickOfTimeStringConstants.PISTOL_BULLET_POOL_ID, null);
 			BulletBase bullet = bulletPoolObject.obj.GetComponent<BulletBase>();
+			bullet.SetDamageValue(_weaponStatsSO.ProjectileDamageValue);
 			bullet.gameObject.SetActive(false);
 			bullet.transform.position = _barrel.position;
 			bullet.transform.rotation = _barrel.rotation;
