@@ -41,6 +41,7 @@ namespace NickOfTime.Characters
 
         protected CharacterStateBase _currentCharacterState;
 
+        protected ParticleSystem[] _jetParticleSystem = new ParticleSystem[2];
         
 
         #region PROPERTIES
