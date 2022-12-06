@@ -15,8 +15,8 @@ namespace NickOfTime.Weapons
 		[SerializeField] private Rigidbody2D _myRigidbody;
 		[SerializeField] protected WeaponStatsSO _weaponStatsSO;
 
-		[SerializeField, Layer] private int _playerLayer;
-
+		[SerializeField, Layer] protected int _playerLayer;
+		[SerializeField, Layer] protected int _projectileLayer;
 
 		public SpriteRenderer ItemSpriteRenderer => _mySpriteRenderer;
 		
@@ -69,6 +69,16 @@ namespace NickOfTime.Weapons
 				}
 			}
 		}
+
+		public virtual void SetProjectleLayer(bool isOwnedByPlayer)
+		{
+			if (isOwnedByPlayer)
+				_projectileLayer = _weaponStatsSO.PlayerProjectileLayer;
+			else
+				_projectileLayer = _weaponStatsSO.GlobalProjectileLayer;
+		}
+
 	}
+
 }
 

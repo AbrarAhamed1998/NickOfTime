@@ -35,3 +35,4 @@ MonoBehaviour:
   _lineOfSightLayerMask:
     serializedVersion: 2
     m_Bits: 193
+  _healthSliderPrefab: {fileID: 1450361222182025364, guid: 81baa2bfa4348ba4d9ef61b26bc15579, type: 3}

@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Pathfinding;
-using System;
-using NickOfTime.ScriptableObjects.Enemy;
 using NickOfTime.Characters;
 using NickOfTime.Characters.CharacterStates;
-using NickOfTime.Weapons;
 using NickOfTime.Characters.Player;
 using NickOfTime.Managers;
+using NickOfTime.ScriptableObjects.Enemy;
+using NickOfTime.Weapons;
+using Pathfinding;
+using System.Collections;
+using UnityEngine;
 
 namespace NickOfTime.Enemy
 {
-    public class EnemyAI : CharacterBase
+	public class EnemyAI : CharacterBase
     {
         [SerializeField] private Transform lookTarget;
 
@@ -33,7 +31,8 @@ namespace NickOfTime.Enemy
 
 		private EnemyStateBase _idleEnemyState, _moveEnemyState, _jumpEnemyState;
 
-		private Vector2 _waypointDirection; 
+		private Vector2 _waypointDirection;
+
 
 		public EnemyStateBase CurrentEnemyState {
 			get => (EnemyStateBase)CurrentCharacterState;
@@ -54,6 +53,8 @@ namespace NickOfTime.Enemy
 
 			CurrentEnemyState = _idleEnemyState;
 
+			StartCoroutine(SetupCharacterUIRoutine());
+			
 			StartCoroutine(CalculatePathRoutine());
 			StartCoroutine(CheckForPlayerInVicinityRoutine());
 			StartCoroutine(CheckForUseWeaponOnPlayer());
@@ -188,6 +189,7 @@ namespace NickOfTime.Enemy
 			{
 				lookTarget = null;
 			}
+			weapon.SetProjectleLayer(false);
 		}
 
 		#endregion
@@ -279,6 +281,13 @@ namespace NickOfTime.Enemy
 				Debug.Log("Use weapon called");
 				UseWeapon();
 			}
+		}
+
+		IEnumerator SetupCharacterUIRoutine()
+		{
+			yield return new WaitUntil(() => _uiManager != null);
+			_characterHealthSlider = _uiManager
+				.SpawnHealthbar(_enemyConfig.HealthSliderPrefab, _uiRoot.transform.position);
 		}
 
 		#endregion

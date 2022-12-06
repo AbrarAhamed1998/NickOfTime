@@ -15,6 +15,7 @@ namespace NickOfTime.ScriptableObjects.Enemy
 		[SerializeField] private float _useWeaponInterval;
 		[SerializeField] private LayerMask _playerCheckLayerMask;
 		[SerializeField] private LayerMask _lineOfSightLayerMask;
+		[SerializeField] private GameObject _healthSliderPrefab;
 		 
 		public float PickNextWaypointDist => _pickNextWaypointDist;
 		public float PathCalcInterval => _pathCalcInterval;	
@@ -23,6 +24,7 @@ namespace NickOfTime.ScriptableObjects.Enemy
 		public float UseWeaponInterval => _useWeaponInterval;
 		public LayerMask PlayerCheckLayerMask => _playerCheckLayerMask;
 		public LayerMask LineOfSightLayerMask => _lineOfSightLayerMask;
+		public GameObject HealthSliderPrefab => _healthSliderPrefab;
 	}
 }
 

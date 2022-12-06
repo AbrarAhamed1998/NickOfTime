@@ -58,6 +58,7 @@ namespace NickOfTime.Characters.Player
             _idlePlayerState = new IdlePlayerState(this);
             CurrentPlayerState = _idlePlayerState;
             PersistentDataManager.instance.ActivePlayer = this;
+            _characterHealthSlider = PersistentDataManager.instance.UIManager.PlayerHealthBar;
 		}
 
         protected override void Update()
@@ -180,6 +181,7 @@ namespace NickOfTime.Characters.Player
         public override void EquipWeapon(WeaponBase weapon)
 		{
             base.EquipWeapon(weapon);
+            weapon.SetProjectleLayer(true);
 		}
 
 		

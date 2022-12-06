@@ -1,6 +1,8 @@
 using NickOfTime.Characters.CharacterStates;
 using NickOfTime.Characters.Player.PlayerStates;
+using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Characters;
+using NickOfTime.UI;
 using NickOfTime.Weapons;
 using System;
 using System.Collections;
@@ -22,6 +24,8 @@ namespace NickOfTime.Characters
         [SerializeField] protected GameObject[] _debugLookObjects;
         [SerializeField] protected Transform[] _jetTransforms;
 
+        [SerializeField] protected Transform _uiRoot;
+
         [SerializeField] protected bool IsGrounded;
 
         [SerializeField] protected Transform _groundCheckBox;
@@ -29,7 +33,7 @@ namespace NickOfTime.Characters
         [SerializeField] protected WeaponBase _equippedWeapon;
 
         [SerializeField] protected float _playerHealthPoints;
-        [SerializeField] protected Slider _characterHealthSlider;
+        [SerializeField] protected HealthSliderBase _characterHealthSlider;
 
 
         protected PlayerControls _playerControl;
@@ -42,7 +46,8 @@ namespace NickOfTime.Characters
         protected CharacterStateBase _currentCharacterState;
 
         protected ParticleSystem[] _jetParticleSystem = new ParticleSystem[2];
-        
+
+        protected GameUIManager _uiManager => PersistentDataManager.instance.UIManager;
 
         #region PROPERTIES
         public CharacterStateBase CurrentCharacterState
@@ -113,7 +118,7 @@ namespace NickOfTime.Characters
             Debug.Log($"Player Health Points before deducting : {PlayerHealthPoints}");
 
             PlayerHealthPoints -= damage;
-            _characterHealthSlider.value = PlayerHealthPoints / _characterConfig.DefaultHealthPoints;
+            _characterHealthSlider.SetHealthSliderVal(PlayerHealthPoints / _characterConfig.DefaultHealthPoints);
 		}
 
         protected virtual void DamageFlash()
