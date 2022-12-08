@@ -58,7 +58,7 @@ namespace NickOfTime.Characters.Player
             _idlePlayerState = new IdlePlayerState(this);
             CurrentPlayerState = _idlePlayerState;
             PersistentDataManager.instance.ActivePlayer = this;
-            _characterHealthSlider = PersistentDataManager.instance.UIManager.PlayerHealthBar;
+            StartCoroutine(RegisterUI());
 		}
 
         protected override void Update()
@@ -184,8 +184,18 @@ namespace NickOfTime.Characters.Player
             weapon.SetProjectleLayer(true);
 		}
 
-		
+
 		#endregion
-	}
+
+		#region IENUMERATOR
+
+        IEnumerator RegisterUI()
+		{
+            yield return new WaitUntil(() => PersistentDataManager.instance != null);
+            _characterHealthSlider = PersistentDataManager.instance.UIManager.PlayerHealthBar;
+        }
+
+        #endregion
+    }
 
 }

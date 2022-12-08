@@ -19,3 +19,5 @@ MonoBehaviour:
   _projectileLaunchForce: 50
   _maxProjectileLifetime: 5
   _projectileDamageValue: 1
+  _globalProjectileLayer: 9
+  _playerProjectileLayer: 8

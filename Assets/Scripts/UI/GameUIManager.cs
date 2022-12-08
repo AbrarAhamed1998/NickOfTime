@@ -24,16 +24,13 @@ namespace NickOfTime.UI
 
         }
 
-        public void SetHealthBarPos(Vector3 worldPos)
-		{
-
-		}
 
         public HealthSliderBase SpawnHealthbar(GameObject uiHealthbar, Vector3 worldPos)
 		{
             Vector3 screenPos = PersistentDataManager.instance.GameplayCamera.WorldToScreenPoint(worldPos)*mainCanvas.scaleFactor;
             HealthSliderBase healthSliderBase = Instantiate(uiHealthbar, _enemyHealthbarParent).GetComponent<HealthSliderBase>();
             healthSliderBase.SetScreenPos(screenPos);
+            healthSliderBase.SetParentCanvas(mainCanvas);
             return healthSliderBase;
 		}
     }

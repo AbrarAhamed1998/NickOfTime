@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 2297286100591615704, guid: 82e4c38f0efd82241bad09930cb48893, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.03164482, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -519,7 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2658699557095804087}
   - component: {fileID: 8909829958502370946}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: PlayerDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +658,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8122534279590772333, guid: 2aaabc0448f22324eab0cebe21c3afc5, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

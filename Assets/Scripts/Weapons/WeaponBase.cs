@@ -19,6 +19,9 @@ namespace NickOfTime.Weapons
 		[SerializeField, Layer] protected int _projectileLayer;
 
 		public SpriteRenderer ItemSpriteRenderer => _mySpriteRenderer;
+		public WeaponStatsSO WeaponStats => _weaponStatsSO;
+
+		public CharacterBase WeaponOwner;
 		
         protected virtual void Start()
         {
@@ -66,6 +69,7 @@ namespace NickOfTime.Weapons
 				{
 					OnPickUp();
 					_character.EquipWeapon(this);
+					WeaponOwner = _character;
 				}
 			}
 		}

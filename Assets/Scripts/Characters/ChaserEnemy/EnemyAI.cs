@@ -42,6 +42,16 @@ namespace NickOfTime.Enemy
 			}
 		}
 
+		#region PUBLIC METHODS
+
+		public void TrackUIOnPlayer()
+		{
+			if(_characterHealthSlider != null)
+				_characterHealthSlider.SetWordlPos(_uiRoot.position);
+		}
+
+		#endregion
+
 		#region OVERRIDES
 
 		protected override void Start()
@@ -63,6 +73,7 @@ namespace NickOfTime.Enemy
 		protected override void FixedUpdate()
 		{
 			CurrentEnemyState?.OnStateFixedUpdate();
+			TrackUIOnPlayer();
 		}
 
 		protected override void Update()
@@ -163,6 +174,12 @@ namespace NickOfTime.Enemy
 			{
 				myRigidbody.AddForce(Vector2.up * _enemyConfig.JumpForce, ForceMode2D.Impulse);
 			};
+			takeDamage = (damage, direction) =>
+			{
+				NegateDamageFromHealth(damage);
+				DamageFlash();
+				DamagePushBack(direction);
+			};
 		}
 
 		protected override void LookAtWorldPos(Transform targetWorldTransform)
@@ -190,6 +207,12 @@ namespace NickOfTime.Enemy
 				lookTarget = null;
 			}
 			weapon.SetProjectleLayer(false);
+		}
+
+		public override void TakeDamage(float damageValue, Vector2 direction)
+		{
+			base.TakeDamage(damageValue, direction);
+			CurrentEnemyState?.OnCharacterTakeDamage();
 		}
 
 		#endregion
@@ -278,7 +301,6 @@ namespace NickOfTime.Enemy
 				Debug.DrawRay(this.transform.position, target.transform.position - transform.position, Color.red, 1f);
 				if (hitPlayer == null) return;
 				// try using weapon on player
-				Debug.Log("Use weapon called");
 				UseWeapon();
 			}
 		}

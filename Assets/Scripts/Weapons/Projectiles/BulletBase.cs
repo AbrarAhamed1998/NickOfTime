@@ -16,6 +16,18 @@ namespace NickOfTime.Weapons.Projectiles
         [SerializeField] private float _assignedDamageValue;
         [SerializeField] private LayerMask _deactivateLayers;
 
+        private WeaponBase _ownerWeapon;
+        private CharacterBase _ownerCharacter;
+
+        public WeaponBase OwnerWeapon {
+            get => _ownerWeapon;
+            set => _ownerWeapon = value;
+        }
+        public CharacterBase OwnerCharacter {
+            get => _ownerCharacter;
+            set => _ownerCharacter = value;
+        }
+
         void Start()
         {
 
@@ -27,15 +39,15 @@ namespace NickOfTime.Weapons.Projectiles
 
         }
 
-		private void OnCollisionEnter2D(Collision2D collision)
+		private void OnTriggerEnter2D(Collider2D collision)
 		{
-            
             if (_deactivateLayers == (_deactivateLayers | (1 << collision.gameObject.layer)))
 			{
                 CharacterBase character = collision.gameObject.GetComponent<CharacterBase>();
+                if (character != null && character == _ownerCharacter) return; 
                 if(character != null)
 				{
-                    character.TakeDamage(_assignedDamageValue, transform.right);
+                    character.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
 				}
                 OnBulletDeactivate?.Invoke();
             }

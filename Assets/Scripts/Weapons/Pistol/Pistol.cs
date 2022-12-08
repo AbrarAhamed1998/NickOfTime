@@ -29,6 +29,8 @@ namespace NickOfTime.Weapons
 			BulletBase bullet = bulletPoolObject.obj.GetComponent<BulletBase>();
 			bullet.SetDamageValue(_weaponStatsSO.ProjectileDamageValue);
 			bullet.gameObject.SetActive(false);
+			bullet.OwnerWeapon = this;
+			bullet.OwnerCharacter = WeaponOwner;
 			bullet.gameObject.layer = _projectileLayer;
 			bullet.transform.position = _barrel.position;
 			bullet.transform.rotation = _barrel.rotation;

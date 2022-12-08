@@ -13,8 +13,10 @@ namespace NickOfTime.ScriptableObjects.Weapons
         [SerializeField] private float _maxProjectileLifetime;
         [SerializeField] private float _projectileDamageValue;
 
-        [SerializeField] private int _globalProjectileLayer;
-        [SerializeField] private int _playerProjectileLayer;
+        [SerializeField,Layer] private int _globalProjectileLayer;
+        [SerializeField,Layer] private int _playerProjectileLayer;
+
+        [SerializeField] private float _pushbackIntensity;
 
         public LayerMask PickupMask => _pickupMask;
         public GameObject ProjectilePrefab => _projectilePrefab;
@@ -23,6 +25,7 @@ namespace NickOfTime.ScriptableObjects.Weapons
         public float ProjectileDamageValue => _projectileDamageValue;
 		public int GlobalProjectileLayer => _globalProjectileLayer;
         public int PlayerProjectileLayer => _playerProjectileLayer;
+        public float PushbackIntensity => _pushbackIntensity;
     }
 }
 
