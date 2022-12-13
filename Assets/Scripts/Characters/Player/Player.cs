@@ -17,7 +17,7 @@ namespace NickOfTime.Characters.Player
 {
     public class Player : CharacterBase, IPlayerActions
     {
-        protected PlayerStateBase _movePlayerState, _jumpPlayerState, _idlePlayerState;
+        protected PlayerStateBase _movePlayerState, _jumpPlayerState, _idlePlayerState, _deathPlayerState;
 		#region PROPERTIES
 		public PlayerStateBase CurrentPlayerState {
             get => (PlayerStateBase)CurrentCharacterState;
@@ -52,7 +52,7 @@ namespace NickOfTime.Characters.Player
 
         protected override void Start()
 		{
-            PlayerHealthPoints = _characterConfig.DefaultHealthPoints;
+            CharacterHealthPoints = _characterConfig.DefaultHealthPoints;
             _movePlayerState = new MovePlayerState(this);
             _jumpPlayerState = new JumpPlayerState(this);
             _idlePlayerState = new IdlePlayerState(this);

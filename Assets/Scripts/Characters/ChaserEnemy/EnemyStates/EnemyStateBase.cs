@@ -1,9 +1,10 @@
 using NickOfTime.Characters.CharacterStates;
+using NickOfTime.Enemy;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NickOfTime.Enemy
+namespace NickOfTime.Characters.Enemy.EnemyStates
 {
     public class EnemyStateBase : CharacterStateBase
     {

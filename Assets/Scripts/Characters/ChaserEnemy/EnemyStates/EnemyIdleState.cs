@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NickOfTime.Enemy
+namespace NickOfTime.Characters.Enemy.EnemyStates
 {
 	public class EnemyIdleState : EnemyStateBase
 	{

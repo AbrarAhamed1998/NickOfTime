@@ -21,3 +21,4 @@ MonoBehaviour:
   _projectileDamageValue: 1
   _globalProjectileLayer: 9
   _playerProjectileLayer: 8
+  _pushbackIntensity: 0.2

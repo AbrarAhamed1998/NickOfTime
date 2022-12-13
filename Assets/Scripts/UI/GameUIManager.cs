@@ -1,4 +1,5 @@
 using NickOfTime.Managers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace NickOfTime.UI
         [SerializeField] private HealthSliderBase _playerHealthSliderBase;
         [SerializeField] private RectTransform _enemyHealthbarParent;
 
+        public Action OnPlayerDeath;
         public HealthSliderBase PlayerHealthBar => _playerHealthSliderBase;
         // Start is called before the first frame update
         void Start()
@@ -24,6 +26,15 @@ namespace NickOfTime.UI
 
         }
 
+        private void RegisterEvents()
+		{
+
+		}
+
+        private void DisplayRestartGameUI()
+		{
+
+		}
 
         public HealthSliderBase SpawnHealthbar(GameObject uiHealthbar, Vector3 worldPos)
 		{

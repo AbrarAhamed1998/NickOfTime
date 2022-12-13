@@ -1,18 +1,15 @@
 using NickOfTime.Characters.CharacterStates;
-using NickOfTime.Characters.Player.PlayerStates;
 using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Characters;
 using NickOfTime.UI;
 using NickOfTime.Weapons;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace NickOfTime.Characters
 {
-    public class CharacterBase : MonoBehaviour
+	public class CharacterBase : MonoBehaviour
     {
         [SerializeField]
         protected CharacterBaseConfigSO _characterConfig;
@@ -32,13 +29,13 @@ namespace NickOfTime.Characters
 
         [SerializeField] protected WeaponBase _equippedWeapon;
 
-        [SerializeField] protected float _playerHealthPoints;
+        [SerializeField] protected float _characterHealthPoints;
         [SerializeField] protected HealthSliderBase _characterHealthSlider;
 
 
         protected PlayerControls _playerControl;
 
-        protected Action moveAction, jumpAction, lookAction, fireAction, _jetRotateAction;
+        protected Action moveAction, jumpAction, lookAction, fireAction, jetRotateAction, onCharacterDeath;
         protected Action<float,Vector2> takeDamage;
 
         protected Vector2 _moveDirection, _lookTargetScreenPos;
@@ -58,10 +55,10 @@ namespace NickOfTime.Characters
                 _currentCharacterState = value;
             }
         }
-        public float PlayerHealthPoints
+        public float CharacterHealthPoints
 		{
-            get => _playerHealthPoints;
-            set => _playerHealthPoints = value;
+            get => _characterHealthPoints;
+            set => _characterHealthPoints = value;
 		}
         #endregion
 
@@ -115,10 +112,10 @@ namespace NickOfTime.Characters
 
         protected virtual void NegateDamageFromHealth(float damage)
 		{
-            Debug.Log($"Player Health Points before deducting : {PlayerHealthPoints}");
+            Debug.Log($"Player Health Points before deducting : {CharacterHealthPoints}");
 
-            PlayerHealthPoints -= damage;
-            _characterHealthSlider.SetHealthSliderVal(PlayerHealthPoints / _characterConfig.DefaultHealthPoints);
+            CharacterHealthPoints -= damage;
+            _characterHealthSlider.SetHealthSliderVal(CharacterHealthPoints / _characterConfig.DefaultHealthPoints);
 		}
 
         protected virtual void DamageFlash()
@@ -279,6 +276,11 @@ namespace NickOfTime.Characters
             fireAction?.Invoke();
         }
 
+        public virtual void CharacterDeath()
+		{
+            onCharacterDeath?.Invoke();
+		}
+
         public virtual void CheckIfCharacterInAir()
         {
             Collider2D[] colliders = new Collider2D[1];
@@ -312,6 +314,11 @@ namespace NickOfTime.Characters
         {
 			
 		}
+
+        public virtual void CheckForCharacterDeath()
+		{
+            
+        }
 
         public virtual void EquipWeapon(WeaponBase weapon)
         {

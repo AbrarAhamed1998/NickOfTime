@@ -1,5 +1,6 @@
 using NickOfTime.Characters;
 using NickOfTime.Characters.CharacterStates;
+using NickOfTime.Characters.Enemy.EnemyStates;
 using NickOfTime.Characters.Player;
 using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Enemy;
@@ -29,7 +30,7 @@ namespace NickOfTime.Enemy
 		[SerializeField] private Seeker seeker;
         [SerializeField] private Rigidbody2D myRigidbody;
 
-		private EnemyStateBase _idleEnemyState, _moveEnemyState, _jumpEnemyState;
+		private EnemyStateBase _idleEnemyState, _moveEnemyState, _jumpEnemyState, _deathEnemyState;
 
 		private Vector2 _waypointDirection;
 
@@ -56,6 +57,7 @@ namespace NickOfTime.Enemy
 
 		protected override void Start()
 		{
+			CharacterHealthPoints = _characterConfig.DefaultHealthPoints;
 			RegisterControlEvents();
 			_idleEnemyState = new EnemyIdleState(this);
 			_moveEnemyState = new EnemyMoveState(this);
