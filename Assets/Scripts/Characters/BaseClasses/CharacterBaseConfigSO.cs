@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,18 @@ namespace NickOfTime.ScriptableObjects.Characters
 		[SerializeField] protected Color _groundCheckDebugColor;
 		[SerializeField] protected LayerMask _groundCheckLayerMask;
 
+		[Header("Death Variables")]
+		[SerializeField] protected float _deathBodyZRot;
+		[SerializeField] protected float _deathHeadZRot;
+		[SerializeField] protected float _deathEffectTime;
+
+		/// <summary>
+		/// These sprites are swapped based on damage taken by the player 
+		/// with the highest index being the least damaged and 0 being the most damaged
+		/// </summary>
+		[Header("Death Sprites")]
+		[SerializeField] protected Sprite[] _damageSprites;
+
 		public float MovementSpeed => _movementSpeed;
 		public float LookSensitivity => _lookSensitivity;
 		public float JumpForce => _jumpForce;
@@ -38,6 +51,10 @@ namespace NickOfTime.ScriptableObjects.Characters
 		public Vector2 GroundCheckBoxSize => _groundCheckBoxSize;
 		public Color GroundCheckBoxColor => _groundCheckDebugColor;
 		public LayerMask GroundCheckLayerMask => _groundCheckLayerMask;
+		public float DeathBodyZRot => _deathBodyZRot;
+		public float DeathHeadZRot => _deathHeadZRot;
+		public Sprite[] DamageSprites => _damageSprites;
+		public float DeathEffectTime => _deathEffectTime;
 	}
 }
 

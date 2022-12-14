@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68943bd6f1ad445469b572b32f2d55aa, type: 3}
-  m_Name: PoolingData
+  m_Script: {fileID: 11500000, guid: 30b4804b4918a4843b6a483dd7a28ad3, type: 3}
+  m_Name: BloodFlowEffect
   m_EditorClassIdentifier: 
-  poolObjects:
-  - {fileID: 11400000, guid: c5fb5549543406f48af76a1982e31e40, type: 2}
-  - {fileID: 11400000, guid: b33c1a30c647ab94791d1532202364c6, type: 2}
+  ID: BloodPool
+  poolCount: 4
+  prefab: {fileID: 4579183333119708228, guid: dd10e0d143f9da04bb9cf2d507371c8c, type: 3}

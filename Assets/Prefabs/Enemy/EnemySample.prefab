@@ -105,7 +105,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.22667918}
+  m_Offset: {x: -0.03115797, y: 0.21332562}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -116,7 +116,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.05, y: 1.0738609}
+  m_Size: {x: 0.8363447, y: 1.0471537}
   m_EdgeRadius: 0
 --- !u!50 &1537641605720042581
 Rigidbody2D:
@@ -193,7 +193,7 @@ MonoBehaviour:
   IsGrounded: 0
   _groundCheckBox: {fileID: 4664401433965907695}
   _equippedWeapon: {fileID: 0}
-  _playerHealthPoints: 0
+  _characterHealthPoints: 0
   _characterHealthSlider: {fileID: 0}
   lookTarget: {fileID: 0}
   CanJump: 1

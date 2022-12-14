@@ -17,6 +17,8 @@ namespace NickOfTime.Characters.Player.PlayerStates
 			/// on hit ground splatter
 			/// Should be in lie down pose and be inactive 
 			/// Maybe turn off collider and set sort layer to back and freeze pos
+			player.CharacterDeath();
+			Debug.Log("Death called");
 		}
 
 	}

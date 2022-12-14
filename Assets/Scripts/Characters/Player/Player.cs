@@ -1,7 +1,10 @@
+using DG.Tweening;
 using NickOfTime.Characters.CharacterStates;
 using NickOfTime.Characters.Player.PlayerStates;
+using NickOfTime.Helper.Constants;
 using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Player;
+using NickOfTime.Utilities.PoolingSystem;
 using NickOfTime.Weapons;
 using System;
 using System.Collections;
@@ -56,6 +59,7 @@ namespace NickOfTime.Characters.Player
             _movePlayerState = new MovePlayerState(this);
             _jumpPlayerState = new JumpPlayerState(this);
             _idlePlayerState = new IdlePlayerState(this);
+            _deathPlayerState = new DeathPlayerState(this);
             CurrentPlayerState = _idlePlayerState;
             PersistentDataManager.instance.ActivePlayer = this;
             StartCoroutine(RegisterUI());
@@ -107,6 +111,27 @@ namespace NickOfTime.Characters.Player
                 _equippedWeapon.UseWeapon();
 		}
 
+        protected override void OnDeath()
+        {
+            base.OnDeath();
+            Vector3 targetBodyRot = new Vector3(transform.localEulerAngles.x,
+                transform.localEulerAngles.y,
+                _characterConfig.DeathBodyZRot);
+            Vector3 targetHeadRot = new Vector3(_debugLookObjects[0].transform.localEulerAngles.x,
+                _debugLookObjects[0].transform.localEulerAngles.y,
+                _characterConfig.DeathHeadZRot);
+            
+            transform.DOLocalRotate(targetBodyRot, 0.25f).OnComplete(
+                () => 
+                {
+                    //lookAction = null;
+                    _debugLookObjects[0].transform.DOLocalRotate(targetHeadRot, 0.25f); 
+                });
+            PoolObject bleedVFX = PersistentDataManager.instance.PoolManager
+                .GetPoolObject(NickOfTimeStringConstants.EFFECT_BLOODPOOL_POOL_ID, _deathVFXTransform);
+            StartCoroutine(HandleDeathVFX(bleedVFX));
+        }
+
 		#endregion
 
 		#region PUBLIC METHODS
@@ -153,6 +178,11 @@ namespace NickOfTime.Characters.Player
             fireAction?.Invoke();
 		}
 
+		public override void CharacterDeath()
+		{
+            base.CharacterDeath();
+		}
+
 		public override void CheckIfCharacterInAir()
 		{
             base.CheckIfCharacterInAir();
@@ -178,7 +208,14 @@ namespace NickOfTime.Characters.Player
                 ChangeCharacterState(_idlePlayerState);
 		}
 
-        public override void EquipWeapon(WeaponBase weapon)
+		public override void CheckForCharacterDeath()
+		{
+			base.CheckForCharacterDeath();
+            if (CharacterHealthPoints <= 0f)    
+                ChangeCharacterState(_deathPlayerState);
+		}
+
+		public override void EquipWeapon(WeaponBase weapon)
 		{
             base.EquipWeapon(weapon);
             weapon.SetProjectleLayer(true);
@@ -194,6 +231,12 @@ namespace NickOfTime.Characters.Player
             yield return new WaitUntil(() => PersistentDataManager.instance != null);
             _characterHealthSlider = PersistentDataManager.instance.UIManager.PlayerHealthBar;
         }
+
+        IEnumerator HandleDeathVFX(PoolObject poolObject)
+		{
+            yield return new WaitForSeconds(_characterConfig.DeathEffectTime);
+            PersistentDataManager.instance.PoolManager.ReturnObjectToPool(poolObject);
+		}
 
         #endregion
     }

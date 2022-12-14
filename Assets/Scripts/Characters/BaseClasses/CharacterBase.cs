@@ -1,3 +1,4 @@
+using DG.Tweening;
 using NickOfTime.Characters.CharacterStates;
 using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Characters;
@@ -32,7 +33,7 @@ namespace NickOfTime.Characters
         [SerializeField] protected float _characterHealthPoints;
         [SerializeField] protected HealthSliderBase _characterHealthSlider;
 
-
+        [SerializeField] protected Transform _deathVFXTransform;
         protected PlayerControls _playerControl;
 
         protected Action moveAction, jumpAction, lookAction, fireAction, jetRotateAction, onCharacterDeath;
@@ -112,8 +113,6 @@ namespace NickOfTime.Characters
 
         protected virtual void NegateDamageFromHealth(float damage)
 		{
-            Debug.Log($"Player Health Points before deducting : {CharacterHealthPoints}");
-
             CharacterHealthPoints -= damage;
             _characterHealthSlider.SetHealthSliderVal(CharacterHealthPoints / _characterConfig.DefaultHealthPoints);
 		}
@@ -125,6 +124,7 @@ namespace NickOfTime.Characters
 
         protected virtual void DamagePushBack(Vector2 direction)
 		{
+            //Debug.Log($"pushback dir {direction}");
             _characterRigidbody.AddForce(direction, ForceMode2D.Impulse);
 		}
 
@@ -152,7 +152,12 @@ namespace NickOfTime.Characters
                 NegateDamageFromHealth(damage);
                 DamageFlash();
                 DamagePushBack(direction);
+                CheckForCharacterDeath();
+            };
 
+            onCharacterDeath = () =>
+            {
+                OnDeath();
             };
         }
 
@@ -220,7 +225,7 @@ namespace NickOfTime.Characters
 		{
             if (targetWorldTransform == null)
             {
-                Debug.Log("target World Pos is null");
+                //Debug.Log("target World Pos is null");
                 return;
             }
             Vector2 worldPos = targetWorldTransform.position;
@@ -251,6 +256,11 @@ namespace NickOfTime.Characters
             if (_equippedWeapon != null)
                 _equippedWeapon.UseWeapon();
         }
+
+        protected virtual void OnDeath()
+		{
+            
+		}
 
         #endregion
 

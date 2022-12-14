@@ -201,6 +201,13 @@ namespace NickOfTime.Enemy
 			ChangeCharacterState(_idleEnemyState);
 		}
 
+		public override void CheckForCharacterDeath()
+		{
+			base.CheckForCharacterDeath();
+			if(CharacterHealthPoints <= 0f)
+				ChangeCharacterState(_deathEnemyState);
+		}
+
 		public override void EquipWeapon(WeaponBase weapon)
 		{
 			base.EquipWeapon(weapon);
