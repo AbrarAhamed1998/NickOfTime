@@ -18,7 +18,7 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 2715427029994394136, guid: a69d3feaeb79c594cb49ec06c265ec5f, type: 3}
   _projectileLaunchForce: 50
   _maxProjectileLifetime: 5
-  _projectileDamageValue: 5
+  _projectileDamageValue: 1
   _globalProjectileLayer: 9
   _playerProjectileLayer: 8
   _pushbackIntensity: 2

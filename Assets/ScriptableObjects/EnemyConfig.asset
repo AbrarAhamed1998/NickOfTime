@@ -24,6 +24,10 @@ MonoBehaviour:
   _groundCheckLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  _deathBodyZRot: 90
+  _deathHeadZRot: 20
+  _deathEffectTime: 10
+  _damageSprites: []
   _pickNextWaypointDist: 2
   _pathCalcInterval: 1.5
   _yThresholdToTriggerJump: 0.5

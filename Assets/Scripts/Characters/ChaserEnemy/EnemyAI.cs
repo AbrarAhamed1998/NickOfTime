@@ -1,9 +1,12 @@
+using DG.Tweening;
 using NickOfTime.Characters;
 using NickOfTime.Characters.CharacterStates;
 using NickOfTime.Characters.Enemy.EnemyStates;
 using NickOfTime.Characters.Player;
+using NickOfTime.Helper.Constants;
 using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Enemy;
+using NickOfTime.Utilities.PoolingSystem;
 using NickOfTime.Weapons;
 using Pathfinding;
 using System.Collections;
@@ -62,7 +65,7 @@ namespace NickOfTime.Enemy
 			_idleEnemyState = new EnemyIdleState(this);
 			_moveEnemyState = new EnemyMoveState(this);
 			_jumpEnemyState = new EnemyJumpState(this);
-
+			_deathEnemyState = new EnemyDeathState(this);
 			CurrentEnemyState = _idleEnemyState;
 
 			StartCoroutine(SetupCharacterUIRoutine());
@@ -181,12 +184,39 @@ namespace NickOfTime.Enemy
 				NegateDamageFromHealth(damage);
 				DamageFlash();
 				DamagePushBack(direction);
+				CheckForCharacterDeath();
+			};
+			onCharacterDeath = () =>
+			{
+				OnDeath();
 			};
 		}
 
 		protected override void LookAtWorldPos(Transform targetWorldTransform)
 		{
 			base.LookAtWorldPos(targetWorldTransform);
+		}
+
+		protected override void OnDeath()
+		{
+			base.OnDeath();
+			Vector3 targetBodyRot = new Vector3(transform.localEulerAngles.x,
+				transform.localEulerAngles.y,
+				_characterConfig.DeathBodyZRot);
+			Vector3 targetHeadRot = new Vector3(_debugLookObjects[0].transform.localEulerAngles.x,
+				_debugLookObjects[0].transform.localEulerAngles.y,
+				_characterConfig.DeathHeadZRot);
+
+			transform.DOLocalRotate(targetBodyRot, 0.25f).OnComplete(
+				() =>
+				{
+					//lookAction = null;
+					_debugLookObjects[0].transform.DOLocalRotate(targetHeadRot, 0.25f);
+				});
+			PoolObject bleedVFX = PersistentDataManager.instance.PoolManager
+				.GetPoolObject(NickOfTimeStringConstants.EFFECT_BLOODPOOL_POOL_ID, _deathVFXTransform);
+			StartCoroutine(HandleDeathVFX(bleedVFX));
+			Destroy(_characterHealthSlider.gameObject);
 		}
 
 		protected override void CharacterInAir()
@@ -231,7 +261,7 @@ namespace NickOfTime.Enemy
 
 		private IEnumerator CalculatePathRoutine()
 		{
-            while(gameObject.activeSelf)
+            while(gameObject.activeSelf && CurrentCharacterState != _deathEnemyState)
 			{
 				if(lookTarget != null)
 					seeker.StartPath(myRigidbody.position, lookTarget.position, OnPathComplete);
@@ -248,7 +278,7 @@ namespace NickOfTime.Enemy
 
 		private IEnumerator CheckForUseWeaponOnPlayer()
 		{
-			while (this.gameObject.activeSelf)
+			while (this.gameObject.activeSelf && CurrentCharacterState != _deathEnemyState)
 			{
 				if (!CanUseWeapon)
 				{
@@ -264,7 +294,7 @@ namespace NickOfTime.Enemy
 
 		private IEnumerator CheckForPlayerInVicinityRoutine()
 		{
-			while(this.gameObject.activeSelf)
+			while(this.gameObject.activeSelf && CurrentCharacterState != _deathEnemyState)
 			{
 				if (!CanCheckForPlayer)
 				{
@@ -319,6 +349,12 @@ namespace NickOfTime.Enemy
 			yield return new WaitUntil(() => _uiManager != null);
 			_characterHealthSlider = _uiManager
 				.SpawnHealthbar(_enemyConfig.HealthSliderPrefab, _uiRoot.transform.position);
+		}
+
+		IEnumerator HandleDeathVFX(PoolObject poolObject)
+		{
+			yield return new WaitForSeconds(_characterConfig.DeathEffectTime);
+			PersistentDataManager.instance.PoolManager.ReturnObjectToPool(poolObject);
 		}
 
 		#endregion

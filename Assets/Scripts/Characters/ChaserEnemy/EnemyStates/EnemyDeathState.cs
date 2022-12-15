@@ -17,6 +17,7 @@ namespace NickOfTime.Characters.Enemy.EnemyStates
 			// Fall flat and die 
 			// Take extra impulse from a hit maybe?
 			// splatter
+			enemy.CharacterDeath();
 		}
 	}
 
