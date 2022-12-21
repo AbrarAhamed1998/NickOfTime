@@ -1,3 +1,4 @@
+using NickOfTime.Characters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,7 +40,8 @@ namespace NickOfTime.ScriptableObjects.Characters
 		/// with the highest index being the least damaged and 0 being the most damaged
 		/// </summary>
 		[Header("Death Sprites")]
-		[SerializeField] protected Sprite[] _damageSprites;
+		[SerializeField] protected DamageSpriteSetBase[] _damageSprites;
+		[SerializeField,ReadOnly] protected float _damageSpriteFactor;
 
 		public float MovementSpeed => _movementSpeed;
 		public float LookSensitivity => _lookSensitivity;
@@ -53,8 +55,19 @@ namespace NickOfTime.ScriptableObjects.Characters
 		public LayerMask GroundCheckLayerMask => _groundCheckLayerMask;
 		public float DeathBodyZRot => _deathBodyZRot;
 		public float DeathHeadZRot => _deathHeadZRot;
-		public Sprite[] DamageSprites => _damageSprites;
+		public DamageSpriteSetBase[] DamageSprites => _damageSprites;
 		public float DeathEffectTime => _deathEffectTime;
+		public float DamageSpriteFactor => _damageSpriteFactor;
+
+		private void OnValidate()
+		{
+			if (_damageSprites.Length != 0)
+			{
+				_damageSpriteFactor = _defaultTotalHealthPoints / _damageSprites.Length;
+			}
+			else
+				_damageSpriteFactor = 0f;
+		}
 	}
 }
 

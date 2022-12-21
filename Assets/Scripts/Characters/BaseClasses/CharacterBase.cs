@@ -115,6 +115,7 @@ namespace NickOfTime.Characters
 		{
             CharacterHealthPoints -= damage;
             _characterHealthSlider.SetHealthSliderVal(CharacterHealthPoints / _characterConfig.DefaultHealthPoints);
+
 		}
 
         protected virtual void DamageFlash()
@@ -150,6 +151,7 @@ namespace NickOfTime.Characters
             takeDamage = (damage, direction) =>
             {
                 NegateDamageFromHealth(damage);
+                ChangeToDamageSprite();
                 DamageFlash();
                 DamagePushBack(direction);
                 CheckForCharacterDeath();
@@ -262,6 +264,24 @@ namespace NickOfTime.Characters
             
 		}
 
+        protected virtual void ChangeToDamageSprite()
+		{
+            int totalCount = _characterConfig.DamageSprites.Length;
+            int maxIndex = totalCount - 1;
+
+            float result = CharacterHealthPoints / _characterConfig.DamageSpriteFactor;
+            int resultIndex = Mathf.Clamp( totalCount - (Mathf.RoundToInt(result)), 0, maxIndex);
+
+            SwapSprites(resultIndex);
+		}
+
+        protected virtual void SwapSprites(int damageIndex)
+		{
+            _characterSprite.sprite = _characterConfig.DamageSprites[damageIndex].BodySprite;
+            _debugLookObjects[0].GetComponent<SpriteRenderer>().sprite
+                = _characterConfig.DamageSprites[damageIndex].HeadSprite;
+        }
+
         #endregion
 
         #region PUBLIC METHODS
@@ -361,5 +381,12 @@ namespace NickOfTime.Characters
 
 		#endregion
 	}
+	[Serializable]
+    public class DamageSpriteSetBase
+	{
+        public Sprite HeadSprite;
+        public Sprite BodySprite;
+	}
+
 }
 
