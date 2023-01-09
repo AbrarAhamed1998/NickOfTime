@@ -130,6 +130,7 @@ namespace NickOfTime.Characters.Player
             PoolObject bleedVFX = PersistentDataManager.instance.PoolManager
                 .GetPoolObject(NickOfTimeStringConstants.EFFECT_BLOODPOOL_POOL_ID, _deathVFXTransform);
             StartCoroutine(HandleDeathVFX(bleedVFX));
+
         }
 
 		#endregion
@@ -238,6 +239,11 @@ namespace NickOfTime.Characters.Player
             PersistentDataManager.instance.PoolManager.ReturnObjectToPool(poolObject);
 		}
 
+        IEnumerator DeathRoutine()
+		{
+            yield return new WaitForSeconds(1f);
+            _uiManager.OnPlayerDeath?.Invoke();
+		}
         #endregion
     }
 

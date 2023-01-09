@@ -1,3 +1,5 @@
+using DG.Tweening;
+using NickOfTime.Characters.Player;
 using NickOfTime.Managers;
 using System;
 using System.Collections;
@@ -11,6 +13,7 @@ namespace NickOfTime.UI
         [SerializeField] private Canvas mainCanvas;
         [SerializeField] private HealthSliderBase _playerHealthSliderBase;
         [SerializeField] private RectTransform _enemyHealthbarParent;
+        [SerializeField] private CanvasGroup _gameOverPanelCanvasGroup;
 
         public Action OnPlayerDeath;
         public HealthSliderBase PlayerHealthBar => _playerHealthSliderBase;
@@ -18,6 +21,7 @@ namespace NickOfTime.UI
         void Start()
         {
             PersistentDataManager.instance.UIManager = this;
+            OnPlayerDeath += () => ToggleCanvasGroup(_gameOverPanelCanvasGroup, true);
         }
 
         // Update is called once per frame
@@ -26,7 +30,12 @@ namespace NickOfTime.UI
 
         }
 
-        private void RegisterEvents()
+		private void OnDestroy()
+		{
+            OnPlayerDeath = null;
+		}
+
+		private void RegisterEvents()
 		{
 
 		}
@@ -34,6 +43,14 @@ namespace NickOfTime.UI
         private void DisplayRestartGameUI()
 		{
 
+		}
+
+        private void ToggleCanvasGroup(CanvasGroup group, bool isVisible, Action OnCompleteFade = null)
+		{
+            group.DOFade(isVisible ? 1f : 0f, 0.25f).OnComplete(() => {
+                group.blocksRaycasts = isVisible;
+                OnCompleteFade?.Invoke();
+            });
 		}
 
         public HealthSliderBase SpawnHealthbar(GameObject uiHealthbar, Vector3 worldPos)
@@ -44,6 +61,7 @@ namespace NickOfTime.UI
             healthSliderBase.SetParentCanvas(mainCanvas);
             return healthSliderBase;
 		}
+
     }
 }
 
