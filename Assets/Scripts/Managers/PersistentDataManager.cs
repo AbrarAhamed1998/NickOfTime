@@ -27,7 +27,7 @@ namespace NickOfTime.Managers
 			if(instance != null)
 				Destroy(this.gameObject);
 			instance = this; 
-			DontDestroyOnLoad(gameObject);
+			//DontDestroyOnLoad(gameObject);
 			GameplayCamera = _gameplayCamera;
 		}
 

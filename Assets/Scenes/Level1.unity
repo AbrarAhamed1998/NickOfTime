@@ -624,6 +624,7 @@ MonoBehaviour:
   mainCanvas: {fileID: 275361356}
   _playerHealthSliderBase: {fileID: 915456665}
   _enemyHealthbarParent: {fileID: 1928738584}
+  _gameOverPanelCanvasGroup: {fileID: 3695606266815228252}
 --- !u!1 &1222856854
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,6 +1530,62 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 275361357}
     m_Modifications:
+    - target: {fileID: 3695606266148287671, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266148287671, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266148287671, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1072284311}
+    - target: {fileID: 3695606266148287671, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266148287671, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266148287671, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NickOfTime.UI.GameUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266148287671, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266361330696, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266361330696, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266361330696, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1072284311}
+    - target: {fileID: 3695606266361330696, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266361330696, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266361330696, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NickOfTime.UI.GameUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695606266361330696, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3695606267676989923, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1623,6 +1680,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+--- !u!225 &3695606266815228252 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7286815030393776154, guid: 5cc1550ff3099824486d1d57428d12d6, type: 3}
+  m_PrefabInstance: {fileID: 3695606266815228251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4544313883984487508
 PrefabInstance:
   m_ObjectHideFlags: 0

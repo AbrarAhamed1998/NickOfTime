@@ -1,10 +1,12 @@
 using DG.Tweening;
 using NickOfTime.Characters.Player;
+using NickOfTime.Common;
 using NickOfTime.Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NickOfTime.UI
 {
@@ -21,7 +23,7 @@ namespace NickOfTime.UI
         void Start()
         {
             PersistentDataManager.instance.UIManager = this;
-            OnPlayerDeath += () => ToggleCanvasGroup(_gameOverPanelCanvasGroup, true);
+            RegisterEvents();
         }
 
         // Update is called once per frame
@@ -37,12 +39,13 @@ namespace NickOfTime.UI
 
 		private void RegisterEvents()
 		{
-
-		}
+            OnPlayerDeath += () => DisplayRestartGameUI();
+        }
 
         private void DisplayRestartGameUI()
 		{
-
+            Debug.Log("Called display restart game");
+            ToggleCanvasGroup(_gameOverPanelCanvasGroup, true);
 		}
 
         private void ToggleCanvasGroup(CanvasGroup group, bool isVisible, Action OnCompleteFade = null)
@@ -62,6 +65,15 @@ namespace NickOfTime.UI
             return healthSliderBase;
 		}
 
+        public void RestartLevel()
+		{
+            SceneTransitioner.instance.LoadLevel(SceneManager.GetActiveScene().buildIndex);
+		}
+
+        public void LoadMainMenu()
+		{
+            SceneTransitioner.instance.LoadLevel(1);
+        }
     }
 }
 
