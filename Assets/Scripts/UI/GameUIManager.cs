@@ -70,6 +70,12 @@ namespace NickOfTime.UI
             SceneTransitioner.instance.LoadLevel(SceneManager.GetActiveScene().buildIndex);
 		}
 
+        public void DisplayDialog(Transform uiRoot)
+		{
+            // Take dialog prefab from pool 
+            // have ref to a dialog class that provides dialog text/time to display
+
+		}
         public void LoadMainMenu()
 		{
             SceneTransitioner.instance.LoadLevel(1);

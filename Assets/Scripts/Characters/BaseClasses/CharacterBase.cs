@@ -282,6 +282,11 @@ namespace NickOfTime.Characters
                 = _characterConfig.DamageSprites[damageIndex].HeadSprite;
         }
 
+        protected virtual void OnDisplayDialog()
+		{
+
+		}
+
         #endregion
 
         #region PUBLIC METHODS

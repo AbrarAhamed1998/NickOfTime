@@ -182,6 +182,7 @@ namespace NickOfTime.Enemy
 			takeDamage = (damage, direction) =>
 			{
 				NegateDamageFromHealth(damage);
+				ChangeToDamageSprite();
 				DamageFlash();
 				DamagePushBack(direction);
 				CheckForCharacterDeath();

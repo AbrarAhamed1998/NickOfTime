@@ -25,15 +25,17 @@ namespace NickOfTime.Managers
 		private void Awake()
 		{
 			if(instance != null)
+			{
 				Destroy(this.gameObject);
-			instance = this; 
+			}
+			instance = this;
 			//DontDestroyOnLoad(gameObject);
 			GameplayCamera = _gameplayCamera;
 		}
 
 		private void OnDestroy()
 		{
-			instance = null; 
+			instance = null;
 		}
 	}
 }

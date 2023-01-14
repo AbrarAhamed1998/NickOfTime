@@ -27,7 +27,18 @@ MonoBehaviour:
   _deathBodyZRot: 90
   _deathHeadZRot: 20
   _deathEffectTime: 10
-  _damageSprites: []
+  _damageSprites:
+  - HeadSprite: {fileID: 8122534279590772333, guid: 2aaabc0448f22324eab0cebe21c3afc5, type: 3}
+    BodySprite: {fileID: 2297286100591615704, guid: 82e4c38f0efd82241bad09930cb48893, type: 3}
+  - HeadSprite: {fileID: -679284668663422000, guid: 4d6db7dc0298ea044bde7cbf0d5c18bd, type: 3}
+    BodySprite: {fileID: 4349760559836956595, guid: 4d6db7dc0298ea044bde7cbf0d5c18bd, type: 3}
+  - HeadSprite: {fileID: 7889120931906468037, guid: 479675b40f612f147b7f3059a569c72e, type: 3}
+    BodySprite: {fileID: -373848101833532349, guid: 479675b40f612f147b7f3059a569c72e, type: 3}
+  - HeadSprite: {fileID: 8099507840294407741, guid: a78a25a4c0bb6224b8b0f87af21c1503, type: 3}
+    BodySprite: {fileID: -5866921955858829792, guid: a78a25a4c0bb6224b8b0f87af21c1503, type: 3}
+  - HeadSprite: {fileID: 1413051911792886250, guid: 2dcb72820d3dcce4a84f1899a2e21b09, type: 3}
+    BodySprite: {fileID: -4773135670859852067, guid: 2dcb72820d3dcce4a84f1899a2e21b09, type: 3}
+  _damageSpriteFactor: 2
   _pickNextWaypointDist: 2
   _pathCalcInterval: 1.5
   _yThresholdToTriggerJump: 0.5

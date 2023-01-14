@@ -25,6 +25,8 @@ namespace NickOfTime.Utilities.PoolingSystem
             {
                 PoolQueue = new Queue<GameObject>();
             }
+            else
+                ClearPool();
             for (int i = 0; i < poolCount; i++)
             {
                 GameObject obj = Instantiate(prefab, poolParent.transform);
@@ -32,6 +34,15 @@ namespace NickOfTime.Utilities.PoolingSystem
                 PoolQueue.Enqueue(obj);
             }
         }
+
+        public void ClearPool()
+		{
+            if(PoolQueue != null)
+			{
+                PoolQueue.Clear();
+			}
+		}
+
         public void SetupObjectFromPool(GameObject holder, Transform parent)
         {
             holder.transform.SetParent(parent);

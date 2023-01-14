@@ -10,17 +10,20 @@ namespace NickOfTime.Common
         public static SceneTransitioner instance; 
 		private void Awake()
 		{
-			if(instance == null)
-                instance = this;
-            else
+			if(instance != null)
+			{
+                Debug.Log("new instance about to be destroyed");
                 Destroy(this.gameObject);
-
+                return;
+            }
+            Debug.Log("set SceneTransitioner Instance");
+            instance = this;
             DontDestroyOnLoad(this.gameObject);
 		}
 
 		private void OnDestroy()
 		{
-			instance = null;
+			
 		}
 		// Start is called before the first frame update
 		void Start()
