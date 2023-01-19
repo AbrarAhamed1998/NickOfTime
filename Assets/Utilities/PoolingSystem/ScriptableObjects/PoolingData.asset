@@ -15,3 +15,4 @@ MonoBehaviour:
   poolObjects:
   - {fileID: 11400000, guid: c5fb5549543406f48af76a1982e31e40, type: 2}
   - {fileID: 11400000, guid: b33c1a30c647ab94791d1532202364c6, type: 2}
+  - {fileID: 11400000, guid: 0d00824e8e398d84ab4a55b87ae10419, type: 2}

@@ -15,10 +15,14 @@ namespace NickOfTime.UI
         [SerializeField] private Canvas mainCanvas;
         [SerializeField] private HealthSliderBase _playerHealthSliderBase;
         [SerializeField] private RectTransform _enemyHealthbarParent;
+        [SerializeField] private RectTransform _dialogPanelParent;
         [SerializeField] private CanvasGroup _gameOverPanelCanvasGroup;
 
         public Action OnPlayerDeath;
         public HealthSliderBase PlayerHealthBar => _playerHealthSliderBase;
+
+        public RectTransform DialogPanelParent => _dialogPanelParent;
+
         // Start is called before the first frame update
         void Start()
         {
