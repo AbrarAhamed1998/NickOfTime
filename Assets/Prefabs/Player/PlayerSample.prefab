@@ -352,6 +352,7 @@ GameObject:
   - component: {fileID: 7099881175696385441}
   - component: {fileID: 7099881175696385447}
   - component: {fileID: 5644782204555742745}
+  - component: {fileID: 6481689831561665588}
   m_Layer: 7
   m_Name: PlayerSample
   m_TagString: Untagged
@@ -500,6 +501,7 @@ MonoBehaviour:
   - {fileID: 747943538134256616}
   - {fileID: 1945627298657408611}
   _uiRoot: {fileID: 2638843118805228536}
+  _dialogPlayer: {fileID: 6481689831561665588}
   IsGrounded: 0
   _groundCheckBox: {fileID: 3993106071887283995}
   _equippedWeapon: {fileID: 0}
@@ -525,6 +527,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6481689831561665588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099881175696385452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15fe154d02f1a6e4c9dd0f1243f4c0f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogSetToPlay: {fileID: 11400000, guid: b134a2e552e36b04695736bb4c1613ea, type: 2}
+  _playerDialogTransform: {fileID: 2638843118805228536}
 --- !u!1 &7658886523862304917
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,6 @@ namespace NickOfTime.UI.DialogSystem
 
 		private void Start()
 		{
-            displaySequence = DOTween.Sequence();
             _myRectTransform = GetComponent<RectTransform>();
 		}
 
@@ -38,8 +37,17 @@ namespace NickOfTime.UI.DialogSystem
 
         public void PlayCurrentDialogQueue()
 		{
-
-		}
+            DialogSequenceParams dialogSequence;
+            if (_currentDialogQueue.Count > 0)
+			{
+                dialogSequence = _currentDialogQueue.Dequeue();
+                PlayDisplaySequence(dialogSequence, PlayCurrentDialogQueue);
+            }
+            else
+			{
+                return;
+			}
+        }
 
 		public void SetDialog(string dialogContent)
 		{
@@ -55,14 +63,18 @@ namespace NickOfTime.UI.DialogSystem
 
         public void PlayDisplaySequence(DialogSequenceParams sequenceParameters, Action OnComplete = null)
 		{
-            if (displaySequence.IsPlaying()) return; //Try queueing dialogs here?
+            if (displaySequence != null && displaySequence.IsPlaying()) return; //usually this call shouldn't be made when a dialog is running
+            displaySequence = DOTween.Sequence();
             displaySequence
                 .PrependCallback(() => SetDialog(sequenceParameters.dialogContent))
                 .AppendInterval(sequenceParameters.waitTimePreDisplay)
                 .Append(transform.DOScale(1f, sequenceParameters.scaleInTime))
+                .SetEase(Ease.InOutExpo)
                 .AppendInterval(sequenceParameters.waitTimeOnDisplay)
                 .Append(transform.DOScale(0f, sequenceParameters.scaleOutTime))
+                .SetEase(Ease.InOutExpo)
                 .Play().OnComplete(() => OnComplete?.Invoke());
+            Debug.Log("Called Play Display Sequence");
 		}
 
         public void KillSequence()
@@ -87,6 +99,7 @@ namespace NickOfTime.UI.DialogSystem
 	[Serializable]
     public class DialogSequenceParams
 	{
+		[TextArea]
         public string dialogContent;
         public float waitTimePreDisplay = 0.5f;
         public float scaleInTime = 0.5f;

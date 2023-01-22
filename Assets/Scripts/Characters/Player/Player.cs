@@ -62,6 +62,7 @@ namespace NickOfTime.Characters.Player
             _deathPlayerState = new DeathPlayerState(this);
             CurrentPlayerState = _idlePlayerState;
             PersistentDataManager.instance.ActivePlayer = this;
+            _dialogPlayer.PlayAssignedDialogSet();
             StartCoroutine(RegisterUI());
 		}
 

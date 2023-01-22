@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogSetSO : MonoBehaviour
+namespace NickOfTime.UI.DialogSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    [CreateAssetMenu(fileName = "DialogSet.asset", menuName = "Scriptable Objects/DialogSystem/DialogSetSO")]
+    public class DialogSetSO : ScriptableObject
     {
-        
-    }
+		[SerializeField]
+        private List<DialogSequenceParams> _dialogContentItems = new List<DialogSequenceParams>();   
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public List<DialogSequenceParams> DialogContentItems => _dialogContentItems;
     }
 }
+
+

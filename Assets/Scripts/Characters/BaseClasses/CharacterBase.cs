@@ -3,6 +3,7 @@ using NickOfTime.Characters.CharacterStates;
 using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Characters;
 using NickOfTime.UI;
+using NickOfTime.UI.DialogSystem;
 using NickOfTime.Weapons;
 using System;
 using System.Collections;
@@ -23,6 +24,7 @@ namespace NickOfTime.Characters
         [SerializeField] protected Transform[] _jetTransforms;
 
         [SerializeField] protected Transform _uiRoot;
+		[SerializeField] protected DialogPlayer _dialogPlayer;
 
         [SerializeField] protected bool IsGrounded;
 

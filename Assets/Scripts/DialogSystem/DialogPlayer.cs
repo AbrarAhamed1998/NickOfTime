@@ -25,7 +25,7 @@ namespace NickOfTime.UI.DialogSystem
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             if (_trackOnTransform && _spawnedDialogPanel != null)
                 _spawnedDialogPanel.SetUIPosition(_playerDialogTransform.position);
@@ -39,6 +39,19 @@ namespace NickOfTime.UI.DialogSystem
                 _gameUIManager.DialogPanelParent);
             _spawnedDialogPanelObject = _dialogPanelPoolObject.obj;
             _spawnedDialogPanel = _spawnedDialogPanelObject.GetComponent<DialogPanel>();
+            if(_spawnedDialogPanel != null)
+                _trackOnTransform = true;
+		}
+
+        public void PlayAssignedDialogSet()
+		{
+            if (_spawnedDialogPanel == null)
+			{
+                StartCoroutine(WaitForSpawnedDialogPanel());
+                return;
+            }
+            _spawnedDialogPanel.SetCurrentDialogQueue(_dialogSetToPlay.DialogContentItems);
+            _spawnedDialogPanel.PlayCurrentDialogQueue();
 		}
 
         private IEnumerator WaitForInitialize()
@@ -46,6 +59,12 @@ namespace NickOfTime.UI.DialogSystem
             yield return new WaitUntil(() => PersistentDataManager.instance != null);
             yield return new WaitUntil(() => _poolManagerRef != null);
             InitializeDialogPanel();
+		}
+
+        private IEnumerator WaitForSpawnedDialogPanel()
+		{
+            yield return new WaitUntil(() => _spawnedDialogPanel != null);
+            PlayAssignedDialogSet();
 		}
     }
 }

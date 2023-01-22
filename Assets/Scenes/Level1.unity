@@ -625,7 +625,7 @@ MonoBehaviour:
   mainCanvas: {fileID: 275361356}
   _playerHealthSliderBase: {fileID: 915456665}
   _enemyHealthbarParent: {fileID: 1928738584}
-  _dialogPanelParent: {fileID: 0}
+  _dialogPanelParent: {fileID: 1152455780}
   _gameOverPanelCanvasGroup: {fileID: 3695606266815228252}
 --- !u!1 &1152455779
 GameObject:
