@@ -552,6 +552,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySample
       objectReference: {fileID: 0}
+    - target: {fileID: 1537641605720042584, guid: fa93fcffbcebb41479355e1db4d0ab20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1537641605720042586, guid: fa93fcffbcebb41479355e1db4d0ab20, type: 3}
       propertyPath: lookTarget
       value: 
@@ -1307,6 +1311,10 @@ PrefabInstance:
     - target: {fileID: 1537641605720042584, guid: fa93fcffbcebb41479355e1db4d0ab20, type: 3}
       propertyPath: m_Name
       value: EnemySample (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537641605720042584, guid: fa93fcffbcebb41479355e1db4d0ab20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1537641605720042586, guid: fa93fcffbcebb41479355e1db4d0ab20, type: 3}
       propertyPath: lookTarget
