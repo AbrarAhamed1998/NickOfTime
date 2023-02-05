@@ -46,8 +46,8 @@ namespace NickOfTime.Weapons.Projectiles
 
 		private void FixedUpdate()
 		{
-            if(!ignoreRicochet)
-                CheckForRicohet();
+			if (!ignoreRicochet)
+				CheckForRicohet();
 		}
 
 		private void OnTriggerEnter2D(Collider2D collision)
@@ -56,20 +56,48 @@ namespace NickOfTime.Weapons.Projectiles
 			{
                 CharacterBase character = collision.gameObject.GetComponent<CharacterBase>();
                 if (character != null && character == _ownerCharacter) return;
-                ignoreRicochet = true;
+                //ignoreRicochet = true;
                 if(character != null)
 				{
                     character.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
 				}
-                if (ricochetDirection != Vector2.zero)
+				if (ricochetDirection != Vector2.zero)
 				{
-                    StartCoroutine(RicochetSet());
-                }
-                //OnBulletDeactivate?.Invoke();
-            }
+                    transform.eulerAngles = new Vector3(0f, 0f, ricochetRotation);
+                    _myRigidbody2D.velocity = ricochetDirection * _myRigidbody2D.velocity.magnitude;
+                    Debug.Log($"ricochet set as : {ricochetDirection}, rotation : {ricochetRotation}");
+                    //ignoreRicochet = false;
+                    //StartCoroutine(RicochetSet());
+				}
+				//ricochetDirection = Vector2.Reflect(_myRigidbody2D.velocity.normalized, collision.GetContacts());
+				//OnBulletDeactivate?.Invoke();
+			}
         }
 
-        public void InitializeProjectile(Action OnDeactivateAction ,float maxLifetime)
+		/*private void OnCollisionEnter2D(Collision2D collision)
+		{
+            if (_deactivateLayers == (_deactivateLayers | (1 << collision.gameObject.layer)))
+            {
+                CharacterBase character = collision.gameObject.GetComponent<CharacterBase>();
+                if (character != null && character == _ownerCharacter) return;
+                ignoreRicochet = true;
+                if (character != null)
+                {
+                    character.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
+                }
+                *//*if (ricochetDirection != Vector2.zero)
+				{
+                    StartCoroutine(RicochetSet());
+                }*//*
+                ricochetDirection = Vector2.Reflect(_myRigidbody2D.velocity, collision.contacts[0].normal);
+                _myRigidbody2D.velocity = ricochetDirection;
+                Debug.DrawRay(transform.position, _myRigidbody2D.velocity.normalized, Color.red, 5f);
+                ignoreRicochet = false;
+                //OnBulletDeactivate?.Invoke();
+            }
+        }*/
+
+		public void InitializeProjectile(Action OnDeactivateAction ,float maxLifetime)
 		{
             _myTrailRenderer.gameObject.SetActive(true);
             OnBulletDeactivate = () =>
@@ -95,12 +123,19 @@ namespace NickOfTime.Weapons.Projectiles
             
             float angleOfIncidence = 180f - Vector2.Angle(transform.right, hit.normal);
             float angleTOSurface = 90 - angleOfIncidence;
-            Debug.Log($"angle of incidence : {angleOfIncidence}");
-            ricochetDirection = Vector2.Reflect(((Vector2)transform.position - hit.point).normalized , hit.normal);
+            //Debug.Log($"angle of incidence : {angleOfIncidence}");
+            ricochetDirection = Vector2.Reflect(_myRigidbody2D.velocity.normalized , hit.normal);
             //ricochetRotation = 2f * angleTOSurface;
-            ricochetRotation = 90 - Mathf.Atan2(ricochetDirection.y, ricochetDirection.x) * Mathf.Rad2Deg;
+
+            float switchFactorX = ricochetDirection.x < 0 ? -1f : 1f;
+            float switchFactorY = ricochetDirection.y < 0 ? -1f : 1f;
+
+            float totalFactor = switchFactorY;
+
+            //ricochetRotation *= totalFactor;
+            ricochetRotation = Mathf.Atan2(ricochetDirection.y, ricochetDirection.x) * Mathf.Rad2Deg;
             //ignoreRicochet = true;
-            Debug.Log($"ricochet rotation : {ricochetRotation}");
+            //Debug.Log($"ricochet rotation : {ricochetRotation}");
             Debug.DrawRay(transform.position, _myRigidbody2D.velocity.normalized, Color.red, 5f);
         }
 
@@ -114,7 +149,7 @@ namespace NickOfTime.Weapons.Projectiles
         private IEnumerator RicochetSet()
 		{
             //transform.localEulerAngles += new Vector3(0f, 0f, ricochetRotation);
-            _myRigidbody2D.velocity *= ricochetDirection;
+            
             yield return new WaitForEndOfFrame();
             ignoreRicochet = false;
         }
