@@ -10,19 +10,16 @@ namespace NickOfTime.Weapons.Projectiles
 {
     public class BulletBase : MonoBehaviour
     {
-        [SerializeField] private Rigidbody2D _myRigidbody2D;
-        [SerializeField] private TrailRenderer _myTrailRenderer;
+        [SerializeField] protected Rigidbody2D _myRigidbody2D;
+        [SerializeField] protected TrailRenderer _myTrailRenderer;
         public Action OnBulletDeactivate;
-        [SerializeField] private float _assignedDamageValue;
-        [SerializeField] private LayerMask _deactivateLayers;
+        [SerializeField] protected float _assignedDamageValue;
+        [SerializeField] protected LayerMask _deactivateLayers;
 
-        private WeaponBase _ownerWeapon;
-        private CharacterBase _ownerCharacter;
+        protected WeaponBase _ownerWeapon;
+        protected CharacterBase _ownerCharacter;
 
-        private bool ignoreRicochet = false;
-
-        private Vector2 ricochetDirection;
-        private float ricochetRotation;
+        
 
         public WeaponBase OwnerWeapon {
             get => _ownerWeapon;
@@ -33,24 +30,23 @@ namespace NickOfTime.Weapons.Projectiles
             set => _ownerCharacter = value;
         }
 
-        void Start()
+        protected virtual void Start()
         {
 
         }
 
         // Update is called once per frame
-        void Update()
+        protected virtual void Update()
         {
 
         }
 
-		private void FixedUpdate()
+		protected virtual void FixedUpdate()
 		{
-			if (!ignoreRicochet)
-				CheckForRicohet();
+			
 		}
 
-		private void OnTriggerEnter2D(Collider2D collision)
+		protected virtual void OnTriggerEnter2D(Collider2D collision)
 		{
             if (_deactivateLayers == (_deactivateLayers | (1 << collision.gameObject.layer)))
 			{
@@ -61,16 +57,9 @@ namespace NickOfTime.Weapons.Projectiles
 				{
                     character.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
 				}
-				if (ricochetDirection != Vector2.zero)
-				{
-                    transform.eulerAngles = new Vector3(0f, 0f, ricochetRotation);
-                    _myRigidbody2D.velocity = ricochetDirection * _myRigidbody2D.velocity.magnitude;
-                    Debug.Log($"ricochet set as : {ricochetDirection}, rotation : {ricochetRotation}");
-                    //ignoreRicochet = false;
-                    //StartCoroutine(RicochetSet());
-				}
+				
 				//ricochetDirection = Vector2.Reflect(_myRigidbody2D.velocity.normalized, collision.GetContacts());
-				//OnBulletDeactivate?.Invoke();
+				OnBulletDeactivate?.Invoke();
 			}
         }
 
@@ -97,13 +86,13 @@ namespace NickOfTime.Weapons.Projectiles
             }
         }*/
 
-		public void InitializeProjectile(Action OnDeactivateAction ,float maxLifetime)
+		public virtual void InitializeProjectile(Action OnDeactivateAction ,float maxLifetime)
 		{
             _myTrailRenderer.gameObject.SetActive(true);
             OnBulletDeactivate = () =>
             {
                 _myTrailRenderer.gameObject.SetActive(false);
-                ignoreRicochet = false;
+                //ignoreRicochet = false;
                 OnDeactivateAction?.Invoke();
                 OnBulletDeactivate = null;
                 StopCoroutine(CheckLifetime(maxLifetime));
@@ -116,43 +105,13 @@ namespace NickOfTime.Weapons.Projectiles
             _assignedDamageValue = value;
 		}
 
-        public void CheckForRicohet()
-		{
-            //Check for ricochet
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, float.MaxValue, _deactivateLayers);
-            
-            float angleOfIncidence = 180f - Vector2.Angle(transform.right, hit.normal);
-            float angleTOSurface = 90 - angleOfIncidence;
-            //Debug.Log($"angle of incidence : {angleOfIncidence}");
-            ricochetDirection = Vector2.Reflect(_myRigidbody2D.velocity.normalized , hit.normal);
-            //ricochetRotation = 2f * angleTOSurface;
-
-            float switchFactorX = ricochetDirection.x < 0 ? -1f : 1f;
-            float switchFactorY = ricochetDirection.y < 0 ? -1f : 1f;
-
-            float totalFactor = switchFactorY;
-
-            //ricochetRotation *= totalFactor;
-            ricochetRotation = Mathf.Atan2(ricochetDirection.y, ricochetDirection.x) * Mathf.Rad2Deg;
-            //ignoreRicochet = true;
-            //Debug.Log($"ricochet rotation : {ricochetRotation}");
-            Debug.DrawRay(transform.position, _myRigidbody2D.velocity.normalized, Color.red, 5f);
-        }
-
-        private IEnumerator CheckLifetime(float maxLifetime)
+        protected IEnumerator CheckLifetime(float maxLifetime)
 		{
             yield return new WaitForSeconds(maxLifetime);
             if(OnBulletDeactivate != null)
                 OnBulletDeactivate?.Invoke();
 		}
 
-        private IEnumerator RicochetSet()
-		{
-            //transform.localEulerAngles += new Vector3(0f, 0f, ricochetRotation);
-            
-            yield return new WaitForEndOfFrame();
-            ignoreRicochet = false;
-        }
 	}
 }
 
