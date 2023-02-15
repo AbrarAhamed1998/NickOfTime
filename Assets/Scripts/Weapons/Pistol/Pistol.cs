@@ -10,7 +10,6 @@ namespace NickOfTime.Weapons
 {
 	public class Pistol : WeaponBase
 	{
-		[SerializeField] private Transform _barrel;
 
 		protected override void InitializePool()
 		{
@@ -25,24 +24,10 @@ namespace NickOfTime.Weapons
 		protected override void OnUseWeapon()
 		{
 			base.OnUseWeapon();
-			PoolObject bulletPoolObject = PersistentDataManager.instance.PoolManager.GetPoolObject(NickOfTimeStringConstants.PISTOL_BULLET_POOL_ID, null);
-			BulletBase bullet = bulletPoolObject.obj.GetComponent<BulletBase>();
-			bullet.SetDamageValue(_weaponStatsSO.ProjectileDamageValue);
-			bullet.gameObject.SetActive(false);
-			bullet.OwnerWeapon = this;
-			bullet.OwnerCharacter = WeaponOwner;
-			bullet.gameObject.layer = _projectileLayer;
-			bullet.transform.position = _barrel.position;
-			bullet.transform.rotation = _barrel.rotation;
-			
-			bullet.gameObject.SetActive(true);
-
-			bullet.InitializeProjectile(() => {
-				PersistentDataManager.instance.PoolManager.ReturnObjectToPool(bulletPoolObject);
-			},
-			_weaponStatsSO.MaxProjectileLifetime);
-			bullet.GetComponent<Rigidbody2D>().AddForce(_barrel.right * _weaponStatsSO.ProjectileLaunchForce, ForceMode2D.Impulse);
+			FireProjectile(NickOfTimeStringConstants.PISTOL_BULLET_POOL_ID);
 		}
+
+		
 	}
 }
 
