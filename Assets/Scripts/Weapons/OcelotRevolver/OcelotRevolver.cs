@@ -35,7 +35,7 @@ public class OcelotRevolver : WeaponBase
 	protected override void OnUseWeapon()
 	{
 		base.OnUseWeapon();
-        FireProjectile(NickOfTimeStringConstants.PISTOL_BULLET_POOL_ID);
+        FireProjectile(NickOfTimeStringConstants.RICOCHET_BULLET_POOL_ID);
 	}
 
 
