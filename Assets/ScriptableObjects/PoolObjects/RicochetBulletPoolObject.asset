@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Ricochet_Bullet
   poolCount: 20
-  prefab: {fileID: 2715427029994394136, guid: a69d3feaeb79c594cb49ec06c265ec5f, type: 3}
+  prefab: {fileID: 2715427029994394136, guid: e97a78035a9489447ba5ce92b0fdb9ed, type: 3}
