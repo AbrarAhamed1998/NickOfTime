@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NickOfTime.ScriptableObjects.Weapons
 {
-    [CreateAssetMenu(fileName = "WeaponStats.asset", menuName = "Scriptable Objects/Weapons/WeaponStatsSO")]
+    [CreateAssetMenu(fileName = "WeaponStats.asset", menuName = "Scriptable Objects/Weapons/WeaponStatsBaseSO")]
     public class WeaponStatsSO : ScriptableObject
     {
         [SerializeField] protected LayerMask _pickupMask;

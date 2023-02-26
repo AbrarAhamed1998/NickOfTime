@@ -35,7 +35,7 @@ namespace NickOfTime.Weapons.Projectiles
                 {
                     transform.eulerAngles = new Vector3(0f, 0f, ricochetRotation);
                     _myRigidbody2D.velocity = ricochetDirection * _myRigidbody2D.velocity.magnitude;
-                    Debug.Log($"ricochet set as : {ricochetDirection}, rotation : {ricochetRotation}");
+                    //Debug.Log($"ricochet set as : {ricochetDirection}, rotation : {ricochetRotation}");
                     //ignoreRicochet = false;
                     //StartCoroutine(RicochetSet());
                 }

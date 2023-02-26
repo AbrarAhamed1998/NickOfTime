@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 
@@ -13,6 +14,7 @@ namespace NickOfTime.Helper.Constants
 
 		public static string PISTOL_BULLET_POOL_ID = "Pistol_Bullet";
 		public static string RICOCHET_BULLET_POOL_ID = "Ricochet_Bullet";
+		public static string ROCKET_PROJECTILE_POOL_ID = "Rocket_Projectile";
 
 		#endregion
 
