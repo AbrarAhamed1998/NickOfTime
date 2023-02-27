@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb264c4ba13994408a4aa5ff274f0a9, type: 3}
+  m_Name: RocketLauncher
+  m_EditorClassIdentifier: 
+  _pickupMask:
+    serializedVersion: 2
+    m_Bits: 1152
+  _projectilePrefab: {fileID: 2715427029994394136, guid: 52e85c36fe5c37546ae965aa083fe15b, type: 3}
+  _projectileLaunchForce: 10
+  _maxProjectileLifetime: 3
+  _projectileDamageValue: 3
+  _globalProjectileLayer: 9
+  _playerProjectileLayer: 8
+  _pushbackIntensity: 20
+  _explosionRadius: 3
+  _explosionDamage: 5

@@ -69,7 +69,6 @@ namespace NickOfTime.Weapons
 
 		protected virtual void FireProjectile(string poolID)
 		{
-			Debug.Log($"poolID -> {poolID}");
 			PoolObject bulletPoolObject = PersistentDataManager.instance.PoolManager
 				.GetPoolObject(poolID, null);
 			BulletBase bullet = bulletPoolObject.obj.GetComponent<BulletBase>();

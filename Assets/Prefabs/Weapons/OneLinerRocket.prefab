@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3735906861168034868}
   - component: {fileID: 3342152789621741180}
   - component: {fileID: 4218622326007493626}
-  - component: {fileID: -3701065890000537338}
+  - component: {fileID: 5433546886498549380}
   m_Layer: 0
   m_Name: OneLinerRocket
   m_TagString: Untagged
@@ -103,7 +103,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8, y: 0.4}
+    oldSize: {x: 1.28, y: 0.64}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -128,7 +128,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!114 &-3701065890000537338
+--- !u!114 &5433546886498549380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,19 +137,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3086437629380100018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fccd5e1f9a4a1b54e9bcc96542749b5a, type: 3}
+  m_Script: {fileID: 11500000, guid: d8703990a0bf2d14891d187c47575805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _mySpriteRenderer: {fileID: 3735906861168034868}
   _myCollider: {fileID: 3342152789621741180}
   _pickupCollider: {fileID: 4218622326007493626}
   _myRigidbody: {fileID: 0}
-  _weaponStatsSO: {fileID: 11400000, guid: 39a5f5494e6597743af5d1b721aea441, type: 2}
+  _weaponStatsSO: {fileID: 11400000, guid: 502df0850459aa84aac36c1345dd19d3, type: 2}
   _playerLayer: 7
   _projectileLayer: 0
   _barrel: {fileID: 7838479142861721239}
   WeaponOwner: {fileID: 0}
-  _reloading: 0
 --- !u!1 &3262917133381901575
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +173,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3262917133381901575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2373, y: 0.037, z: 0}
+  m_LocalPosition: {x: 0.376, y: 0.061, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6501669971170573013}
