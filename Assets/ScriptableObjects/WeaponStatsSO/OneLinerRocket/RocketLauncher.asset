@@ -17,10 +17,10 @@ MonoBehaviour:
     m_Bits: 1152
   _projectilePrefab: {fileID: 2715427029994394136, guid: 52e85c36fe5c37546ae965aa083fe15b, type: 3}
   _projectileLaunchForce: 10
-  _maxProjectileLifetime: 3
+  _maxProjectileLifetime: 5
   _projectileDamageValue: 3
   _globalProjectileLayer: 9
   _playerProjectileLayer: 8
   _pushbackIntensity: 20
-  _explosionRadius: 3
+  _explosionRadius: 2
   _explosionDamage: 5
