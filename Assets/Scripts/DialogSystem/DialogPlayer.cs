@@ -44,7 +44,7 @@ namespace NickOfTime.UI.DialogSystem
                 _trackOnTransform = true;
 		}
 
-        public void PlayAssignedDialogSet(Action OnCompleteSequence)
+        public void PlayAssignedDialogSet(Action OnCompleteSequence = null)
 		{
             if (_spawnedDialogPanel == null)
 			{
