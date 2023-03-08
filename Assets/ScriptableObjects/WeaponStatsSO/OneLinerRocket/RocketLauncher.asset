@@ -22,5 +22,5 @@ MonoBehaviour:
   _globalProjectileLayer: 9
   _playerProjectileLayer: 8
   _pushbackIntensity: 20
-  _explosionRadius: 2
+  _explosionRadius: 5
   _explosionDamage: 5

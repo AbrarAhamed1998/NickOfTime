@@ -25,6 +25,11 @@ namespace NickOfTime.Weapons
 			base.OnUseWeapon();
             FireProjectile(NickOfTimeStringConstants.ROCKET_PROJECTILE_POOL_ID);
 		}
+
+        protected IEnumerator RocketFireProcedure()
+		{
+            yield return new WaitForEndOfFrame();
+		}
 	}
 }
 

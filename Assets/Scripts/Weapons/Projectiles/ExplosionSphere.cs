@@ -33,15 +33,17 @@ namespace NickOfTime.Weapons.Projectiles
 					if (itemRigidbody != null)
 					{
 						Vector2 forceToBeApplied = (itemRigidbody.position - (Vector2)transform.position).normalized * _explosionForce;
-						itemRigidbody.AddForceAtPosition(forceToBeApplied, results[i].point);
+						itemRigidbody.AddForce(forceToBeApplied, ForceMode2D.Impulse);
+						Debug.Log($"force applied : {forceToBeApplied}, on item : {itemRigidbody.gameObject.name}");
 					}
 					CharacterBase character = results[i].collider.GetComponent<CharacterBase>();
-					if (character != null) return;
-					//ignoreRicochet = true;
-					if (character != null)
+					if (character == null)
 					{
-						character.TakeDamage(_explosionDamage, Vector2.zero);
+						Debug.Log("no character in explosion");
+						continue;
 					}
+					//ignoreRicochet = true;
+					character.TakeDamage(_explosionDamage, Vector2.zero);
 				}
 			}
 		}

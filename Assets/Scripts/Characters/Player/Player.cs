@@ -4,6 +4,7 @@ using NickOfTime.Characters.Player.PlayerStates;
 using NickOfTime.Helper.Constants;
 using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Player;
+using NickOfTime.UI.DialogSystem;
 using NickOfTime.Utilities.PoolingSystem;
 using NickOfTime.Weapons;
 using System;
@@ -29,6 +30,8 @@ namespace NickOfTime.Characters.Player
                 CurrentCharacterState = value;
 			}
         }
+
+        public DialogPlayer DialogPlayer => _dialogPlayer;
 		#endregion
 
 		#region UNITY CALLBACKS

@@ -20,19 +20,20 @@ namespace NickOfTime.UI.DialogSystem
         private RectTransform _myRectTransform;
         private Queue<DialogSequenceParams> _currentDialogQueue = new Queue<DialogSequenceParams>();
 
-
+        private Action OnCompleteCurrentSequence;
 		private void Start()
 		{
             _myRectTransform = GetComponent<RectTransform>();
 		}
 
-        public void SetCurrentDialogQueue(List<DialogSequenceParams> dialogSequence)
+        public void SetCurrentDialogQueue(List<DialogSequenceParams> dialogSequence, Action OnCompleteSequence = null)
 		{
             _currentDialogQueue.Clear();
             for(int i=0; i<dialogSequence.Count; i++)
 			{
                 _currentDialogQueue.Enqueue(dialogSequence[i]);
 			}
+            OnCompleteCurrentSequence = OnCompleteSequence;
 		}
 
         public void PlayCurrentDialogQueue()
@@ -45,6 +46,7 @@ namespace NickOfTime.UI.DialogSystem
             }
             else
 			{
+                OnCompleteCurrentSequence?.Invoke();
                 return;
 			}
         }

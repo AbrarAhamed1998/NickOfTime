@@ -1,6 +1,7 @@
 using NickOfTime.Helper.Constants;
 using NickOfTime.Managers;
 using NickOfTime.Utilities.PoolingSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,14 +44,14 @@ namespace NickOfTime.UI.DialogSystem
                 _trackOnTransform = true;
 		}
 
-        public void PlayAssignedDialogSet()
+        public void PlayAssignedDialogSet(Action OnCompleteSequence)
 		{
             if (_spawnedDialogPanel == null)
 			{
-                StartCoroutine(WaitForSpawnedDialogPanel());
+                StartCoroutine(WaitForSpawnedDialogPanel(OnCompleteSequence));
                 return;
             }
-            _spawnedDialogPanel.SetCurrentDialogQueue(_dialogSetToPlay.DialogContentItems);
+            _spawnedDialogPanel.SetCurrentDialogQueue(_dialogSetToPlay.DialogContentItems, OnCompleteSequence);
             _spawnedDialogPanel.PlayCurrentDialogQueue();
 		}
 
@@ -61,10 +62,10 @@ namespace NickOfTime.UI.DialogSystem
             InitializeDialogPanel();
 		}
 
-        private IEnumerator WaitForSpawnedDialogPanel()
+        private IEnumerator WaitForSpawnedDialogPanel(Action onCompleteSequence = null)
 		{
             yield return new WaitUntil(() => _spawnedDialogPanel != null);
-            PlayAssignedDialogSet();
+			PlayAssignedDialogSet(onCompleteSequence);
 		}
     }
 }
