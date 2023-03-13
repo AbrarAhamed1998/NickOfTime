@@ -63,6 +63,9 @@ namespace NickOfTime.Characters
             get => _characterHealthPoints;
             set => _characterHealthPoints = value;
 		}
+
+        public DialogPlayer DialogPlayer => _dialogPlayer;
+
         #endregion
 
         #region UNITY CALLBACKS

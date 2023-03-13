@@ -22,5 +22,6 @@ MonoBehaviour:
   _globalProjectileLayer: 9
   _playerProjectileLayer: 8
   _pushbackIntensity: 20
+  _oneLinerDialogSet: {fileID: 11400000, guid: 8574111eaa7b61545bea2f82d4b16bb7, type: 2}
   _explosionRadius: 5
   _explosionDamage: 5
