@@ -76,7 +76,7 @@ namespace NickOfTime.UI.DialogSystem
                 .Append(transform.DOScale(0f, sequenceParameters.scaleOutTime))
                 .SetEase(Ease.InOutExpo)
                 .Play().OnComplete(() => OnComplete?.Invoke());
-            Debug.Log("Called Play Display Sequence");
+            //Debug.Log("Called Play Display Sequence");
 		}
 
         public void KillSequence()
