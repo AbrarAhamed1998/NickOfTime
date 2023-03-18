@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 546fa839531d37d488bff7e833aedd53, type: 3}
-  m_Name: OneLinerRocketSet
+  m_Name: ReloadSet
   m_EditorClassIdentifier: 
   _dialogContentItems:
-  - dialogContent: 'You''re Fired !! '
-    waitTimePreDisplay: 0.1
+  - dialogContent: Reloading...
+    waitTimePreDisplay: 0
     scaleInTime: 0.25
-    waitTimeOnDisplay: 2
+    waitTimeOnDisplay: 1.5
     scaleOutTime: 0.25

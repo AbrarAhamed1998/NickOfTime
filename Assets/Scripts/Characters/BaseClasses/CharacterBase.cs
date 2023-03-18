@@ -340,6 +340,11 @@ namespace NickOfTime.Characters
             }
         }
 
+        public void Pushback(Vector2 direction)
+		{
+            DamagePushBack(direction);
+		}
+
         protected virtual void CharacterInAir()
 		{
             IsGrounded = false;

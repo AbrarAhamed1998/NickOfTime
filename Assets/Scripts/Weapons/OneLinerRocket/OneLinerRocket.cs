@@ -9,14 +9,19 @@ namespace NickOfTime.Weapons
 {
     public class OneLinerRocket : WeaponBase
     {
+
         private Coroutine _fireRoutine;
-        // Start is called before the first frame update
+
+        [SerializeField] private GameObject _rocketHead;
+
+        // Probably make a state for reloading
+        [SerializeField] private bool _isReloading;
+ 
         protected override void Start()
         {
             base.Start();
         }
 
-        // Update is called once per frame
         protected override void Update()
         {
             base.Update();
@@ -25,7 +30,7 @@ namespace NickOfTime.Weapons
 		protected override void OnUseWeapon()
 		{
 			base.OnUseWeapon();
-            if(_fireRoutine == null)
+            if(_fireRoutine == null && !_isReloading)
                 _fireRoutine = StartCoroutine(RocketFireProcedure());
 		}
 
@@ -38,8 +43,23 @@ namespace NickOfTime.Weapons
                 () =>
 				{
                     FireProjectile(NickOfTimeStringConstants.ROCKET_PROJECTILE_POOL_ID);
+                    _rocketHead.SetActive(false);
+                    WeaponOwner.Pushback(-1f * transform.right *
+                        ((RocketLauncherStatsSO)WeaponStats).PushbackOnFire);
+                    _isReloading = true;
+                    StartCoroutine(ReloadRoutine());
                     _fireRoutine = null;
                 });
+		}
+
+        protected IEnumerator ReloadRoutine()
+		{
+            WeaponOwner.DialogPlayer.AssignDialogSet(
+                ((RocketLauncherStatsSO)WeaponStats).ReloadDialogSet);
+            WeaponOwner.DialogPlayer.PlayAssignedDialogSet();
+            yield return new WaitForSeconds(WeaponStats.ReloadTime);
+            _rocketHead.SetActive(true);
+            _isReloading = false;
 		}
 	}
 }

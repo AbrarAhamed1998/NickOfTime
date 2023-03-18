@@ -1,3 +1,4 @@
+using Cinemachine;
 using NickOfTime.Characters;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,12 +6,19 @@ using UnityEngine;
 
 namespace NickOfTime.Weapons.Projectiles
 {
-    public class ExplosionSphere : MonoBehaviour
-    {
+	public class ExplosionSphere : MonoBehaviour
+	{
 		[SerializeField] private ParticleSystem _explosionParticleSystem;
+		[SerializeField] private CinemachineImpulseSource _impulseSource;
+
+		[Header("Explosion Variables (Values provided by parent weapon/projectile)")]
 		[SerializeField] private float _explosionRadius;
 		[SerializeField] private float _explosionForce;
 		[SerializeField] private float _explosionDamage;
+
+		[Header("Gizmo Properties")]
+		[SerializeField] private Color _gizmoColor;
+		
 
 		public void SetExplosionStats(float radius, float explosionForce, float damage)
 		{
@@ -22,6 +30,7 @@ namespace NickOfTime.Weapons.Projectiles
 		public void TriggerExplosion()
 		{
 			_explosionParticleSystem.Play();
+			_impulseSource.GenerateImpulse();
 			RaycastHit2D[] results = new RaycastHit2D[5];
 			if(Physics2D
 				.CircleCastNonAlloc(transform.position, _explosionRadius, Vector2.one, results) > 0)
@@ -34,12 +43,12 @@ namespace NickOfTime.Weapons.Projectiles
 					{
 						Vector2 forceToBeApplied = (itemRigidbody.position - (Vector2)transform.position).normalized * _explosionForce;
 						itemRigidbody.AddForce(forceToBeApplied, ForceMode2D.Impulse);
-						Debug.Log($"force applied : {forceToBeApplied}, on item : {itemRigidbody.gameObject.name}");
+						//Debug.Log($"force applied : {forceToBeApplied}, on item : {itemRigidbody.gameObject.name}");
 					}
 					CharacterBase character = results[i].collider.GetComponent<CharacterBase>();
 					if (character == null)
 					{
-						Debug.Log("no character in explosion");
+						//Debug.Log("no character in explosion");
 						continue;
 					}
 					//ignoreRicochet = true;
@@ -50,6 +59,7 @@ namespace NickOfTime.Weapons.Projectiles
 
 		private void OnDrawGizmos()
 		{
+			Gizmos.color = _gizmoColor;
 			Gizmos.DrawSphere(transform.position, _explosionRadius);
 		}
 	}

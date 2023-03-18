@@ -149,6 +149,8 @@ MonoBehaviour:
   _projectileLayer: 0
   _barrel: {fileID: 7838479142861721239}
   WeaponOwner: {fileID: 0}
+  _rocketHead: {fileID: 7797639068860721282}
+  _isReloading: 0
 --- !u!1 &3262917133381901575
 GameObject:
   m_ObjectHideFlags: 0

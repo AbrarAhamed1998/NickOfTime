@@ -17,6 +17,7 @@ namespace NickOfTime.ScriptableObjects.Weapons
         [SerializeField,Layer] private int _playerProjectileLayer;
 
         [SerializeField] private float _pushbackIntensity;
+        [SerializeField] private float _reloadTime;
 
         public LayerMask PickupMask => _pickupMask;
         public GameObject ProjectilePrefab => _projectilePrefab;
@@ -26,6 +27,7 @@ namespace NickOfTime.ScriptableObjects.Weapons
 		public int GlobalProjectileLayer => _globalProjectileLayer;
         public int PlayerProjectileLayer => _playerProjectileLayer;
         public float PushbackIntensity => _pushbackIntensity;
+        public float ReloadTime => _reloadTime;
     }
 }
 
