@@ -189,10 +189,6 @@ namespace NickOfTime.Characters.Player
             base.CharacterDeath();
 		}
 
-		public override void CheckIfCharacterInAir()
-		{
-            base.CheckIfCharacterInAir();
-		}
 
 		protected override void CharacterInAir()
 		{

@@ -648,7 +648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1537641605720042584, guid: fa93fcffbcebb41479355e1db4d0ab20, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1537641605720042586, guid: fa93fcffbcebb41479355e1db4d0ab20, type: 3}
       propertyPath: lookTarget
@@ -1982,6 +1982,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1942205992}
     m_Modifications:
+    - target: {fileID: 4308047045975117959, guid: 47c6e9faec65fb749b271550eb917397, type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 532590488}
+    - target: {fileID: 4308047045975117959, guid: 47c6e9faec65fb749b271550eb917397, type: 3}
+      propertyPath: _tankGunAngularLimits.maxAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4308047045975117959, guid: 47c6e9faec65fb749b271550eb917397, type: 3}
+      propertyPath: _tankGunAngularLimits.minAngle
+      value: -7
+      objectReference: {fileID: 0}
     - target: {fileID: 6601975617517197873, guid: 47c6e9faec65fb749b271550eb917397, type: 3}
       propertyPath: m_RootOrder
       value: 9

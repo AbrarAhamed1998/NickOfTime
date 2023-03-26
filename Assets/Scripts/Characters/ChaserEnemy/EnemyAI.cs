@@ -126,10 +126,6 @@ namespace NickOfTime.Enemy
             }
         }
 
-		public override void CheckIfCharacterInAir()
-		{
-			base.CheckIfCharacterInAir();
-		}
 
 		public void CheckIfEnemyMoving()
 		{
