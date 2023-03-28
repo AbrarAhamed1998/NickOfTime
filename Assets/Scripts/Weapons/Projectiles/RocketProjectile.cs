@@ -48,7 +48,6 @@ namespace NickOfTime.Weapons.Projectiles
 					character.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
 				}
 				OnContactPoint?.Invoke(transform.position);
-				//ricochetDirection = Vector2.Reflect(_myRigidbody2D.velocity.normalized, collision.GetContacts());
 				OnBulletDeactivate?.Invoke();
 			}
 

@@ -23,7 +23,7 @@ MonoBehaviour:
   _groundCheckDebugColor: {r: 1, g: 0.5424528, b: 0.5424528, a: 0.6509804}
   _groundCheckLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   _deathBodyZRot: 90
   _deathHeadZRot: 25
   _deathEffectTime: 10

@@ -1,3 +1,5 @@
+using NickOfTime.ScriptableObjects.Enemy;
+using NickOfTime.UI.DialogSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +13,15 @@ namespace NickOfTime.Characters
 		[SerializeField] private Transform _gunTransform;
         [SerializeField] private Transform _target;
 
-        [SerializeField] private AngularLimits _tankGunAngularLimits;
+        [SerializeField] private TankStats _tankStats;
+
+
+        public TankStats TankStats => _tankStats;
+
+
+        private bool isDestroyed;
+
+        public Action LookAction, AttackAction, MoveAction;
         // Start is called before the first frame update
         void Start()
         {
@@ -21,7 +31,10 @@ namespace NickOfTime.Characters
         // Update is called once per frame
         void Update()
         {
-            LookAtWorldPos(_target);
+            if(!isDestroyed)
+			{
+                LookAtWorldPos(_target);
+            }
         }
 
         protected virtual void LookAtWorldPos(Transform targetWorldTransform)
@@ -39,10 +52,7 @@ namespace NickOfTime.Characters
             float trueYRot = localEulerY < 180f ? localEulerY : localEulerY - 360;
             float switchFactor = (trueYRot < 0 ? 0f : 180f);
             float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + switchFactor;
-            //Debug.Log($"switch factor : {switchFactor}");
             float finalZangle = (switchFactor == 0f ? -1f : 1f) * targetAngle;
-
-            //target.localEulerAngles = new Vector3(0f, 0f, finalZangle);
 
             target.localEulerAngles = new Vector3(0f, 0f, ClampAngle(switchFactor, finalZangle));
 
@@ -67,13 +77,13 @@ namespace NickOfTime.Characters
             float maxValue;
             if(switchFactor == 0f)
 			{
-                minValue = _tankGunAngularLimits.minAngle;
-                maxValue = _tankGunAngularLimits.maxAngle;
+                minValue = _tankStats.TankAngularLimits.minAngle;
+                maxValue = _tankStats.TankAngularLimits.maxAngle;
 			}
 			else
 			{
-                minValue = _tankGunAngularLimits.minAngle;
-                maxValue = _tankGunAngularLimits.maxAngle;
+                minValue = _tankStats.TankAngularLimits.minAngle;
+                maxValue = _tankStats.TankAngularLimits.maxAngle;
 			}
             float finalVal = switchFactor == 0f ? value : value > 180f ? value - 360f : value;
             //Debug.Log($"minValue : {minValue}, maxValue : {maxValue}, value : {finalVal}");
@@ -81,12 +91,21 @@ namespace NickOfTime.Characters
             return Mathf.Clamp(finalVal, minValue, maxValue);
 		}
 
-		[Serializable]
-        public struct AngularLimits
+        protected void TakeDamage()
 		{
-            public float minAngle;
-            public float maxAngle;
+
 		}
+
+        protected void SetDamageSprite()
+		{
+
+		}
+
+        protected void OnMoveInput(Vector2 input)
+		{
+
+		}
+		
     }
 }
 

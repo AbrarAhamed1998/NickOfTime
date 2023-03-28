@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6368438626946504116}
   - component: {fileID: 7072528120156606980}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BossHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9082536799073993101}
   - component: {fileID: 7105611286813753551}
-  m_Layer: 0
+  - component: {fileID: 4995596007979502010}
+  m_Layer: 10
   m_Name: TankGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,6 +165,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4995596007979502010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649061669732875568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49226b6cf7052de4dbc005a161f9ee5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bossTank: {fileID: 4308047045975117959}
+  _tankBarrel: {fileID: 0}
+  _projectileLayer: 9
 --- !u!1 &6264924754719204833
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,8 +190,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8508099681588725532}
   - component: {fileID: 7392716359234673130}
-  - component: {fileID: 6816672560240228408}
-  m_Layer: 0
+  - component: {fileID: 3522258849724104202}
+  m_Layer: 10
   m_Name: BossCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,19 +264,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!65 &6816672560240228408
-BoxCollider:
+--- !u!61 &3522258849724104202
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6264924754719204833}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.3979125}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.4, y: 1}
+    newSize: {x: 0.46666667, y: 0.33333334}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4, y: 1.8042746, z: 0.2}
-  m_Center: {x: 0, y: 0.40213728, z: 0}
+  m_Size: {x: 1.4, y: 1.795825}
+  m_EdgeRadius: 0
 --- !u!1 &6601975617084738060
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,9 +300,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6601975617084738063}
   - component: {fileID: 6601975617084738062}
-  - component: {fileID: 5208697109495900490}
-  - component: {fileID: 4547744345585480947}
-  m_Layer: 0
+  - component: {fileID: 1120327790290546139}
+  - component: {fileID: 7568612122230392766}
+  m_Layer: 10
   m_Name: TankBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,32 +374,58 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!65 &5208697109495900490
-BoxCollider:
+--- !u!61 &1120327790290546139
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6601975617084738060}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.69777703}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 7.2, y: 3.7}
+    newSize: {x: 2.4, y: 1.2333333}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.341176, y: 0.9574671, z: 0.2}
-  m_Center: {x: -0.8382659, y: 0.82857466, z: 0}
---- !u!65 &4547744345585480947
-BoxCollider:
+  m_Size: {x: 7.2, y: 2.3044457}
+  m_EdgeRadius: 0
+--- !u!61 &7568612122230392766
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6601975617084738060}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.80384016, y: 0.9099021}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 7.2, y: 3.7}
+    newSize: {x: 2.4, y: 1.2333333}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.2, y: 2.2075973, z: 0.2}
-  m_Center: {x: 0, y: -0.7462013, z: 0}
+  m_Size: {x: 4.3865614, y: 0.897727}
+  m_EdgeRadius: 0
 --- !u!1 &6601975617517197878
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6601975617517197873}
   - component: {fileID: 4308047045975117959}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BossParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,3 +474,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gunTransform: {fileID: 9082536799073993101}
   _target: {fileID: 0}
+  _tankStats: {fileID: 11400000, guid: bb59c4cbdb1777d4b99d3a0a178ac46f, type: 2}
