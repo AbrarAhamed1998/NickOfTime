@@ -196,6 +196,7 @@ namespace NickOfTime.Characters
         protected virtual void LookAtScreenPos()
         {
             Vector2 worldPos = Camera.main.ScreenToWorldPoint(_lookTargetScreenPos);
+            //Vector2 worldPos = (Vector2)transform.position + (_lookTargetScreenPos * 10f);
             Transform target = _debugLookObjects[0].transform;
             float y = target.position.y - worldPos.y;
             float x = target.position.x - worldPos.x;
