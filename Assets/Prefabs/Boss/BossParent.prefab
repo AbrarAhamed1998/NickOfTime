@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1092070171343372899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5968546803138510851}
+  m_Layer: 10
+  m_Name: UIRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5968546803138510851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092070171343372899}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.33, y: 1.513, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8508099681588725532}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1143634445136141494
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,6 +123,7 @@ GameObject:
   - component: {fileID: 9082536799073993101}
   - component: {fileID: 7105611286813753551}
   - component: {fileID: 4995596007979502010}
+  - component: {fileID: 3589834586387091850}
   m_Layer: 10
   m_Name: TankGun
   m_TagString: Untagged
@@ -107,12 +138,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3649061669732875568}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 1.19, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.3499999, y: 0.82999957, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6601975617517197873}
-  m_RootOrder: 1
+  m_Father: {fileID: 6601975617084738063}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7105611286813753551
 SpriteRenderer:
@@ -180,6 +211,52 @@ MonoBehaviour:
   _bossTank: {fileID: 4308047045975117959}
   _tankBarrel: {fileID: 0}
   _projectileLayer: 9
+--- !u!70 &3589834586387091850
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649061669732875568}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 2.4539864, y: 0.017351426}
+  m_Size: {x: 3.1095376, y: 0.38087326}
+  m_Direction: 1
+--- !u!1 &5873243623610567088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2533645976712972550}
+  m_Layer: 10
+  m_Name: GroundCheckBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2533645976712972550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5873243623610567088}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.504, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8508099681588725532}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6264924754719204833
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +268,9 @@ GameObject:
   - component: {fileID: 8508099681588725532}
   - component: {fileID: 7392716359234673130}
   - component: {fileID: 3522258849724104202}
+  - component: {fileID: 6645630819169907279}
+  - component: {fileID: 1685995819499848441}
+  - component: {fileID: 4848126201070247124}
   m_Layer: 10
   m_Name: BossCharacter
   m_TagString: Untagged
@@ -205,13 +285,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6264924754719204833}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.99, y: 1.82, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.9899998, y: 1.4430004, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6368438626946504116}
-  m_Father: {fileID: 6601975617517197873}
-  m_RootOrder: 2
+  - {fileID: 5968546803138510851}
+  - {fileID: 2533645976712972550}
+  m_Father: {fileID: 6601975617084738063}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7392716359234673130
 SpriteRenderer:
@@ -290,6 +372,72 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 1.795825}
   m_EdgeRadius: 0
+--- !u!114 &6645630819169907279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6264924754719204833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ce3645ea9e54c46a1570ba5f7b8582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterConfig: {fileID: 11400000, guid: 5fc91cef38bc35c459df1ca665970f9e, type: 2}
+  _characterRigidbody: {fileID: 4848126201070247124}
+  _characterSprite: {fileID: 0}
+  _armParent: {fileID: 0}
+  _debugLookObjects: []
+  _jetTransforms: []
+  _uiRoot: {fileID: 5968546803138510851}
+  _dialogPlayer: {fileID: 1685995819499848441}
+  IsGrounded: 0
+  _groundCheckBox: {fileID: 2533645976712972550}
+  _equippedWeapon: {fileID: 0}
+  _characterHealthPoints: 0
+  _characterHealthSlider: {fileID: 0}
+  _deathVFXTransform: {fileID: 0}
+  _bossTank: {fileID: 4308047045975117959}
+  _bossTankSeeker: {fileID: 8480955992070041680}
+  _tankRigidbody: {fileID: 8052791477456307815}
+  CanUseWeapon: 0
+  CanCheckForPlayer: 0
+--- !u!114 &1685995819499848441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6264924754719204833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15fe154d02f1a6e4c9dd0f1243f4c0f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogSetToPlay: {fileID: 0}
+  _playerDialogTransform: {fileID: 5968546803138510851}
+--- !u!50 &4848126201070247124
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6264924754719204833}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6601975617084738060
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,6 +450,7 @@ GameObject:
   - component: {fileID: 6601975617084738062}
   - component: {fileID: 1120327790290546139}
   - component: {fileID: 7568612122230392766}
+  - component: {fileID: 8052791477456307815}
   m_Layer: 10
   m_Name: TankBody
   m_TagString: Untagged
@@ -319,7 +468,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 9082536799073993101}
+  - {fileID: 8508099681588725532}
   m_Father: {fileID: 6601975617517197873}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -426,6 +577,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.3865614, y: 0.897727}
   m_EdgeRadius: 0
+--- !u!50 &8052791477456307815
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601975617084738060}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6601975617517197878
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6601975617517197873}
   - component: {fileID: 4308047045975117959}
+  - component: {fileID: 8480955992070041680}
   m_Layer: 10
   m_Name: BossParent
   m_TagString: Untagged
@@ -455,8 +628,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6601975617084738063}
-  - {fileID: 9082536799073993101}
-  - {fileID: 8508099681588725532}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -474,4 +645,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gunTransform: {fileID: 9082536799073993101}
   _target: {fileID: 0}
+  _tankRigidbody: {fileID: 0}
+  _tankSeeker: {fileID: 0}
   _tankStats: {fileID: 11400000, guid: bb59c4cbdb1777d4b99d3a0a178ac46f, type: 2}
+--- !u!114 &8480955992070041680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601975617517197878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1

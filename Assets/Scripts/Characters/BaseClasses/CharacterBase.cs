@@ -120,7 +120,6 @@ namespace NickOfTime.Characters
 		{
             CharacterHealthPoints -= damage;
             _characterHealthSlider.SetHealthSliderVal(CharacterHealthPoints / _characterConfig.DefaultHealthPoints);
-
 		}
 
         protected virtual void DamageFlash()
@@ -136,53 +135,12 @@ namespace NickOfTime.Characters
 
         protected virtual void RegisterControlEvents()
         {
-			moveAction = () =>
-			{
-				_characterRigidbody.AddForce(_moveDirection * _characterConfig.MovementSpeed * Time.deltaTime, ForceMode2D.Force);
-				JetControl(_moveDirection);
-			};
-            jumpAction = () =>
-            {
-                _characterRigidbody.AddForce(Vector2.up * _characterConfig.JumpForce, ForceMode2D.Impulse);
-            };
-            lookAction = () =>
-            {
-                LookAtScreenPos();
-            };
-            fireAction = () =>
-            {
-                UseWeapon();
-            };
-            takeDamage = (damage, direction) =>
-            {
-                NegateDamageFromHealth(damage);
-                ChangeToDamageSprite();
-                DamageFlash();
-                DamagePushBack(direction);
-                CheckForCharacterDeath();
-            };
-
-            onCharacterDeath = () =>
-            {
-                OnDeath();
-            };
+			
         }
 
 		protected virtual void JetControl(Vector2 direction)
 		{
-			Vector3 target = (Vector2)_jetTransforms[0].position + (5f * direction);
-			float y = _jetTransforms[0].position.y - target.y;
-			float x = _jetTransforms[0].position.x - target.x;
-			float localEulerY = transform.localEulerAngles.y;
-			float trueYRot = localEulerY < 180f ? localEulerY : localEulerY - 360;
-			float switchFactor = (trueYRot < 0 ? -1f : 1f);
-			float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + (direction == Vector2.zero ? 0f : 90f);
-			Vector3 targetEuler = new Vector3(0f, 0f, switchFactor * targetAngle);
-            Quaternion targetQuaternion = Quaternion.Euler(targetEuler);
-			for (int i = 0; i < _jetTransforms.Length; i++)
-			{
-				_jetTransforms[i].localRotation = Quaternion.Slerp(_jetTransforms[i].localRotation, targetQuaternion, _characterConfig.JetPackRotSpeed * Time.deltaTime);
-			}
+			
 		}
 
 		protected virtual void DeregisterControlEvents()
@@ -195,68 +153,12 @@ namespace NickOfTime.Characters
 
         protected virtual void LookAtScreenPos()
         {
-            Vector2 worldPos = Camera.main.ScreenToWorldPoint(_lookTargetScreenPos);
-            //Vector2 worldPos = (Vector2)transform.position + (_lookTargetScreenPos * 10f);
-            Transform target = _debugLookObjects[0].transform;
-            float y = target.position.y - worldPos.y;
-            float x = target.position.x - worldPos.x;
-            float localEulerY = transform.localEulerAngles.y;
-            float trueYRot = localEulerY < 180f ? localEulerY : localEulerY - 360; 
-            float switchFactor = (trueYRot < 0 ? 0f : 180f);
-            float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + switchFactor;
-            target.localEulerAngles = new Vector3(0f, 0f, (switchFactor == 0f?-1f:1f) * targetAngle);
-            for (int i = 1; i < _debugLookObjects.Length; i++)
-            {
-                _debugLookObjects[i].transform.localEulerAngles = target.localEulerAngles;
-            }
-            Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
-            Vector2 playerdirection = transform.right.normalized;/*Vector2.right * (_playerSprite.flipX ? -1f : 1f)*/;
-            float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
-            if (dotProduct < 0f)
-            {
-                //_playerSprite.flipX = !_playerSprite.flipX;
-                transform.localEulerAngles += Vector3.up * 180f;
-                /*for (int i = 0; i < _debugLookObjects.Length; i++)
-                {
-                    SpriteRenderer spriteRenderer = _debugLookObjects[i].GetComponent<SpriteRenderer>();
-                    spriteRenderer.flipY = !spriteRenderer.flipY;
-                    if (i < _childSpritesToFlip.Count)
-                    {
-                        spriteRenderer = _childSpritesToFlip[i];
-                        spriteRenderer.flipY = !spriteRenderer.flipY;
-                    }
-                }*/
-            }
+            
         }
 
         protected virtual void LookAtWorldPos(Transform targetWorldTransform)
 		{
-            if (targetWorldTransform == null)
-            {
-                //Debug.Log("target World Pos is null");
-                return;
-            }
-            Vector2 worldPos = targetWorldTransform.position;
-            Transform target = _debugLookObjects[0].transform;
-            float y = target.position.y - worldPos.y;
-            float x = target.position.x - worldPos.x;
-            float localEulerY = transform.localEulerAngles.y;
-            float trueYRot = localEulerY < 180f ? localEulerY : localEulerY - 360;
-            float switchFactor = (trueYRot < 0 ? 0f : 180f);
-            float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + switchFactor;
-            target.localEulerAngles = new Vector3(0f, 0f, (switchFactor == 0f ? -1f : 1f) * targetAngle);
-            for (int i = 1; i < _debugLookObjects.Length; i++)
-            {
-                _debugLookObjects[i].transform.localEulerAngles = target.localEulerAngles;
-            }
-
-            Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
-            Vector2 playerdirection = transform.right.normalized;
-            float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
-            if (dotProduct < 0f)
-            {
-                transform.localEulerAngles += Vector3.up * 180f;
-            }
+           
         }
 
         protected virtual void UseWeapon()

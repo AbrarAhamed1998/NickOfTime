@@ -37,6 +37,7 @@ namespace NickOfTime.Enemy
 
 		private Vector2 _waypointDirection;
 
+		public EnemyConfigSO _enemyConfigSO => (EnemyConfigSO)_characterConfig;
 
 		public EnemyStateBase CurrentEnemyState {
 			get => (EnemyStateBase)CurrentCharacterState;
@@ -192,6 +193,32 @@ namespace NickOfTime.Enemy
 		protected override void LookAtWorldPos(Transform targetWorldTransform)
 		{
 			base.LookAtWorldPos(targetWorldTransform);
+			if (targetWorldTransform == null)
+			{
+				//Debug.Log("target World Pos is null");
+				return;
+			}
+			Vector2 worldPos = targetWorldTransform.position;
+			Transform target = _debugLookObjects[0].transform;
+			float y = target.position.y - worldPos.y;
+			float x = target.position.x - worldPos.x;
+			float localEulerY = transform.localEulerAngles.y;
+			float trueYRot = localEulerY < 180f ? localEulerY : localEulerY - 360;
+			float switchFactor = (trueYRot < 0 ? 0f : 180f);
+			float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + switchFactor;
+			target.localEulerAngles = new Vector3(0f, 0f, (switchFactor == 0f ? -1f : 1f) * targetAngle);
+			for (int i = 1; i < _debugLookObjects.Length; i++)
+			{
+				_debugLookObjects[i].transform.localEulerAngles = target.localEulerAngles;
+			}
+
+			Vector2 mouseDirection = (worldPos - (Vector2)this.transform.position).normalized * Vector2.right;
+			Vector2 playerdirection = transform.right.normalized;
+			float dotProduct = Vector2.Dot(mouseDirection, playerdirection);
+			if (dotProduct < 0f)
+			{
+				transform.localEulerAngles += Vector3.up * 180f;
+			}
 		}
 
 		protected override void OnDeath()
@@ -199,10 +226,10 @@ namespace NickOfTime.Enemy
 			base.OnDeath();
 			Vector3 targetBodyRot = new Vector3(transform.localEulerAngles.x,
 				transform.localEulerAngles.y,
-				_characterConfig.DeathBodyZRot);
+				_enemyConfig.DeathBodyZRot);
 			Vector3 targetHeadRot = new Vector3(_debugLookObjects[0].transform.localEulerAngles.x,
 				_debugLookObjects[0].transform.localEulerAngles.y,
-				_characterConfig.DeathHeadZRot);
+				_enemyConfig.DeathHeadZRot);
 
 			transform.DOLocalRotate(targetBodyRot, 0.25f).OnComplete(
 				() =>
@@ -245,6 +272,24 @@ namespace NickOfTime.Enemy
 			weapon.SetProjectleLayer(false);
 		}
 
+		protected override void JetControl(Vector2 direction)
+		{
+			base.JetControl(direction);
+			Vector3 target = (Vector2)_jetTransforms[0].position + (5f * direction);
+			float y = _jetTransforms[0].position.y - target.y;
+			float x = _jetTransforms[0].position.x - target.x;
+			float localEulerY = transform.localEulerAngles.y;
+			float trueYRot = localEulerY < 180f ? localEulerY : localEulerY - 360;
+			float switchFactor = (trueYRot < 0 ? -1f : 1f);
+			float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + (direction == Vector2.zero ? 0f : 90f);
+			Vector3 targetEuler = new Vector3(0f, 0f, switchFactor * targetAngle);
+			Quaternion targetQuaternion = Quaternion.Euler(targetEuler);
+			for (int i = 0; i < _jetTransforms.Length; i++)
+			{
+				_jetTransforms[i].localRotation = Quaternion.Slerp(_jetTransforms[i].localRotation, targetQuaternion, _enemyConfig.JetPackRotSpeed * Time.deltaTime);
+			}
+		}
+
 		public override void TakeDamage(float damageValue, Vector2 direction)
 		{
 			base.TakeDamage(damageValue, direction);
@@ -282,7 +327,7 @@ namespace NickOfTime.Enemy
 					yield return null;
 					continue;
 				}
-				yield return new WaitForSeconds(1f);
+				yield return new WaitForSeconds(1f); // you could randomize this interval
 				CanUseWeapon = false;
 				CheckIfPlayerInSight();
 				CanUseWeapon = true;
@@ -350,7 +395,7 @@ namespace NickOfTime.Enemy
 
 		IEnumerator HandleDeathVFX(PoolObject poolObject)
 		{
-			yield return new WaitForSeconds(_characterConfig.DeathEffectTime);
+			yield return new WaitForSeconds(_enemyConfig.DeathEffectTime);
 			PersistentDataManager.instance.PoolManager.ReturnObjectToPool(poolObject);
 		}
 

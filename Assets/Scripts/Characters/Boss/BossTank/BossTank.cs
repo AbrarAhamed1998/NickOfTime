@@ -1,5 +1,6 @@
 using NickOfTime.ScriptableObjects.Enemy;
 using NickOfTime.UI.DialogSystem;
+using Pathfinding;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace NickOfTime.Characters
     {
 		[SerializeField] private Transform _gunTransform;
         [SerializeField] private Transform _target;
+        [SerializeField] private Rigidbody2D _tankRigidbody;
+        [SerializeField] private Seeker _tankSeeker;
 
         [SerializeField] private TankStats _tankStats;
 
@@ -22,6 +25,8 @@ namespace NickOfTime.Characters
         private bool isDestroyed;
 
         public Action LookAction, AttackAction, MoveAction;
+
+        private Vector2 _movementDirection, _lookDirection;
         // Start is called before the first frame update
         void Start()
         {
@@ -36,6 +41,19 @@ namespace NickOfTime.Characters
                 LookAtWorldPos(_target);
             }
         }
+
+		protected void RegisterControlEvents()
+		{
+            MoveAction = () =>
+            {
+                _tankRigidbody.AddForce(_movementDirection * _tankStats.TankMovementSpeed * Time.deltaTime, ForceMode2D.Force);
+            };
+		}
+
+        protected void DeregisterControlEvents()
+		{
+
+		}
 
         protected virtual void LookAtWorldPos(Transform targetWorldTransform)
         {

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5442283d4a61e7f469d7431337137f3e, type: 3}
+  m_Name: BossConfig
+  m_EditorClassIdentifier: 
+  _movementSpeed: 0
+  _lookSensitivity: 0
+  _jumpForce: 0
+  _defaultTotalHealthPoints: 0
+  _damageFlashColor: {r: 0, g: 0, b: 0, a: 0}
+  _damageFlashTime: 0
+  _groundCheckBoxSize: {x: 0, y: 0}
+  _groundCheckDebugColor: {r: 0, g: 0, b: 0, a: 0}
+  _groundCheckLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _damageSprites: []
+  _damageSpriteFactor: 0
+  _pickNextWaypointDist: 0
+  _pathCalcInterval: 0
+  _yThresholdToTriggerJump: 0
+  _jumpInterval: 0
+  _useWeaponInterval: 0
+  _playerCheckLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _lineOfSightLayerMask:
+    serializedVersion: 2
+    m_Bits: 0

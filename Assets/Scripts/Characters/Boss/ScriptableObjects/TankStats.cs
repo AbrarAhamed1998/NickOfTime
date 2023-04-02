@@ -13,6 +13,13 @@ namespace NickOfTime.ScriptableObjects.Enemy
 		[SerializeField] private AngularLimits _tankGunAngularLimits;
 		[SerializeField] private List<Sprite> _tankDamageSprites;
 
+		[Header("Tank Behaviour Stats")]
+		[SerializeField] private float _minDistanceFromPlayer;
+		[SerializeField] private float _maxDistanceFromPlayer;
+		[SerializeField] private float _tankMovementSpeed;
+		[SerializeField] private float _tankLookSpeed;
+		
+
 		[Header("Tank Round Stats")]
 		[SerializeField] private string _tankRoundPoolID;
 		[SerializeField] private float _launchForce;
@@ -28,6 +35,10 @@ namespace NickOfTime.ScriptableObjects.Enemy
 		public float TankHealth => _tankHealth;
 		public AngularLimits TankAngularLimits => _tankGunAngularLimits;
 		public List<Sprite> TankDamageSprites => _tankDamageSprites;
+		public float MinDistanceFromPlayer => _minDistanceFromPlayer;
+		public float MaxDistanceFromPlayer => _maxDistanceFromPlayer;
+		public float TankMovementSpeed => _tankMovementSpeed;
+		public float TankLookSpeed => _tankLookSpeed;
 		public string TankRoundPoolID => _tankRoundPoolID;
 		public float LaunchForce => _launchForce;
 		public float HitPushbackIntensity => _hitPushbackIntensity;
