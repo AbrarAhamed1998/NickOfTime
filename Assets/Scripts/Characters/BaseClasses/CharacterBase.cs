@@ -82,9 +82,6 @@ namespace NickOfTime.Characters
 
         protected virtual void Start()
         {
-			/*_movePlayerState = new MovePlayerState(this);
-			_jumPlayerState = new JumpPlayerState(this);
-			_idlePlayerState = new IdlePlayerState(this);*/
 			CurrentCharacterState = null;
         }
 
