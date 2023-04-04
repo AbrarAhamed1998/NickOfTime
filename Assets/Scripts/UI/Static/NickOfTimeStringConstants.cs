@@ -16,6 +16,7 @@ namespace NickOfTime.Helper.Constants
 		public static string RICOCHET_BULLET_POOL_ID = "Ricochet_Bullet";
 		public static string ROCKET_PROJECTILE_POOL_ID = "Rocket_Projectile";
 		public static string ROCKET_EXPLOSION_VFX_POOL_ID = "Rocket_Explosion";
+		public static string TANK_ROUND_PROJECTILE = "Tank_Round";
 
 		#endregion
 

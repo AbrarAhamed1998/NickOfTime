@@ -17,3 +17,15 @@ MonoBehaviour:
     minAngle: -7
     maxAngle: 45
   _tankDamageSprites: []
+  _minDistanceFromPlayer: 5
+  _maxDistanceFromPlayer: 7
+  _tankMovementSpeed: 10
+  _tankLookSpeed: 2
+  _tankRoundPoolID: 
+  _launchForce: 3
+  _hitPushbackIntensity: 2
+  _hitDamage: 2
+  _tankRoundLifeTime: 4
+  _explsoionRadius: 1
+  _explosionDamage: 5
+  _explosionLifetime: 3

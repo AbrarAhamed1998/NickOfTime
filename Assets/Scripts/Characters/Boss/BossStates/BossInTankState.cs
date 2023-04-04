@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace NickOfTime.Characters.CharacterStates
 {
-	public class TankStateBase : BossStateBase
+	public class BossInTankState : BossStateBase
 	{
-		public TankStateBase(BossCharacter bossCharacter) : base(bossCharacter)
+		public BossInTankState(BossCharacter bossCharacter) : base(bossCharacter)
 		{
 		}
 
@@ -24,11 +24,14 @@ namespace NickOfTime.Characters.CharacterStates
 		public override void OnStateUpdate()
 		{
 			base.OnStateUpdate();
+			bossCharacter.BossTank.TankLook();
 		}
 
 		public override void OnStateFixedUpdate()
 		{
 			base.OnStateFixedUpdate();
+			bossCharacter.BossTank.WaypointDirection = bossCharacter.TankWaypointDirection();
+			bossCharacter.BossTank.TankMove();
 		}
 	}
 }

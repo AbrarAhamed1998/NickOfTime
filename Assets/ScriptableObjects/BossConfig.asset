@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5442283d4a61e7f469d7431337137f3e, type: 3}
   m_Name: BossConfig
   m_EditorClassIdentifier: 
-  _movementSpeed: 0
-  _lookSensitivity: 0
-  _jumpForce: 0
-  _defaultTotalHealthPoints: 0
-  _damageFlashColor: {r: 0, g: 0, b: 0, a: 0}
-  _damageFlashTime: 0
+  _movementSpeed: 10
+  _lookSensitivity: 5
+  _jumpForce: 5
+  _defaultTotalHealthPoints: 100
+  _damageFlashColor: {r: 1, g: 0, b: 0, a: 1}
+  _damageFlashTime: 0.2
   _groundCheckBoxSize: {x: 0, y: 0}
   _groundCheckDebugColor: {r: 0, g: 0, b: 0, a: 0}
   _groundCheckLayerMask:
@@ -25,14 +25,14 @@ MonoBehaviour:
     m_Bits: 0
   _damageSprites: []
   _damageSpriteFactor: 0
-  _pickNextWaypointDist: 0
-  _pathCalcInterval: 0
-  _yThresholdToTriggerJump: 0
-  _jumpInterval: 0
-  _useWeaponInterval: 0
+  _pickNextWaypointDist: 2
+  _pathCalcInterval: 1.5
+  _yThresholdToTriggerJump: 0.5
+  _jumpInterval: 1
+  _useWeaponInterval: 1
   _playerCheckLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   _lineOfSightLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 193

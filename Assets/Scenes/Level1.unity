@@ -491,6 +491,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 594735439659131731, guid: 567b226c10692244abe72cdbfe94db66, type: 3}
+      propertyPath: _bossTank
+      value: 
+      objectReference: {fileID: 514314964}
+    - target: {fileID: 594735439659131731, guid: 567b226c10692244abe72cdbfe94db66, type: 3}
+      propertyPath: _tankRigidbody
+      value: 
+      objectReference: {fileID: 514314966}
+    - target: {fileID: 594735439659131731, guid: 567b226c10692244abe72cdbfe94db66, type: 3}
+      propertyPath: _bossTankSeeker
+      value: 
+      objectReference: {fileID: 514314965}
     - target: {fileID: 1671657526216297928, guid: 567b226c10692244abe72cdbfe94db66, type: 3}
       propertyPath: m_Mass
       value: 0.0001
@@ -561,6 +573,33 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2479298849886213632, guid: 567b226c10692244abe72cdbfe94db66, type: 3}
   m_PrefabInstance: {fileID: 442063996}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &514314964 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4308047045975117959, guid: 47c6e9faec65fb749b271550eb917397, type: 3}
+  m_PrefabInstance: {fileID: 343366367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ebff2f95de84654ca20423ac75eb218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &514314965 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8480955992070041680, guid: 47c6e9faec65fb749b271550eb917397, type: 3}
+  m_PrefabInstance: {fileID: 343366367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &514314966 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8166734980462656518, guid: 47c6e9faec65fb749b271550eb917397, type: 3}
+  m_PrefabInstance: {fileID: 343366367}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:

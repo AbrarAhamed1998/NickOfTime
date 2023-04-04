@@ -1,5 +1,10 @@
+using NickOfTime.Enemy;
+using NickOfTime.Helper.Constants;
+using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Enemy;
 using NickOfTime.UI.DialogSystem;
+using NickOfTime.Utilities.PoolingSystem;
+using NickOfTime.Weapons.Projectiles;
 using Pathfinding;
 using System;
 using System.Collections;
@@ -18,6 +23,9 @@ namespace NickOfTime.Characters
 
         [SerializeField] private TankStats _tankStats;
 
+        [SerializeField] private TankGun _tankGun;
+
+        private PoolManager _poolManager => PersistentDataManager.instance.PoolManager;
 
         public TankStats TankStats => _tankStats;
 
@@ -27,6 +35,8 @@ namespace NickOfTime.Characters
         public Action LookAction, AttackAction, MoveAction;
 
         private Vector2 _movementDirection, _lookDirection;
+
+        public Vector2 WaypointDirection { get; set; }
         // Start is called before the first frame update
         void Start()
         {
@@ -36,23 +46,45 @@ namespace NickOfTime.Characters
         // Update is called once per frame
         void Update()
         {
-            if(!isDestroyed)
-			{
-                LookAtWorldPos(_target);
-            }
+            
         }
+
+		private void OnEnable()
+		{
+            RegisterControlEvents();
+		}
+
+		private void OnDisable()
+		{
+            DeregisterControlEvents();
+		}
 
 		protected void RegisterControlEvents()
 		{
             MoveAction = () =>
             {
-                _tankRigidbody.AddForce(_movementDirection * _tankStats.TankMovementSpeed * Time.deltaTime, ForceMode2D.Force);
+                _tankRigidbody.AddForce(WaypointDirection * _tankStats.TankMovementSpeed * Time.deltaTime, ForceMode2D.Force);
+            };
+
+            LookAction = () =>
+            {
+                if (!isDestroyed)
+                {
+                    LookAtWorldPos(_target);
+                }
+            };
+
+            AttackAction = () =>
+            {
+
             };
 		}
 
         protected void DeregisterControlEvents()
 		{
-
+            MoveAction = null;
+            LookAction = null;
+            AttackAction = null;
 		}
 
         protected virtual void LookAtWorldPos(Transform targetWorldTransform)
@@ -108,6 +140,31 @@ namespace NickOfTime.Characters
                 
             return Mathf.Clamp(finalVal, minValue, maxValue);
 		}
+
+		#region PUBLIC METHODS
+
+        public void TankMove()
+		{
+            MoveAction?.Invoke();
+		}
+
+        public void TankAttack()
+		{
+            AttackAction?.Invoke();
+		}
+
+        public void TankLook()
+		{
+            LookAction?.Invoke();
+		}
+
+		#endregion
+
+
+		protected void FireTankRound()
+		{
+            _tankGun.OnUseGun();
+        }
 
         protected void TakeDamage()
 		{

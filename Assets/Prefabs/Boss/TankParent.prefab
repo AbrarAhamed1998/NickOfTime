@@ -100,7 +100,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.3599999, y: 0.32999957, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7063007993616319201}
   m_Father: {fileID: 1111722336768791282}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -168,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossTank: {fileID: 4308047045975117959}
-  _tankBarrel: {fileID: 0}
+  _tankBarrel: {fileID: 7063007993616319201}
   _projectileLayer: 9
 --- !u!70 &3589834586387091850
 CapsuleCollider2D:
@@ -322,6 +323,7 @@ MonoBehaviour:
   _tankRigidbody: {fileID: 8166734980462656518}
   _tankSeeker: {fileID: 8480955992070041680}
   _tankStats: {fileID: 11400000, guid: bb59c4cbdb1777d4b99d3a0a178ac46f, type: 2}
+  _tankGun: {fileID: 0}
 --- !u!114 &8480955992070041680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +411,36 @@ PolygonCollider2D:
       - {x: 2.8748326, y: -1.5008831}
       - {x: 3.2427278, y: -0.53791404}
       - {x: 3.6246965, y: 0.09400457}
+--- !u!1 &8175466500288205847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7063007993616319201}
+  m_Layer: 10
+  m_Name: TankRoundOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7063007993616319201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8175466500288205847}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.81, y: 0.052, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9082536799073993101}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8843231599166980901
 GameObject:
   m_ObjectHideFlags: 0

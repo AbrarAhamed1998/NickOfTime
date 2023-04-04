@@ -21,6 +21,10 @@ namespace NickOfTime.Characters.Enemy
         [SerializeField] private Rigidbody2D _tankRigidbody;
 
 		[SerializeField] private Transform _lookTarget;
+
+		public BossTank BossTank => _bossTank;
+
+
         public bool CanUseWeapon;
         public bool CanCheckForPlayer;
 
@@ -28,15 +32,22 @@ namespace NickOfTime.Characters.Enemy
         private int currentWaypoint = 0;
         bool reachedEndOfPath;
 
-        public BossStateBase CurrentBossState;
+        public BossStateBase CurrentBossState {
+			get => (BossStateBase)CurrentCharacterState;
+			set => CurrentCharacterState = value;
+		}
 
         protected BossStateBase _tankState, _idleState, _moveState, _dialogState, _deathState;
 
 
 		protected override void Start()
 		{
-            _tankState = new BossStateBase(this);
+            _tankState = new BossInTankState(this);
             ChangeBossState(_tankState);
+
+			StartCoroutine(CalculatePathRoutine());
+			StartCoroutine(CheckForPlayerInVicinityRoutine());
+			StartCoroutine(CheckForUseWeaponOnPlayer());
 		}
 
 		protected override void Update()
@@ -44,7 +55,12 @@ namespace NickOfTime.Characters.Enemy
 			base.Update();
 		}
 
-        public void ChangeBossState(BossStateBase toBossState)
+		protected override void UseWeapon()
+		{
+			BossTank.TankAttack();
+		}
+
+		public void ChangeBossState(BossStateBase toBossState)
 		{
             CurrentBossState?.OnStateExit();
             CurrentBossState = toBossState;
@@ -58,6 +74,12 @@ namespace NickOfTime.Characters.Enemy
 				aiPath = p;
 				currentWaypoint = 0;
 			}
+		}
+
+		public Vector2 TankWaypointDirection()
+		{
+			Vector2 waypoint = GetWayPointDirection();
+			return new Vector2(waypoint.x, 0f);
 		}
 
 		private Vector2 GetWayPointDirection()
@@ -80,6 +102,8 @@ namespace NickOfTime.Characters.Enemy
 
 			return waypointDirection;
 		}
+
+		
 
 		private void CheckIfPlayerInSight()
 		{
