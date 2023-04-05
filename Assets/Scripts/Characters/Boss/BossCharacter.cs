@@ -112,10 +112,11 @@ namespace NickOfTime.Characters.Enemy
 			contactFilter.useLayerMask = true;
 			contactFilter.SetLayerMask(_bossConfig.LineOfSightLayerMask);
 			RaycastHit2D[] hits = new RaycastHit2D[1];
-			if (Physics2D.Raycast(this.transform.position, target.transform.position - transform.position, contactFilter, hits) > 0)
+			Vector3 viewPosition = _bossTank.TankGun.TankGunBarrel.position;
+			if (Physics2D.Raycast(viewPosition, target.transform.position - viewPosition, contactFilter, hits) > 0)
 			{
 				Player.Player hitPlayer = hits[0].collider.gameObject.GetComponent<Player.Player>();
-				Debug.DrawRay(this.transform.position, target.transform.position - transform.position, Color.red, 1f);
+				Debug.DrawRay(viewPosition, target.transform.position - viewPosition, Color.red, 1f);
 				if (hitPlayer == null) return;
 				// try using weapon on player
 				UseWeapon();
@@ -129,12 +130,14 @@ namespace NickOfTime.Characters.Enemy
 			contactFilter.useLayerMask = true;
 			contactFilter.SetLayerMask(_bossConfig.PlayerCheckLayerMask);
 			RaycastHit2D[] hits = new RaycastHit2D[1];
-			if (Physics2D.CircleCast(this.transform.position, 2f, Vector2.right, contactFilter, hits) > 0)
+			Vector2 origin = _bossTank.transform.position;
+			if (Physics2D.CircleCast(origin, 2f, Vector2.right, contactFilter, hits) > 0)
 			{
 				Player.Player player = hits[0].collider.gameObject.GetComponent<Player.Player>();
 				if (player != null)
 				{
 					_lookTarget = player.transform;
+					_bossTank.TankTarget = player.transform;
 				}
 			}
 		}
@@ -159,7 +162,7 @@ namespace NickOfTime.Characters.Enemy
 					yield return null;
 					continue;
 				}
-				yield return new WaitForSeconds(1f); // you could randomize this interval
+				yield return new WaitForSeconds(_bossConfig.UseWeaponInterval); // you could randomize this interval
 				CanUseWeapon = false;
 				CheckIfPlayerInSight();
 				CanUseWeapon = true;

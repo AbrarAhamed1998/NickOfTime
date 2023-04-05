@@ -11,7 +11,7 @@ namespace NickOfTime.Characters.CharacterStates
 
 		public BossStateBase(BossCharacter character) : base(character)
 		{
-
+			this.bossCharacter = character;
 		}
 
 		public override void OnStateEnter()

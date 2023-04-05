@@ -17,6 +17,7 @@ namespace NickOfTime.Enemy
 		[SerializeField, Layer] private int _projectileLayer;
 
 		public TankStats TankStats => _bossTank.TankStats;
+		public Transform TankGunBarrel => _tankBarrel;
 
 		private bool _isReloading;
 

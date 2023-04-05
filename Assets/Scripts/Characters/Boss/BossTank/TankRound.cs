@@ -34,7 +34,7 @@ namespace NickOfTime.Weapons.Projectiles
             if (_deactivateLayers == (_deactivateLayers | (1 << collision.gameObject.layer)))
             {
                 CharacterBase character = collision.gameObject.GetComponent<CharacterBase>();
-                if (character != null) return;
+                //if (character == null) return;
                 //ignoreRicochet = true;
                 if (character != null)
                 {

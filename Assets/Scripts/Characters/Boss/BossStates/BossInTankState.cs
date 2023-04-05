@@ -9,6 +9,7 @@ namespace NickOfTime.Characters.CharacterStates
 	{
 		public BossInTankState(BossCharacter bossCharacter) : base(bossCharacter)
 		{
+			
 		}
 
 		public override void OnStateEnter()

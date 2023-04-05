@@ -17,7 +17,6 @@ namespace NickOfTime.Characters
     public class BossTank : MonoBehaviour
     {
 		[SerializeField] private Transform _gunTransform;
-        [SerializeField] private Transform _target;
         [SerializeField] private Rigidbody2D _tankRigidbody;
         [SerializeField] private Seeker _tankSeeker;
 
@@ -28,7 +27,7 @@ namespace NickOfTime.Characters
         private PoolManager _poolManager => PersistentDataManager.instance.PoolManager;
 
         public TankStats TankStats => _tankStats;
-
+        public TankGun TankGun => _tankGun;
 
         private bool isDestroyed;
 
@@ -37,13 +36,16 @@ namespace NickOfTime.Characters
         private Vector2 _movementDirection, _lookDirection;
 
         public Vector2 WaypointDirection { get; set; }
-        // Start is called before the first frame update
-        void Start()
+
+        public Transform TankTarget { get; set; } 
+
+
+		#region UNITY_CALLBACKS
+		void Start()
         {
 
         }
 
-        // Update is called once per frame
         void Update()
         {
             
@@ -59,6 +61,8 @@ namespace NickOfTime.Characters
             DeregisterControlEvents();
 		}
 
+		#endregion
+
 		protected void RegisterControlEvents()
 		{
             MoveAction = () =>
@@ -70,13 +74,13 @@ namespace NickOfTime.Characters
             {
                 if (!isDestroyed)
                 {
-                    LookAtWorldPos(_target);
+                    LookAtWorldPos(TankTarget);
                 }
             };
 
-            AttackAction = () =>
+            AttackAction = ()=>
             {
-
+                FireTankRound();
             };
 		}
 

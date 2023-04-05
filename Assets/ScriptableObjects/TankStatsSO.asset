@@ -19,13 +19,13 @@ MonoBehaviour:
   _tankDamageSprites: []
   _minDistanceFromPlayer: 5
   _maxDistanceFromPlayer: 7
-  _tankMovementSpeed: 10
+  _tankMovementSpeed: 250
   _tankLookSpeed: 2
-  _tankRoundPoolID: 
-  _launchForce: 3
+  _tankRoundPoolID: Tank_Round
+  _launchForce: 8
   _hitPushbackIntensity: 2
   _hitDamage: 2
   _tankRoundLifeTime: 4
-  _explsoionRadius: 1
+  _explsoionRadius: 2
   _explosionDamage: 5
-  _explosionLifetime: 3
+  _explosionLifetime: 4

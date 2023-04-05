@@ -145,8 +145,8 @@ MonoBehaviour:
   _bossTankSeeker: {fileID: 0}
   _tankRigidbody: {fileID: 0}
   _lookTarget: {fileID: 0}
-  CanUseWeapon: 0
-  CanCheckForPlayer: 0
+  CanUseWeapon: 1
+  CanCheckForPlayer: 1
 --- !u!114 &4836644989354136549
 MonoBehaviour:
   m_ObjectHideFlags: 0
