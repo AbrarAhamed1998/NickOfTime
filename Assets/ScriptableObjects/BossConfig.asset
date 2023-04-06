@@ -36,3 +36,4 @@ MonoBehaviour:
   _lineOfSightLayerMask:
     serializedVersion: 2
     m_Bits: 193
+  _bossName: Generic Villain

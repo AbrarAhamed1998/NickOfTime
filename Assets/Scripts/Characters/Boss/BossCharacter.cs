@@ -8,6 +8,7 @@ using Pathfinding;
 using NickOfTime.ScriptableObjects.Enemy;
 using NickOfTime.Managers;
 using Player = NickOfTime.Characters.Player.Player;
+using DG.Tweening;
 
 namespace NickOfTime.Characters.Enemy
 {
@@ -32,6 +33,8 @@ namespace NickOfTime.Characters.Enemy
         private int currentWaypoint = 0;
         bool reachedEndOfPath;
 
+		protected CanvasGroup _bossHealthSliderGroup;
+
         public BossStateBase CurrentBossState {
 			get => (BossStateBase)CurrentCharacterState;
 			set => CurrentCharacterState = value;
@@ -39,12 +42,19 @@ namespace NickOfTime.Characters.Enemy
 
         protected BossStateBase _tankState, _idleState, _moveState, _dialogState, _deathState;
 
+		protected BossHealthSlider _bossHealthSlider {
+			get => (BossHealthSlider)_characterHealthSlider;
+			set => _characterHealthSlider = value;
+		}
+
+		public BossHealthSlider BossHealthSlider => _bossHealthSlider;
 
 		protected override void Start()
 		{
-            _tankState = new BossInTankState(this);
+			CharacterHealthPoints = _characterConfig.DefaultHealthPoints;
+			_tankState = new BossInTankState(this);
             ChangeBossState(_tankState);
-
+			StartCoroutine(DetectGameStart());
 			StartCoroutine(CalculatePathRoutine());
 			StartCoroutine(CheckForPlayerInVicinityRoutine());
 			StartCoroutine(CheckForUseWeaponOnPlayer());
@@ -55,9 +65,25 @@ namespace NickOfTime.Characters.Enemy
 			base.Update();
 		}
 
+		protected override void RegisterControlEvents()
+		{
+			base.RegisterControlEvents();
+			_bossTank.TakeDamageAction += (damage, direction) =>
+			{
+				NegateDamageFromHealth(damage);
+			};
+		}
+
 		protected override void UseWeapon()
 		{
 			BossTank.TankAttack();
+		}
+
+		public override void TakeDamage(float damageValue, Vector2 direction)
+		{
+			base.TakeDamage(damageValue, direction);
+			_bossTank.TakeDamage(damageValue, direction);
+			CurrentBossState?.OnCharacterTakeDamage();
 		}
 
 		public void ChangeBossState(BossStateBase toBossState)
@@ -138,6 +164,7 @@ namespace NickOfTime.Characters.Enemy
 				{
 					_lookTarget = player.transform;
 					_bossTank.TankTarget = player.transform;
+					_bossHealthSliderGroup.DOFade(1f, 0.5f);
 				}
 			}
 		}
@@ -183,6 +210,15 @@ namespace NickOfTime.Characters.Enemy
 				CheckIfPlayerInVicinity();
 				CanCheckForPlayer = true;
 			}
+		}
+
+		private IEnumerator DetectGameStart()
+		{
+			yield return new WaitUntil(() => PersistentDataManager.instance != null);
+			yield return new WaitUntil(() => PersistentDataManager.instance.UIManager != null);
+			_bossHealthSlider = PersistentDataManager.instance.UIManager.BossHealthBar;
+			_bossHealthSlider.SetBossName(_bossConfig.BossName);
+			_bossHealthSliderGroup = _bossHealthSlider.GetComponentInParent<CanvasGroup>();
 		}
 	}
 }

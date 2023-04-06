@@ -32,6 +32,7 @@ namespace NickOfTime.Characters
         private bool isDestroyed;
 
         public Action LookAction, AttackAction, MoveAction;
+        public Action<float, Vector2> TakeDamageAction;
 
         private Vector2 _movementDirection, _lookDirection;
 
@@ -65,12 +66,12 @@ namespace NickOfTime.Characters
 
 		protected void RegisterControlEvents()
 		{
-            MoveAction = () =>
+            MoveAction += () =>
             {
                 _tankRigidbody.AddForce(WaypointDirection * _tankStats.TankMovementSpeed * Time.deltaTime, ForceMode2D.Force);
             };
 
-            LookAction = () =>
+            LookAction += () =>
             {
                 if (!isDestroyed)
                 {
@@ -78,9 +79,14 @@ namespace NickOfTime.Characters
                 }
             };
 
-            AttackAction = ()=>
+            AttackAction += ()=>
             {
                 FireTankRound();
+            };
+
+            TakeDamageAction += (damage, direction) =>
+            {
+                
             };
 		}
 
@@ -170,9 +176,9 @@ namespace NickOfTime.Characters
             _tankGun.OnUseGun();
         }
 
-        protected void TakeDamage()
+        public void TakeDamage(float damage, Vector2 direction)
 		{
-
+            TakeDamageAction?.Invoke(damage, direction);
 		}
 
         protected void SetDamageSprite()

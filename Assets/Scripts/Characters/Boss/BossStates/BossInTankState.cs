@@ -34,6 +34,12 @@ namespace NickOfTime.Characters.CharacterStates
 			bossCharacter.BossTank.WaypointDirection = bossCharacter.TankWaypointDirection();
 			bossCharacter.BossTank.TankMove();
 		}
+
+		public override void OnCharacterTakeDamage()
+		{
+			base.OnCharacterTakeDamage();
+			//bossCharacter.BossTank.TakeDamage();
+		}
 	}
 }
 

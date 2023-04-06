@@ -19,6 +19,8 @@ namespace NickOfTime.ScriptableObjects.Enemy
 		[SerializeField] private LayerMask _playerCheckLayerMask;
 		[SerializeField] private LayerMask _lineOfSightLayerMask;
 
+		[SerializeField] private string _bossName;
+
 		public float PickNextWaypointDist => _pickNextWaypointDist;
 		public float PathCalcInterval => _pathCalcInterval;
 		public float YThresholdToTriggerJump => _yThresholdToTriggerJump;
@@ -26,6 +28,7 @@ namespace NickOfTime.ScriptableObjects.Enemy
 		public float UseWeaponInterval => _useWeaponInterval;
 		public LayerMask PlayerCheckLayerMask => _playerCheckLayerMask;
 		public LayerMask LineOfSightLayerMask => _lineOfSightLayerMask;
+		public string BossName => _bossName;
 	}
 }
 
