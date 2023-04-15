@@ -22,7 +22,7 @@ MonoBehaviour:
   _tankMovementSpeed: 250
   _tankLookSpeed: 2
   _tankRoundPoolID: Tank_Round
-  _launchForce: 8
+  _launchForce: 15
   _hitPushbackIntensity: 2
   _hitDamage: 2
   _tankRoundLifeTime: 4

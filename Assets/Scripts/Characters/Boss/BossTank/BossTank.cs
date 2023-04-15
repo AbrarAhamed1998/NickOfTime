@@ -24,6 +24,12 @@ namespace NickOfTime.Characters
 
         [SerializeField] private TankGun _tankGun;
 
+        [SerializeField] private Transform _dummyCharacterHead;
+
+        [SerializeField] private Transform _uiRoot;
+
+        [SerializeField] private DialogPlayer _tankDialogPlayer;
+
         private PoolManager _poolManager => PersistentDataManager.instance.PoolManager;
 
         public TankStats TankStats => _tankStats;
@@ -75,7 +81,8 @@ namespace NickOfTime.Characters
             {
                 if (!isDestroyed)
                 {
-                    LookAtWorldPos(TankTarget);
+                    LookAtWorldPos(TankTarget, _gunTransform);
+                    LookAtWorldPos(TankTarget, _dummyCharacterHead, false);
                 }
             };
 
@@ -97,7 +104,7 @@ namespace NickOfTime.Characters
             AttackAction = null;
 		}
 
-        protected virtual void LookAtWorldPos(Transform targetWorldTransform)
+        protected virtual void LookAtWorldPos(Transform targetWorldTransform, Transform rotTarget, bool isClamped = true)
         {
             if (targetWorldTransform == null)
             {
@@ -105,7 +112,7 @@ namespace NickOfTime.Characters
                 return;
             }
             Vector2 worldPos = targetWorldTransform.position;
-            Transform target = _gunTransform;
+            Transform target = rotTarget;
             float y = target.position.y - worldPos.y;
             float x = target.position.x - worldPos.x;
             float localEulerY = transform.localEulerAngles.y;
@@ -114,7 +121,10 @@ namespace NickOfTime.Characters
             float targetAngle = (Mathf.Atan2(y, x) * Mathf.Rad2Deg) + switchFactor;
             float finalZangle = (switchFactor == 0f ? -1f : 1f) * targetAngle;
 
-            target.localEulerAngles = new Vector3(0f, 0f, ClampAngle(switchFactor, finalZangle));
+            if(isClamped)
+                target.localEulerAngles = new Vector3(0f, 0f, ClampAngle(switchFactor, finalZangle));
+            else
+                target.localEulerAngles = new Vector3(0f, 0f, finalZangle);
 
             /*for (int i = 1; i < _debugLookObjects.Length; i++)
             {

@@ -9,6 +9,7 @@ using NickOfTime.ScriptableObjects.Enemy;
 using NickOfTime.Managers;
 using Player = NickOfTime.Characters.Player.Player;
 using DG.Tweening;
+using System;
 
 namespace NickOfTime.Characters.Enemy
 {
@@ -23,8 +24,13 @@ namespace NickOfTime.Characters.Enemy
 
 		[SerializeField] private Transform _lookTarget;
 
+		public Seeker ActiveSeeker { get; set; }
+		public Transform ActiveBossTransform { get; set; }
+
 		public BossTank BossTank => _bossTank;
 
+		private Vector2 _sphereCastOrigin;
+		private Vector3 _characetrViewingOrigin;
 
         public bool CanUseWeapon;
         public bool CanCheckForPlayer;
@@ -34,6 +40,9 @@ namespace NickOfTime.Characters.Enemy
         bool reachedEndOfPath;
 
 		protected CanvasGroup _bossHealthSliderGroup;
+
+		public Action<Vector2> OnSphereCastOriginChanged;
+		public Action<Vector3> OnCharacetrViewingOriginChanged;
 
         public BossStateBase CurrentBossState {
 			get => (BossStateBase)CurrentCharacterState;
@@ -68,6 +77,8 @@ namespace NickOfTime.Characters.Enemy
 		protected override void RegisterControlEvents()
 		{
 			base.RegisterControlEvents();
+			OnSphereCastOriginChanged += (origin) => _sphereCastOrigin = origin;
+			OnCharacetrViewingOriginChanged += (viewingTransform) => _characetrViewingOrigin = viewingTransform;
 			_bossTank.TakeDamageAction += (damage, direction) =>
 			{
 				NegateDamageFromHealth(damage);
@@ -82,7 +93,6 @@ namespace NickOfTime.Characters.Enemy
 		public override void TakeDamage(float damageValue, Vector2 direction)
 		{
 			base.TakeDamage(damageValue, direction);
-			_bossTank.TakeDamage(damageValue, direction);
 			CurrentBossState?.OnCharacterTakeDamage();
 		}
 
@@ -138,7 +148,7 @@ namespace NickOfTime.Characters.Enemy
 			contactFilter.useLayerMask = true;
 			contactFilter.SetLayerMask(_bossConfig.LineOfSightLayerMask);
 			RaycastHit2D[] hits = new RaycastHit2D[1];
-			Vector3 viewPosition = _bossTank.TankGun.TankGunBarrel.position;
+			Vector3 viewPosition = _characetrViewingOrigin;
 			if (Physics2D.Raycast(viewPosition, target.transform.position - viewPosition, contactFilter, hits) > 0)
 			{
 				Player.Player hitPlayer = hits[0].collider.gameObject.GetComponent<Player.Player>();
@@ -156,7 +166,7 @@ namespace NickOfTime.Characters.Enemy
 			contactFilter.useLayerMask = true;
 			contactFilter.SetLayerMask(_bossConfig.PlayerCheckLayerMask);
 			RaycastHit2D[] hits = new RaycastHit2D[1];
-			Vector2 origin = _bossTank.transform.position;
+			Vector2 origin =_sphereCastOrigin;
 			if (Physics2D.CircleCast(origin, 2f, Vector2.right, contactFilter, hits) > 0)
 			{
 				Player.Player player = hits[0].collider.gameObject.GetComponent<Player.Player>();

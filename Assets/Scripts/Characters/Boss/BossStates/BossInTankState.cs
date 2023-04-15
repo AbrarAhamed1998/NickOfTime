@@ -15,6 +15,8 @@ namespace NickOfTime.Characters.CharacterStates
 		public override void OnStateEnter()
 		{
 			base.OnStateEnter();
+			bossCharacter.OnCharacetrViewingOriginChanged?.Invoke(bossCharacter.BossTank.TankGun.TankGunBarrel.position);
+			bossCharacter.OnSphereCastOriginChanged?.Invoke(bossCharacter.BossTank.transform.position);
 		}
 
 		public override void OnStateExit()
