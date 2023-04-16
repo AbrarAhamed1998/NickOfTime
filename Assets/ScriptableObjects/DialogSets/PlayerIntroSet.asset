@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546fa839531d37d488bff7e833aedd53, type: 3}
   m_Name: PlayerIntroSet
   m_EditorClassIdentifier: 
-  _dialogContentItems:
-  - dialogContent: Alright...Lets do this!!
-    waitTimePreDisplay: 0.5
-    scaleInTime: 0.25
-    waitTimeOnDisplay: 3
-    scaleOutTime: 0.25
+  _dialogSequences:
+  - _dialogContentItems:
+    - dialogContent: Alright! Lets do this!
+      waitTimePreDisplay: 0.2
+      scaleInTime: 0.25
+      waitTimeOnDisplay: 2
+      scaleOutTime: 0.25

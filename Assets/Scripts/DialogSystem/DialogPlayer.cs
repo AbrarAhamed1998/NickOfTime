@@ -49,14 +49,14 @@ namespace NickOfTime.UI.DialogSystem
             _dialogSetToPlay = dialogSetSO;
 		}
 
-        public void PlayAssignedDialogSet(Action OnCompleteSequence = null)
+        public void PlayAssignedDialogSet(int index,Action OnCompleteSequence = null)
 		{
             if (_spawnedDialogPanel == null)
 			{
-                StartCoroutine(WaitForSpawnedDialogPanel(OnCompleteSequence));
+                StartCoroutine(WaitForSpawnedDialogPanel(index,OnCompleteSequence));
                 return;
             }
-            _spawnedDialogPanel.SetCurrentDialogQueue(_dialogSetToPlay.DialogContentItems, OnCompleteSequence);
+			_spawnedDialogPanel.SetCurrentDialogQueue(_dialogSetToPlay.DialogSequenceList[index], OnCompleteSequence);
             _spawnedDialogPanel.PlayCurrentDialogQueue();
 		}
 
@@ -67,10 +67,10 @@ namespace NickOfTime.UI.DialogSystem
             InitializeDialogPanel();
 		}
 
-        private IEnumerator WaitForSpawnedDialogPanel(Action onCompleteSequence = null)
+        private IEnumerator WaitForSpawnedDialogPanel(int index,Action onCompleteSequence = null)
 		{
             yield return new WaitUntil(() => _spawnedDialogPanel != null);
-			PlayAssignedDialogSet(onCompleteSequence);
+			PlayAssignedDialogSet(index,onCompleteSequence);
 		}
     }
 }

@@ -21,10 +21,11 @@ MonoBehaviour:
   _maxDistanceFromPlayer: 7
   _tankMovementSpeed: 250
   _tankLookSpeed: 2
+  _tankReloadTime: 2
   _tankRoundPoolID: Tank_Round
-  _launchForce: 15
-  _hitPushbackIntensity: 2
-  _hitDamage: 2
+  _launchForce: 25
+  _hitPushbackIntensity: 30
+  _hitDamage: 3
   _tankRoundLifeTime: 4
   _explsoionRadius: 2
   _explosionDamage: 5

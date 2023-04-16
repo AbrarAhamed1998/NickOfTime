@@ -29,6 +29,7 @@ namespace NickOfTime.Characters
         [SerializeField] private Transform _uiRoot;
 
         [SerializeField] private DialogPlayer _tankDialogPlayer;
+        [SerializeField] private DialogSetSO _tankDialogSet;
 
         private PoolManager _poolManager => PersistentDataManager.instance.PoolManager;
 
@@ -183,7 +184,16 @@ namespace NickOfTime.Characters
 
 		protected void FireTankRound()
 		{
-            _tankGun.OnUseGun();
+            _tankDialogPlayer.AssignDialogSet(_tankDialogSet);
+            _tankDialogPlayer.PlayAssignedDialogSet(0, () =>
+            {
+                _tankDialogPlayer.PlayAssignedDialogSet(1,
+                    () =>
+                    {
+                        _tankGun.OnUseGun();
+                    }
+                );
+            });
         }
 
         public void TakeDamage(float damage, Vector2 direction)

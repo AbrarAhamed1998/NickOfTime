@@ -379,6 +379,7 @@ GameObject:
   - component: {fileID: 8480955992070041680}
   - component: {fileID: 8166734980462656518}
   - component: {fileID: 9010291329250840442}
+  - component: {fileID: 570392023706982205}
   m_Layer: 10
   m_Name: TankParent
   m_TagString: Untagged
@@ -420,6 +421,8 @@ MonoBehaviour:
   _tankGun: {fileID: 4995596007979502010}
   _dummyCharacterHead: {fileID: 4567945123009417361}
   _uiRoot: {fileID: 58318125695259535}
+  _tankDialogPlayer: {fileID: 570392023706982205}
+  _tankDialogSet: {fileID: 11400000, guid: f8e360612bf75a845b0af2a534441d3a, type: 2}
 --- !u!114 &8480955992070041680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,6 +528,20 @@ PolygonCollider2D:
       - {x: 2.8748326, y: -1.5008831}
       - {x: 3.2427278, y: -0.53791404}
       - {x: 3.6246965, y: 0.09400457}
+--- !u!114 &570392023706982205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601975617517197878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15fe154d02f1a6e4c9dd0f1243f4c0f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogSetToPlay: {fileID: 0}
+  _playerDialogTransform: {fileID: 58318125695259535}
 --- !u!1 &7643521737836281409
 GameObject:
   m_ObjectHideFlags: 0

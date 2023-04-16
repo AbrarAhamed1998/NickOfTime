@@ -46,11 +46,19 @@ namespace NickOfTime.Enemy
 			},
 			TankStats.TankRoundLifetime);
 			bullet.GetComponent<Rigidbody2D>().AddForce(_tankBarrel.right * TankStats.LaunchForce, ForceMode2D.Impulse);
+			StartCoroutine(ReloadingCoroutine());
+		}
+
+		public void SetReloading(bool val)
+		{
+			_isReloading = val;
 		}
 
 		private IEnumerator ReloadingCoroutine()
 		{
-			yield return null;
+			_isReloading = true;
+			yield return new WaitForSeconds(TankStats.TankReloadTime);
+			_isReloading = false;
 		}
 	}
 }

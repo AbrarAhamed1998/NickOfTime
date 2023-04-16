@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 546fa839531d37d488bff7e833aedd53, type: 3}
-  m_Name: OneLinerRocketSet
+  m_Name: TankDialogSet
   m_EditorClassIdentifier: 
   _dialogSequences:
   - _dialogContentItems:
-    - dialogContent: 'You''re Fired !! '
+    - dialogContent: Aim!!
       waitTimePreDisplay: 0.1
-      scaleInTime: 0.25
+      scaleInTime: 0.2
       waitTimeOnDisplay: 2
-      scaleOutTime: 0.25
-  _dialogContentItems:
-  - dialogContent: 'You''re Fired !! '
-    waitTimePreDisplay: 0.1
-    scaleInTime: 0.25
-    waitTimeOnDisplay: 2
-    scaleOutTime: 0.25
+      scaleOutTime: 0.2
+  - _dialogContentItems:
+    - dialogContent: Fire!!
+      waitTimePreDisplay: 0.1
+      scaleInTime: 0.2
+      waitTimeOnDisplay: 1
+      scaleOutTime: 0.2

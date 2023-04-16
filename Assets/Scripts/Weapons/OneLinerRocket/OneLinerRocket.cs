@@ -34,12 +34,14 @@ namespace NickOfTime.Weapons
                 _fireRoutine = StartCoroutine(RocketFireProcedure());
 		}
 
+        // Refactor this section
+
         protected IEnumerator RocketFireProcedure()
 		{
             yield return new WaitForEndOfFrame();
             WeaponOwner.DialogPlayer.AssignDialogSet(
                 ((RocketLauncherStatsSO)WeaponStats).OneLinerDialogSet);
-            WeaponOwner.DialogPlayer.PlayAssignedDialogSet(
+            WeaponOwner.DialogPlayer.PlayAssignedDialogSet(0,
                 () =>
 				{
                     FireProjectile(NickOfTimeStringConstants.ROCKET_PROJECTILE_POOL_ID);
@@ -56,7 +58,7 @@ namespace NickOfTime.Weapons
 		{
             WeaponOwner.DialogPlayer.AssignDialogSet(
                 ((RocketLauncherStatsSO)WeaponStats).ReloadDialogSet);
-            WeaponOwner.DialogPlayer.PlayAssignedDialogSet();
+            WeaponOwner.DialogPlayer.PlayAssignedDialogSet(0);
             yield return new WaitForSeconds(WeaponStats.ReloadTime);
             _rocketHead.SetActive(true);
             _isReloading = false;

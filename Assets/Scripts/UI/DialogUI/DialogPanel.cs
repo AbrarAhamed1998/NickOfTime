@@ -26,12 +26,12 @@ namespace NickOfTime.UI.DialogSystem
             _myRectTransform = GetComponent<RectTransform>();
 		}
 
-        public void SetCurrentDialogQueue(List<DialogSequenceParams> dialogSequence, Action OnCompleteSequence = null)
+        public void SetCurrentDialogQueue(DialogSequence dialogSequence, Action OnCompleteSequence = null)
 		{
             _currentDialogQueue.Clear();
-            for(int i=0; i<dialogSequence.Count; i++)
+            for(int i=0; i<dialogSequence.DialogContentItems.Count; i++)
 			{
-                _currentDialogQueue.Enqueue(dialogSequence[i]);
+                _currentDialogQueue.Enqueue(dialogSequence.DialogContentItems[i]);
 			}
             OnCompleteCurrentSequence = OnCompleteSequence;
 		}
