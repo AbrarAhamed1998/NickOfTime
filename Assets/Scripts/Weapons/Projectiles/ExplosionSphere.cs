@@ -46,13 +46,18 @@ namespace NickOfTime.Weapons.Projectiles
 						//Debug.Log($"force applied : {forceToBeApplied}, on item : {itemRigidbody.gameObject.name}");
 					}
 					CharacterBase character = results[i].collider.GetComponent<CharacterBase>();
-					if (character == null)
+					BossTank bossTank = results[i].collider.GetComponent<BossTank>();
+					
+					if (character != null)
 					{
-						//Debug.Log("no character in explosion");
-						continue;
+						character.TakeDamage(_explosionDamage, Vector2.zero);
 					}
-					//ignoreRicochet = true;
-					character.TakeDamage(_explosionDamage, Vector2.zero);
+
+					if (bossTank != null)
+					{
+						bossTank.TakeDamage(_explosionDamage, Vector2.zero);
+						Debug.Log("boss tank took damage from explosion");
+					}
 				}
 			}
 		}

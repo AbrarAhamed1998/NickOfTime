@@ -41,12 +41,9 @@ namespace NickOfTime.Weapons.Projectiles
 			if (_deactivateLayers == (_deactivateLayers | (1 << collision.gameObject.layer)))
 			{
 				CharacterBase character = collision.gameObject.GetComponent<CharacterBase>();
+				BossTank bossTank = collision.gameObject.GetComponent<BossTank>();
 				if (character != null && character == _ownerCharacter) return;
-				//ignoreRicochet = true;
-				if (character != null)
-				{
-					character.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
-				}
+				ApplyDamageOnCharacter(character, bossTank);
 				OnContactPoint?.Invoke(transform.position);
 				OnBulletDeactivate?.Invoke();
 			}

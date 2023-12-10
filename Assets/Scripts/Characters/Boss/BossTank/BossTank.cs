@@ -199,6 +199,7 @@ namespace NickOfTime.Characters
         public void TakeDamage(float damage, Vector2 direction)
 		{
             TakeDamageAction?.Invoke(damage, direction);
+            //Debug.Log($"Taken Damage : {damage}");
 		}
 
         protected void SetDamageSprite()

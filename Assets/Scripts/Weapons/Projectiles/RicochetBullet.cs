@@ -25,13 +25,11 @@ namespace NickOfTime.Weapons.Projectiles
             if (_deactivateLayers == (_deactivateLayers | (1 << collision.gameObject.layer)))
             {
                 CharacterBase character = collision.gameObject.GetComponent<CharacterBase>();
-                if (character != null && character == _ownerCharacter) return;
+				BossTank bossTank = collision.gameObject.GetComponent<BossTank>();
+				if (character != null && character == _ownerCharacter) return;
                 //ignoreRicochet = true;
-                if (character != null)
-                {
-                    character.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
-                }
-                if (ricochetDirection != Vector2.zero)
+                ApplyDamageOnCharacter(character, bossTank);
+				if (ricochetDirection != Vector2.zero)
                 {
                     transform.eulerAngles = new Vector3(0f, 0f, ricochetRotation);
                     _myRigidbody2D.velocity = ricochetDirection * _myRigidbody2D.velocity.magnitude;

@@ -19,9 +19,9 @@ MonoBehaviour:
       scaleInTime: 0.25
       waitTimeOnDisplay: 2
       scaleOutTime: 0.25
-  _dialogContentItems:
-  - dialogContent: 'You''re Fired !! '
-    waitTimePreDisplay: 0.1
-    scaleInTime: 0.25
-    waitTimeOnDisplay: 2
-    scaleOutTime: 0.25
+  - _dialogContentItems:
+    - dialogContent: Hasta La Vista Baby!
+      waitTimePreDisplay: 0.1
+      scaleInTime: 0.25
+      waitTimeOnDisplay: 2
+      scaleOutTime: 0.25
