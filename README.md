@@ -38,6 +38,9 @@ This revolver is an homage to western classics and is very accurate. It also has
 The revolver also seems to be possesed by a demon that loves to play russian roulette. When the demon is active the gun empties itself down to only one bullet and the player must cycle through the gun to fire the one bullet that does bonus damage.
 
 #### The One-Liner Rocket Launcher 
+
+<img src=https://github.com/AbrarAhamed1998/NickOfTime/assets/51904325/39599b50-54eb-476b-aeea-ce68d87ee9d3 width=200 height=100>
+
 The One Liner Rocket is a weapon that does a ton of damage, but requires its wielder to utter a cheesy one-liner from 80s action movies, before firing a rocket.This delay can mean the difference between life and death, coupled with the rarity of finding this weapon and the ammo for it, makes this weapon difficult to use.
 
 ## Systems
