@@ -26,7 +26,7 @@ The player can pick up a variety of weapons along their journey. Each of these w
 
 #### The Unlimited Pistol
 ![image](https://github.com/AbrarAhamed1998/NickOfTime/assets/51904325/a4e0e25c-71e0-4f6a-a7ea-a4ac7ad4277f)
-
+<img src=https://github.com/AbrarAhamed1998/NickOfTime/assets/51904325/a4e0e25c-71e0-4f6a-a7ea-a4ac7ad4277f width=100 height=100>
 A pistol that simply does not run out of ammo and never has to be reloaded, none has questioned this gross oversight in the making of this weapon, especially the developer of this game. This stands as a reference to all the action movies where a protaganist's weapon never has to be reloaded.
 
 #### The Ocelot Revolver
