@@ -31,6 +31,9 @@ The player can pick up a variety of weapons along their journey. Each of these w
 A pistol that simply does not run out of ammo and never has to be reloaded, none has questioned this gross oversight in the making of this weapon, especially the developer of this game. This stands as a reference to all the action movies where a protaganist's weapon never has to be reloaded.
 
 #### The Ocelot Revolver
+
+<img src=https://github.com/AbrarAhamed1998/NickOfTime/assets/51904325/28241c65-6364-4050-9702-8601e6ecd1be width=150 height=100>
+
 This revolver is an homage to western classics and is very accurate. It also has the ability to ricochet off surfaces and may damage the wielder as well.
 The revolver also seems to be possesed by a demon that loves to play russian roulette. When the demon is active the gun empties itself down to only one bullet and the player must cycle through the gun to fire the one bullet that does bonus damage.
 
