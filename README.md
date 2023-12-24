@@ -25,9 +25,11 @@ The jetpack allows to build momentum which, after a certain threshold can damage
 The player can pick up a variety of weapons along their journey. Each of these weapons have a unique quirk of thier own.
 
 #### The Unlimited Pistol
+![image](https://github.com/AbrarAhamed1998/NickOfTime/assets/51904325/a4e0e25c-71e0-4f6a-a7ea-a4ac7ad4277f)
+
 A pistol that simply does not run out of ammo and never has to be reloaded, none has questioned this gross oversight in the making of this weapon, especially the developer of this game. This stands as a reference to all the action movies where a protaganist's weapon never has to be reloaded.
 
-#### The Not So trusty revolver
+#### The Ocelot Revolver
 This revolver is an homage to western classics and is very accurate. It also has the ability to ricochet off surfaces and may damage the wielder as well.
 The revolver also seems to be possesed by a demon that loves to play russian roulette. When the demon is active the gun empties itself down to only one bullet and the player must cycle through the gun to fire the one bullet that does bonus damage.
 
