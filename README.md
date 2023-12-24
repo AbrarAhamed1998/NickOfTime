@@ -25,10 +25,14 @@ The jetpack allows to build momentum which, after a certain threshold can damage
 The player can pick up a variety of weapons along their journey. Each of these weapons have a unique quirk of thier own.
 
 #### The Unlimited Pistol
+A pistol that simply does not run out of ammo and never has to be reloaded, none has questioned this gross oversight in the making of this weapon, especially the developer of this game. This stands as a reference to all the action movies where a protaganist's weapon never has to be reloaded.
 
 #### The Not So trusty revolver
+This revolver is an homage to western classics and is very accurate. It also has the ability to ricochet off surfaces and may damage the wielder as well.
+The revolver also seems to be possesed by a demon that loves to play russian roulette. When the demon is active the gun empties itself down to only one bullet and the player must cycle through the gun to fire the one bullet that does bonus damage.
 
 #### The One-Liner Rocket Launcher 
+The One Liner Rocket is a weapon that does a ton of damage, but requires its wielder to utter a cheesy one-liner from 80s action movies, before firing a rocket.This delay can mean the difference between life and death, coupled with the rarity of finding this weapon and the ammo for it, makes this weapon difficult to use.
 
 ## Systems
 Here are some of the systems that I've built for the game that I'd like to showcase:
@@ -36,11 +40,12 @@ Here are some of the systems that I've built for the game that I'd like to showc
 ### Movement
 The movement of the game is built upon a mix of the subclass sanbox pattern and state pattern. I found this to be appropriate when I started out but now I realize that I need to refactor these classes to use the component pattern as well.
 1. The `CharacterBase` class acts as parent sandbox class that provides protected virtual methods that the subclass can implement. 
-2. The `CharacterStateBase` class also acts in a similar way to provide methods to any child state classes that arise.
-3. The `CharacterBaseConfigSO` class is the base Data class that provides the base variables needed by `CharacterBase`.
+3. The `CharacterStateBase` class also acts in a similar way to provide methods to any child state classes that arise.
+4. The `CharacterBaseConfigSO` class is the base Data class that provides the base variables needed by `CharacterBase`.
 
 #### CharacterBase : 
 Highlight some of the main template functions here for movement
+The `CharacterBase` class acts as a sort of parent class that provides the base functionality for any character in the game.
 Highlight usage of the base by enemy and player.
 
 #### Character State BAse:
@@ -64,4 +69,7 @@ The different AI States go here
 - Pros
 - Cons
 - Improvements that could be made
+
+### Dialog System
+- Simplicity and ease of use to create content
 
