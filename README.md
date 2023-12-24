@@ -56,6 +56,7 @@ The movement of the game is built upon a mix of the subclass sanbox pattern and 
 Highlight some of the main template functions here for movement
 The `CharacterBase` class acts as a sort of parent class that provides the base functionality for any character in the game.
 Highlight usage of the base by enemy and player.
+
 ![image](https://github.com/AbrarAhamed1998/NickOfTime/assets/51904325/30cb254d-79d6-4df2-9c7f-f0f122fb539f)
 
 
