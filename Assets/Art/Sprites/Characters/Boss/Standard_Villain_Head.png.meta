@@ -133,12 +133,12 @@ TextureImporter:
       name: Standard_Villain_Head_0
       rect:
         serializedVersion: 2
-        x: 45
-        y: 39
-        width: 17
-        height: 8
+        x: 44
+        y: 38
+        width: 19
+        height: 10
       alignment: 9
-      pivot: {x: 0.5000005, y: -0.0070014}
+      pivot: {x: 0.49804968, y: 0.002811432}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
