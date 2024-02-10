@@ -50,22 +50,18 @@ namespace NickOfTime.Weapons.Projectiles
 		{
             if (_deactivateLayers == (_deactivateLayers | (1 << collision.gameObject.layer)))
 			{
-                CharacterBase character = collision.gameObject.GetComponent<CharacterBase>();
-                BossTank bossTank = collision.gameObject.GetComponent<BossTank>();
-                if (character != null && character == _ownerCharacter) return;
-                //ignoreRicochet = true;
-                if(character != null)
-				{
-                    character.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
-				}
+				CharacterBase character = collision.gameObject.GetComponent<CharacterBase>();
+				BossTank bossTank = collision.gameObject.GetComponent<BossTank>();
+				if (character != null && character == _ownerCharacter) return;
+				//ignoreRicochet = true;
+				ApplyDamageOnCharacter(character, bossTank);
 
-                if (bossTank != null)
-                    bossTank.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
-				
 				//ricochetDirection = Vector2.Reflect(_myRigidbody2D.velocity.normalized, collision.GetContacts());
 				OnBulletDeactivate?.Invoke();
 			}
-        }
+		}
+
+		
 
 		/*private void OnCollisionEnter2D(Collision2D collision)
 		{
@@ -116,6 +112,16 @@ namespace NickOfTime.Weapons.Projectiles
                 OnBulletDeactivate?.Invoke();
 		}
 
+		protected void ApplyDamageOnCharacter(CharacterBase character, BossTank bossTank)
+		{
+			if (character != null)
+			{
+				character.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
+			}
+
+			if (bossTank != null)
+				bossTank.TakeDamage(_assignedDamageValue, transform.right * OwnerWeapon.WeaponStats.PushbackIntensity);
+		}
 	}
 }
 

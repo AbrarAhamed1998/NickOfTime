@@ -24,14 +24,12 @@ namespace NickOfTime.UI
         public BossHealthSlider BossHealthBar => _bossHealthSlider;
         public RectTransform DialogPanelParent => _dialogPanelParent;
 
-        // Start is called before the first frame update
         void Start()
         {
             PersistentDataManager.instance.UIManager = this;
             RegisterEvents();
         }
 
-        // Update is called once per frame
         void Update()
         {
 
@@ -70,9 +68,18 @@ namespace NickOfTime.UI
             return healthSliderBase;
 		}
 
+        /// <summary>
+        /// Reloads the level scene
+        /// </summary>
         public void RestartLevel()
 		{
-            SceneTransitioner.instance.LoadLevel(SceneManager.GetActiveScene().buildIndex);
+            if (SceneTransitioner.instance != null)
+                SceneTransitioner.instance.LoadLevel(SceneManager.GetActiveScene().buildIndex);
+            else
+            { 
+                // calling scene manager if Scene Transitioner instance is not available.
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			}
 		}
 
         public void DisplayDialog(Transform uiRoot)

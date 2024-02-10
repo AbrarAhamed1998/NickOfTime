@@ -1,20 +1,15 @@
 using NickOfTime.Enemy;
-using NickOfTime.Helper.Constants;
 using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Enemy;
 using NickOfTime.UI.DialogSystem;
 using NickOfTime.Utilities.PoolingSystem;
-using NickOfTime.Weapons.Projectiles;
 using Pathfinding;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace NickOfTime.Characters
 {
-    public class BossTank : MonoBehaviour
+	public class BossTank : MonoBehaviour
     {
 		[SerializeField] private Transform _gunTransform;
         [SerializeField] private Rigidbody2D _tankRigidbody;
@@ -199,6 +194,7 @@ namespace NickOfTime.Characters
         public void TakeDamage(float damage, Vector2 direction)
 		{
             TakeDamageAction?.Invoke(damage, direction);
+            //Debug.Log($"Taken Damage : {damage}");
 		}
 
         protected void SetDamageSprite()
@@ -210,6 +206,11 @@ namespace NickOfTime.Characters
 		{
 
 		}
+
+        protected void OnTankDeath()
+        {
+
+        }
 		
     }
 }
