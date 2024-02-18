@@ -1,5 +1,4 @@
 using DG.Tweening;
-using NickOfTime.Characters.CharacterStates;
 using NickOfTime.Characters.Player.PlayerStates;
 using NickOfTime.Helper.Constants;
 using NickOfTime.Managers;
@@ -7,10 +6,7 @@ using NickOfTime.ScriptableObjects.Player;
 using NickOfTime.UI.DialogSystem;
 using NickOfTime.Utilities.PoolingSystem;
 using NickOfTime.Weapons;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -19,7 +15,7 @@ using static PlayerControls;
 
 namespace NickOfTime.Characters.Player
 {
-    public class Player : CharacterBase, IPlayerActions
+	public class Player : CharacterBase, IPlayerActions
     {
         protected PlayerStateBase _movePlayerState, _jumpPlayerState, _idlePlayerState, _deathPlayerState;
 		#region PROPERTIES
@@ -34,6 +30,7 @@ namespace NickOfTime.Characters.Player
         protected PlayerConfig _playerConfig => (PlayerConfig)_characterConfig;
  
         public DialogPlayer DialogPlayer => _dialogPlayer;
+
 		#endregion
 
 		#region UNITY CALLBACKS
