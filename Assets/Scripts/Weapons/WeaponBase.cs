@@ -1,16 +1,13 @@
 using NickOfTime.Characters;
-using NickOfTime.Characters.Player;
 using NickOfTime.Managers;
 using NickOfTime.ScriptableObjects.Weapons;
 using NickOfTime.Utilities.PoolingSystem;
 using NickOfTime.Weapons.Projectiles;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace NickOfTime.Weapons
 {
-    public class WeaponBase : MonoBehaviour
+	public class WeaponBase : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _mySpriteRenderer;
 		[SerializeField] private Collider2D _myCollider;
@@ -110,9 +107,9 @@ namespace NickOfTime.Weapons
 
 		public virtual void SetProjectleLayer(bool isOwnedByPlayer)
 		{
-			if (isOwnedByPlayer)
+			/*if (isOwnedByPlayer)
 				_projectileLayer = _weaponStatsSO.PlayerProjectileLayer;
-			else
+			else*/
 				_projectileLayer = _weaponStatsSO.GlobalProjectileLayer;
 		}
 

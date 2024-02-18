@@ -1,13 +1,12 @@
 using NickOfTime.Helper.Constants;
 using NickOfTime.ScriptableObjects.Weapons;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace NickOfTime.Weapons
 {
-    public class OneLinerRocket : WeaponBase
+	public class OneLinerRocket : WeaponBase
     {
 
         private Coroutine _fireRoutine;
@@ -35,7 +34,10 @@ namespace NickOfTime.Weapons
 		}
 
         // Refactor this section
-
+        /// <summary>
+        /// Fire Rocket after firing the dialogue event
+        /// </summary>
+        /// <returns></returns>
         protected IEnumerator RocketFireProcedure()
 		{
             yield return new WaitForEndOfFrame();
@@ -54,6 +56,10 @@ namespace NickOfTime.Weapons
                 });
 		}
 
+        /// <summary>
+        /// Routine for reloading this weapon
+        /// </summary>
+        /// <returns></returns>
         protected IEnumerator ReloadRoutine()
 		{
             WeaponOwner.DialogPlayer.AssignDialogSet(
